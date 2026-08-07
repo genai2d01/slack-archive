@@ -2,7 +2,8 @@
 const fs = require('fs');
 
 const TOKEN = process.env.SLACK_BOT_TOKEN;
-const CHANNEL_NAME = 'genai-2d_정보-공유'; // 자료방 채널 이름 (# 제외)
+const CHANNEL_ID = 'C0BJU8K7LSH';          // 자료방 채널 고유번호
+const CHANNEL_NAME = 'genai-2d_정보-공유';  // 화면 표시용 이름
 const DATA_FILE = 'data/archive.json';
 const STATE_FILE = 'data/state.json';
 const FILES_DIR = 'files';
@@ -15,20 +16,6 @@ async function slack(method, params = {}) {
   const json = await res.json();
   if (!json.ok) throw new Error(method + ' 실패: ' + json.error);
   return json;
-}
-
-async function findChannelId() {
-  let cursor;
-  do {
-    const r = await slack('conversations.list', {
-      types: 'public_channel', limit: 200, ...(cursor ? { cursor } : {}),
-    });
-    for (const c of r.channels) {
-      if (c.name === CHANNEL_NAME || c.name_normalized === CHANNEL_NAME) return c.id;
-    }
-    cursor = r.response_metadata && r.response_metadata.next_cursor;
-  } while (cursor);
-  throw new Error('채널을 찾지 못했습니다: ' + CHANNEL_NAME + ' (봇이 채널에 초대되어 있는지 확인)');
 }
 
 async function fetchNewMessages(channelId, oldest) {
@@ -175,8 +162,7 @@ function renderHtml(archive) {
   const archive = fs.existsSync(DATA_FILE) ? JSON.parse(fs.readFileSync(DATA_FILE, 'utf8')) : [];
   const seen = new Set(archive.map(e => e.ts));
 
-  const channelId = state.channelId || await findChannelId();
-  const messages = await fetchNewMessages(channelId, state.lastTs);
+  const messages = await fetchNewMessages(CHANNEL_ID, state.lastTs);
   console.log('새 메시지 ' + messages.length + '건');
 
   let lastTs = state.lastTs || '0';
@@ -195,7 +181,7 @@ function renderHtml(archive) {
 
   archive.sort((a, b) => parseFloat(b.ts) - parseFloat(a.ts));
   fs.writeFileSync(DATA_FILE, JSON.stringify(archive, null, 2));
-  fs.writeFileSync(STATE_FILE, JSON.stringify({ channelId, lastTs }));
+  fs.writeFileSync(STATE_FILE, JSON.stringify({ lastTs }));
   fs.writeFileSync(HTML_FILE, renderHtml(archive));
   console.log('완료: 총 ' + archive.length + '건, archive.html 갱신됨');
 })().catch(e => { console.error(e.message || e); process.exit(1); });
