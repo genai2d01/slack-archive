@@ -1,0 +1,29 @@
+name: 슬랙 아카이브 자동 수집
+
+on:
+  schedule:
+    - cron: '0 14 * * *'   # 매일 23:00 (한국시간) — GitHub은 UTC 기준이라 14시로 표기
+  workflow_dispatch:        # 수동 실행 버튼도 활성화
+
+permissions:
+  contents: write
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 슬랙 수집 및 HTML 생성
+        run: node collect.js
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      - name: 변경사항 저장
+        run: |
+          git config user.name "archive-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "자동 수집 $(TZ=Asia/Seoul date +%F)"
+          git push
