@@ -2,8 +2,8 @@ name: 슬랙 아카이브 자동 수집
 
 on:
   schedule:
-    - cron: '0 14 * * *'   # 매일 23:00 (한국시간) — GitHub은 UTC 기준이라 14시로 표기
-  workflow_dispatch:        # 수동 실행 버튼도 활성화
+    - cron: '0 14 * * 5'   # 매주 금요일 23:00 KST에 깨어나되, 아래 격주 체크로 2주에 1번만 실행
+  workflow_dispatch:        # 수동 실행 버튼 (수동은 격주 체크 없이 항상 실행)
 
 permissions:
   contents: write
@@ -12,15 +12,39 @@ jobs:
   archive:
     runs-on: ubuntu-latest
     steps:
+      - name: 격주 체크 (짝수 주만 실행)
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          elif [ $((10#$(date +%V) % 2)) -eq 0 ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "홀수 주라서 이번 금요일은 건너뜁니다."
+          fi
       - uses: actions/checkout@v4
+        if: steps.gate.outputs.run == 'true'
       - uses: actions/setup-node@v4
+        if: steps.gate.outputs.run == 'true'
         with:
           node-version: 20
+      - name: ffmpeg 설치 (영상 변환용)
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          if ! command -v ffmpeg > /dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+          ffmpeg -version | head -1
+          ffprobe -version | head -1
       - name: 슬랙 수집 및 HTML 생성
+        if: steps.gate.outputs.run == 'true'
         run: node collect.js
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       - name: 변경사항 저장
+        if: steps.gate.outputs.run == 'true'
         run: |
           git config user.name "archive-bot"
           git config user.email "actions@users.noreply.github.com"
