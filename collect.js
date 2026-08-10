@@ -117,6 +117,11 @@ async function downloadFile(f, ts) {
 
 // ---------- 영상 코덱 검사·변환 ----------
 // AV1은 Windows PC에서 재생 안 되는 경우가 많아 신뢰 목록에서 제외 → 전부 H.264로 변환
+function ffmpegAvailable() {
+  try { execFileSync('ffprobe', ['-version'], { stdio: 'ignore' }); return true; }
+  catch { return false; }
+}
+
 function ffprobeInfo(p) {
   try {
     const out = execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0',
@@ -127,27 +132,31 @@ function ffprobeInfo(p) {
 }
 
 function isWebPlayable(info) {
-  if (!info) return true;
   const okCodec = ['h264', 'vp8', 'vp9'].includes(info.codec); // av1 제외!
   const okPix = info.pix === 'yuv420p' || info.pix === 'yuvj420p';
   return okCodec && okPix;
 }
 
 function ensureWebVideos(archive) {
+  if (!ffmpegAvailable()) {
+    console.warn('⚠ ffmpeg/ffprobe가 실행 환경에 없어 영상 변환을 전부 건너뜁니다. archive.yml의 "ffmpeg 설치" 단계를 확인하세요.');
+    return;
+  }
   let budget = CONVERT_BUDGET;
   for (const e of archive) {
     for (const f of e.files) {
       if (f.oversized) continue;
       if (!(f.mimetype || '').startsWith('video/')) continue;
-      if (!f.path || !fs.existsSync(f.path)) { f.playok = true; continue; }
+      if (!f.path || !fs.existsSync(f.path)) { f.vok = true; continue; }
       const force = FORCE_CONVERT.includes(f.name) && !/_web\d?\.mp4$/.test(f.path);
-      if (!force && f.playok) continue;
+      if (!force && f.vok) continue;
       if (budget <= 0) continue;
       const info = ffprobeInfo(f.path);
-      if (!force && isWebPlayable(info)) { f.playok = true; continue; }
+      if (!info) { console.warn('코덱 판별 불가(다음 실행 때 재시도): ' + f.name); continue; }
+      if (!force && isWebPlayable(info)) { f.vok = true; continue; }
       budget--;
       const out = f.path.replace(/(_web\d?)?\.[^.]+$/, '') + '_web4.mp4';
-      const codecInfo = info ? info.codec + '/' + info.pix : '판별불가';
+      const codecInfo = info.codec + '/' + info.pix;
       try {
         execFileSync('ffmpeg', ['-y', '-i', f.path,
           '-vf', 'scale=trunc(iw/2)*2:trunc(ih/2)*2',
@@ -155,16 +164,16 @@ function ensureWebVideos(archive) {
           '-profile:v', 'high', '-pix_fmt', 'yuv420p',
           '-c:a', 'aac', '-movflags', '+faststart', out], { stdio: 'ignore' });
         if (fs.statSync(out).size > MAX_FILE_MB * 1024 * 1024) {
-          fs.unlinkSync(out); f.playok = true;
+          fs.unlinkSync(out); f.vok = true;
           console.log('변환 결과가 너무 커서 원본 유지: ' + f.name);
           continue;
         }
         fs.unlinkSync(f.path);
-        f.path = out; f.mimetype = 'video/mp4'; f.playok = true;
+        f.path = out; f.mimetype = 'video/mp4'; f.vok = true;
         console.log((force ? '강제 ' : '') + '영상 변환 완료(' + codecInfo + ' → h264/yuv420p): ' + f.name);
       } catch {
-        f.tries2 = (f.tries2 || 0) + 1;
-        if (f.tries2 >= 3) { f.playok = true; console.warn('변환 3회 실패, 포기: ' + f.name); }
+        f.vtries = (f.vtries || 0) + 1;
+        if (f.vtries >= 3) { f.vok = true; console.warn('변환 3회 실패, 포기: ' + f.name); }
         else console.warn('변환 실패(다음 실행 때 재시도): ' + f.name + ' (' + codecInfo + ')');
       }
     }
