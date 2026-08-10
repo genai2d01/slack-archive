@@ -1,6 +1,7 @@
-// 슬랙 자료방을 읽어 archive.html을 갱신하는 스크립트 (GitHub Actions가 매일 실행)
+// 슬랙 자료방을 읽어 archive.html을 갱신하는 스크립트 (GitHub Actions가 격주 금요일 실행)
 const fs = require('fs');
 const crypto = require('crypto');
+const { execFileSync } = require('child_process');
 
 const TOKEN = process.env.SLACK_BOT_TOKEN;
 const CHANNEL_ID = 'C0BJU8K7LSH';          // 자료방 채널 고유번호
@@ -13,6 +14,7 @@ const THUMBS_DIR = 'files/thumbs';
 const HTML_FILE = 'archive.html';
 const MAX_FILE_MB = 95;
 const THUMB_BUDGET = 40;
+const CONVERT_BUDGET = 10; // 실행 1회당 영상 변환 최대 개수
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
 
@@ -37,7 +39,7 @@ const BRAND = {
   'lumalabs.ai': ['#B36AE2', '#fff'],
 };
 
-// 월별 톤온톤 포인트 컬러 (월 숫자 기준 고정 — 7월은 항상 같은 색)
+// 월별 톤온톤 포인트 컬러 (월 숫자 기준 고정)
 const MONTH_COLORS = ['#7dd3c0', '#8fb8de', '#b3a1e0', '#d9c08a', '#d99aa8', '#93c99a'];
 
 // 주제 자동 분류 규칙 (여러 주제에 동시 포함 가능)
@@ -106,6 +108,45 @@ async function downloadFile(f, ts) {
   if (!res.ok) throw new Error('HTTP ' + res.status);
   fs.writeFileSync(rel, Buffer.from(await res.arrayBuffer()));
   return rel;
+}
+
+// ---------- 영상 코덱 검사·변환 (브라우저에서 재생 안 되는 코덱 → H.264) ----------
+function ffprobeCodec(p) {
+  try {
+    return execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0',
+      '-show_entries', 'stream=codec_name', '-of', 'csv=p=0', p]).toString().trim();
+  } catch { return null; }
+}
+
+function ensureWebVideos(archive) {
+  const WEB_OK = ['h264', 'vp8', 'vp9', 'av1'];
+  let budget = CONVERT_BUDGET;
+  for (const e of archive) {
+    for (const f of e.files) {
+      if (f.oversized || f.web) continue;
+      if (!(f.mimetype || '').startsWith('video/')) continue;
+      if (!f.path || !fs.existsSync(f.path)) { f.web = true; continue; }
+      if (budget <= 0) continue;
+      const codec = ffprobeCodec(f.path);
+      if (!codec || WEB_OK.includes(codec)) { f.web = true; continue; }
+      budget--;
+      const out = f.path.replace(/\.[^.]+$/, '') + '_web.mp4';
+      try {
+        execFileSync('ffmpeg', ['-y', '-i', f.path,
+          '-vf', 'scale=trunc(iw/2)*2:trunc(ih/2)*2',
+          '-c:v', 'libx264', '-preset', 'fast', '-crf', '23', '-pix_fmt', 'yuv420p',
+          '-c:a', 'aac', '-movflags', '+faststart', out], { stdio: 'ignore' });
+        if (fs.statSync(out).size > MAX_FILE_MB * 1024 * 1024) {
+          fs.unlinkSync(out); f.web = true;
+          console.log('변환 결과가 너무 커서 원본 유지: ' + f.name);
+          continue;
+        }
+        fs.unlinkSync(f.path);
+        f.path = out; f.mimetype = 'video/mp4'; f.web = true;
+        console.log('영상 변환 완료(' + codec + ' → h264): ' + f.name);
+      } catch { console.warn('영상 변환 실패: ' + f.name); f.web = true; }
+    }
+  }
 }
 
 // ---------- 링크 썸네일 ----------
@@ -181,12 +222,13 @@ function brandFor(host) {
 
 function entryTypes(e) {
   const t = new Set();
-  if (e.links.length) t.add('link');
-  if (e.links.some(u => youtubeId(u))) t.add('video');
+  const hasYt = e.links.some(u => youtubeId(u));
+  const hasVidFile = e.files.some(f => (f.mimetype || '').startsWith('video/'));
+  if (hasYt || hasVidFile) t.add('video');                 // 영상/유튜브
+  if (e.links.some(u => !youtubeId(u))) t.add('link');     // 유튜브 제외 일반 링크
   for (const f of e.files) {
     if ((f.mimetype || '').startsWith('image/')) t.add('image');
-    else if ((f.mimetype || '').startsWith('video/')) t.add('video');
-    else t.add('doc');
+    else if (!(f.mimetype || '').startsWith('video/')) t.add('doc');
   }
   if (!e.links.length && !e.files.length && e.text) t.add('text');
   return [...t].join(' ');
@@ -226,17 +268,20 @@ function renderEntry(e, thumbs) {
     if (mt.startsWith('image/')) {
       attach += `<a href="${src}" target="_blank"><img class="a-img" src="${src}" alt="${esc(f.name)}" loading="lazy"></a>`;
     } else if (mt.startsWith('video/')) {
-      attach += `<figure class="v-wrap"><video src="${src}" controls preload="metadata"></video><figcaption>🎬 ${esc(f.name)} · <a href="${src}" download>다운로드</a></figcaption></figure>`;
+      attach += `<figure class="v-wrap"><video src="${src}" controls preload="metadata"></video><figcaption>🎬 ${esc(f.name)}</figcaption></figure>`;
     } else {
       attach += `<a class="file-link" href="${src}" download>📎 ${esc(f.name)}</a>`;
     }
   }
+  const title = (e.text || e.links.map(domainOf).join(', ') || (e.files[0] && e.files[0].name) || '').slice(0, 60);
   return `<article class="entry" data-ts="${e.ts}" data-month="${e.date.slice(0, 7)}" data-types="${entryTypes(e)}" data-topics="${esc(entryTopics(e))}" data-search="${esc(searchKey(e))}">
-<div class="e-head"><span class="e-date">${e.date.slice(5)}</span></div>
+<div class="e-head"><span class="e-date">${e.date.slice(5)}</span><span class="e-title">${esc(title)}</span><button type="button" class="e-tgl">▾</button></div>
+<div class="e-body">
 ${e.text ? `<p class="e-text">${esc(e.text)}</p>` : ''}
 ${btns ? `<div class="e-btns">${btns}</div>` : ''}
 ${thumbCards.length ? `<div class="thumb-grid">${thumbCards.join('')}</div>` : ''}
 ${attach ? `<div class="attach">${attach}</div>` : ''}
+</div>
 </article>`;
 }
 
@@ -254,7 +299,7 @@ function renderHtml(archive, thumbs) {
     const [y, mo] = key.split('-');
     const color = MONTH_COLORS[parseInt(mo) % MONTH_COLORS.length];
     monthOptions += `<option value="${key}">${y}년 ${parseInt(mo)}월</option>`;
-    sections += `<section class="month" data-key="${key}" style="--maccent:${color}"><div class="month-head"><h2>${y}년 ${parseInt(mo)}월</h2><span class="count">${entries.length}건</span></div>
+    sections += `<section class="month" data-key="${key}" style="--maccent:${color}"><div class="month-head"><h2>${y}년 ${parseInt(mo)}월</h2><span class="count">${entries.length}건</span><button type="button" class="m-tgl">▾ 접기</button></div>
 <div class="m-body">
 ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
 </div></section>\n`;
@@ -274,14 +319,14 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
     --text:#e6e9ef; --text-dim:#9aa4b2; --text-mute:#6b7482; --accent:#7dd3c0; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:var(--bg); color:var(--text); font-family:system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif; line-height:1.55; padding:0 0 6rem; }
-  .wrap { max-width:1520px; margin:0 auto; padding:0 28px; }
+  .wrap { max-width:1720px; margin:0 auto; padding:0 28px; }
   header { padding:44px 0 20px; }
   .eyebrow { font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; font-family:monospace; }
   h1 { font-size:30px; letter-spacing:-.02em; margin-bottom:6px; }
   .sub { color:var(--text-dim); font-size:14px; }
   .controls { position:sticky; top:0; z-index:20; background:rgba(15,17,21,.97); backdrop-filter:blur(4px);
     padding:14px 0; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
-  #q { flex:1 1 240px; min-width:180px; background:var(--panel); border:1px solid var(--line); color:var(--text);
+  #q { flex:1 1 220px; min-width:170px; background:var(--panel); border:1px solid var(--line); color:var(--text);
     padding:10px 14px; border-radius:9px; font-size:14px; outline:none; }
   #q:focus { border-color:var(--accent); }
   .chip { background:var(--panel); border:1px solid var(--line); color:var(--text-dim); padding:8px 15px;
@@ -296,13 +341,29 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
     border:1px solid color-mix(in srgb, var(--maccent) 40%, var(--line)); }
   .month-head h2 { font-size:22px; color:var(--maccent); }
   .month-head .count { font-family:monospace; font-size:13px; color:var(--text-dim); }
-  .m-body { columns:430px; column-gap:16px; }
+  .m-tgl { margin-left:auto; background:none; border:1px solid color-mix(in srgb, var(--maccent) 45%, var(--line));
+    color:var(--maccent); padding:6px 14px; border-radius:8px; cursor:pointer; font-size:12.5px; font-weight:700; }
+  .m-tgl:hover { background:color-mix(in srgb, var(--maccent) 18%, var(--bg)); }
+  .month.closed .m-body { display:none; }
+  .m-body { columns:4; column-gap:16px; }
+  @media (max-width:1500px) { .m-body { columns:3; } #archiveRoot.view-fixed .m-body { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:1050px) { .m-body { columns:2; } #archiveRoot.view-fixed .m-body { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:680px)  { .m-body { columns:1; } #archiveRoot.view-fixed .m-body { grid-template-columns:1fr; } }
+  #archiveRoot.view-fixed .m-body { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; columns:auto; }
+  #archiveRoot.view-fixed .entry { height:360px; overflow-y:auto; margin:0; }
   .entry { background:var(--panel); background:color-mix(in srgb, var(--maccent) 7%, var(--panel));
     border:1px solid color-mix(in srgb, var(--maccent) 22%, var(--line));
     border-left:4px solid var(--maccent);
     border-radius:12px; padding:15px 17px; margin:0 0 16px; break-inside:avoid; }
-  .e-head { margin-bottom:7px; }
-  .e-date { font-family:monospace; font-size:16px; font-weight:800; color:var(--maccent); letter-spacing:.02em; }
+  .e-head { display:flex; align-items:center; gap:10px; margin-bottom:7px; }
+  .e-date { font-family:monospace; font-size:16px; font-weight:800; color:var(--maccent); letter-spacing:.02em; white-space:nowrap; }
+  .e-title { display:none; font-size:13px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; }
+  .e-tgl { display:none; margin-left:auto; background:none; border:none; color:var(--maccent); font-size:15px; cursor:pointer; }
+  #archiveRoot.view-collapse .e-tgl { display:inline-block; }
+  #archiveRoot.view-collapse .e-head { cursor:pointer; }
+  #archiveRoot.view-collapse .entry.closed .e-title { display:block; }
+  .entry.closed .e-body { display:none; }
+  .entry.closed { padding-bottom:12px; }
   .e-text { white-space:pre-wrap; word-break:break-word; font-size:14px; line-height:1.65; margin-bottom:10px; }
   .e-btns { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
   .btn { display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:12.5px;
@@ -321,7 +382,6 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
   .v-wrap { margin:0; width:100%; }
   .v-wrap video { width:100%; border-radius:10px; border:1px solid var(--line); display:block; background:#000; }
   .v-wrap figcaption { font-size:12px; color:var(--text-mute); margin-top:5px; word-break:break-all; }
-  .v-wrap figcaption a { color:var(--accent); }
   .file-link { display:inline-flex; align-items:center; gap:6px; background:var(--panel-2); border:1px solid var(--line);
     color:var(--text); padding:9px 13px; border-radius:9px; text-decoration:none; font-size:13px; word-break:break-all; }
   .file-link:hover { border-color:var(--accent); }
@@ -342,6 +402,12 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
   </header>
   <div class="controls">
     <input id="q" type="search" placeholder="검색 — 제목·링크·파일명 (띄어쓰기 무관)">
+    <select id="viewSel">
+      <option value="expand">보기: 펼침</option>
+      <option value="collapse">보기: 접기식</option>
+      <option value="fixed">보기: 균일 크기</option>
+    </select>
+    <button type="button" id="allTgl" class="chip" style="display:none">모두 접기</button>
     <select id="sortSel">
       <option value="new">최신순</option>
       <option value="old">오래된순</option>
@@ -349,32 +415,35 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
     <select id="topicSel">${topicOptions}</select>
     <select id="monthSel">${monthOptions}</select>
     <button type="button" class="chip on" data-type="all">전체</button>
-    <button type="button" class="chip" data-type="video">영상</button>
+    <button type="button" class="chip" data-type="video">영상/유튜브</button>
     <button type="button" class="chip" data-type="image">이미지</button>
     <button type="button" class="chip" data-type="doc">문서</button>
     <button type="button" class="chip" data-type="link">링크</button>
     <button type="button" class="chip" data-type="text">텍스트</button>
     <span class="count-line">총 ${archive.length}건 중 <b id="resultCount">${archive.length}</b>건 표시</span>
   </div>
-  <main id="archiveRoot">
+  <main id="archiveRoot" class="view-expand">
   ${sections}
   </main>
-  <footer>매일 자동 수집 · 최신순 정렬</footer>
+  <footer>격주 금요일 자동 수집 · 최신순 정렬</footer>
 </div>
 <button id="toTop" title="맨 위로">↑</button>
 <script>
 (function () {
   var q = document.getElementById('q');
+  var viewSel = document.getElementById('viewSel');
+  var allTgl = document.getElementById('allTgl');
   var sortSel = document.getElementById('sortSel');
   var topicSel = document.getElementById('topicSel');
   var monthSel = document.getElementById('monthSel');
-  var chips = document.querySelectorAll('.chip');
+  var chips = document.querySelectorAll('.chip[data-type]');
   var entries = document.querySelectorAll('.entry');
   var sections = document.querySelectorAll('.month');
   var countEl = document.getElementById('resultCount');
   var toTop = document.getElementById('toTop');
   var root = document.getElementById('archiveRoot');
   var activeType = 'all';
+  var allClosed = false;
   function norm(s) { return (s || '').toLowerCase().replace(/\\s+/g, ''); }
   function hasWord(attr, w) { return (' ' + attr + ' ').indexOf(' ' + w + ' ') !== -1; }
   function apply() {
@@ -416,10 +485,41 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
       es.forEach(function (e) { body.appendChild(e); });
     });
   }
+  function setView() {
+    var v = viewSel.value;
+    root.classList.remove('view-expand', 'view-collapse', 'view-fixed');
+    root.classList.add('view-' + v);
+    allTgl.style.display = v === 'collapse' ? '' : 'none';
+    if (v !== 'collapse') {
+      entries.forEach(function (el) { el.classList.remove('closed'); });
+      allClosed = false;
+      allTgl.textContent = '모두 접기';
+    }
+  }
   q.addEventListener('input', apply);
   monthSel.addEventListener('change', apply);
   topicSel.addEventListener('change', apply);
   sortSel.addEventListener('change', resort);
+  viewSel.addEventListener('change', setView);
+  allTgl.addEventListener('click', function () {
+    allClosed = !allClosed;
+    entries.forEach(function (el) { el.classList.toggle('closed', allClosed); });
+    allTgl.textContent = allClosed ? '모두 펼치기' : '모두 접기';
+  });
+  document.querySelectorAll('.e-head').forEach(function (h) {
+    h.addEventListener('click', function () {
+      if (!root.classList.contains('view-collapse')) return;
+      h.parentElement.classList.toggle('closed');
+    });
+  });
+  document.querySelectorAll('.m-tgl').forEach(function (b) {
+    b.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      var sec = b.closest('.month');
+      sec.classList.toggle('closed');
+      b.textContent = sec.classList.contains('closed') ? '▸ 펼치기' : '▾ 접기';
+    });
+  });
   chips.forEach(function (c) {
     c.addEventListener('click', function () {
       chips.forEach(function (x) { x.classList.remove('on'); });
@@ -433,6 +533,7 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
     else toTop.classList.remove('show');
   });
   toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  setView();
 })();
 </script>
 </body>
@@ -474,6 +575,7 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
   }
 
   archive.sort((a, b) => parseFloat(b.ts) - parseFloat(a.ts));
+  ensureWebVideos(archive);
   await collectThumbs(archive, thumbs);
 
   fs.writeFileSync(DATA_FILE, JSON.stringify(archive, null, 2));
