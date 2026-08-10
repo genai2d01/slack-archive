@@ -11,8 +11,8 @@ const THUMBS_FILE = 'data/thumbs.json';
 const FILES_DIR = 'files';
 const THUMBS_DIR = 'files/thumbs';
 const HTML_FILE = 'archive.html';
-const MAX_FILE_MB = 95;      // GitHub 파일당 한도(100MB)보다 살짝 작게
-const THUMB_BUDGET = 40;     // 실행 1회당 새로 시도할 썸네일 수
+const MAX_FILE_MB = 95;
+const THUMB_BUDGET = 40;
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
 
@@ -37,8 +37,17 @@ const BRAND = {
   'lumalabs.ai': ['#B36AE2', '#fff'],
 };
 
-// 월별 톤온톤 포인트 컬러 (차분한 톤, 순환)
+// 월별 톤온톤 포인트 컬러 (월 숫자 기준 고정 — 7월은 항상 같은 색)
 const MONTH_COLORS = ['#7dd3c0', '#8fb8de', '#b3a1e0', '#d9c08a', '#d99aa8', '#93c99a'];
+
+// 주제 자동 분류 규칙 (위에서부터 순서대로 검사, 여러 주제에 동시 포함 가능)
+const TOPICS = [
+  { name: 'AI영상생성', keywords: ['seedance', 'runway', 'luma', 'kling', 'veo', 'ltx', 'wan', 'higgsfield', 'sora', 'midjourney', 'nano banana', 'ai video', 'aivideo', 'reve', 'decart', 'vace'] },
+  { name: 'ComfyUI·워크플로우', keywords: ['comfyui', 'griptape', 'workflow', '워크플로우', 'prism', 'kitsu', 'pipeline'] },
+  { name: 'VFX·합성', keywords: ['nuke', 'vfx', 'roto', 'comp', 'mocha', 'katana', 'mari', 'copycat', 'relight', 'keying', 'tracking', '합성'] },
+  { name: '3D·CG', keywords: ['blender', 'unreal', 'houdini', 'gaussian', 'splat', 'hunyuan', '3d', 'multiview'] },
+  { name: 'AI툴·LLM', keywords: ['gpt', 'claude', 'gemini', 'llm', 'chatgpt', 'prompt', '프롬프트', 'mcp', 'ocr', 'glm'] },
+];
 
 async function slack(method, params = {}) {
   const url = new URL('https://slack.com/api/' + method);
@@ -99,7 +108,7 @@ async function downloadFile(f, ts) {
   return rel;
 }
 
-// ---------- 링크 썸네일 수집 ----------
+// ---------- 링크 썸네일 ----------
 async function fetchWithTimeout(url, opts = {}, ms = 8000) {
   const c = new AbortController();
   const t = setTimeout(() => c.abort(), ms);
@@ -179,7 +188,14 @@ function entryTypes(e) {
     else if ((f.mimetype || '').startsWith('video/')) t.add('video');
     else t.add('doc');
   }
+  if (!e.links.length && !e.files.length && e.text) t.add('text');
   return [...t].join(' ');
+}
+
+function entryTopics(e) {
+  const hay = [e.text, ...e.links, ...e.files.map(f => f.name)].join(' ').toLowerCase();
+  const names = TOPICS.filter(tp => tp.keywords.some(k => hay.includes(k))).map(tp => tp.name);
+  return names.length ? names.join(' ') : '기타';
 }
 
 function searchKey(e) {
@@ -215,7 +231,7 @@ function renderEntry(e, thumbs) {
       attach += `<a class="file-link" href="${src}" download>📎 ${esc(f.name)}</a>`;
     }
   }
-  return `<article class="entry" data-month="${e.date.slice(0, 7)}" data-types="${entryTypes(e)}" data-search="${esc(searchKey(e))}">
+  return `<article class="entry" data-ts="${e.ts}" data-month="${e.date.slice(0, 7)}" data-types="${entryTypes(e)}" data-topics="${esc(entryTopics(e))}" data-search="${esc(searchKey(e))}">
 <div class="e-head"><span class="e-date">${e.date.slice(5)}</span></div>
 ${e.text ? `<p class="e-text">${esc(e.text)}</p>` : ''}
 ${btns ? `<div class="e-btns">${btns}</div>` : ''}
@@ -234,15 +250,18 @@ function renderHtml(archive, thumbs) {
   const sortedMonths = [...months.entries()].sort((a, b) => b[0].localeCompare(a[0]));
   let sections = '';
   let monthOptions = '<option value="all">전체 기간</option>';
-  sortedMonths.forEach(([key, entries], i) => {
+  for (const [key, entries] of sortedMonths) {
     const [y, mo] = key.split('-');
-    const color = MONTH_COLORS[i % MONTH_COLORS.length];
+    const color = MONTH_COLORS[parseInt(mo) % MONTH_COLORS.length];
     monthOptions += `<option value="${key}">${y}년 ${parseInt(mo)}월</option>`;
-    sections += `<section class="month" style="--maccent:${color}"><div class="month-head"><h2>${y}년 ${parseInt(mo)}월</h2><span class="count">${entries.length}건</span></div>
+    sections += `<section class="month" data-key="${key}" style="--maccent:${color}"><div class="month-head"><h2>${y}년 ${parseInt(mo)}월</h2><span class="count">${entries.length}건</span></div>
 <div class="m-body">
 ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
 </div></section>\n`;
-  });
+  }
+  const topicOptions = ['<option value="all">주제: 전체</option>']
+    .concat(TOPICS.map(t => `<option value="${esc(t.name)}">${esc(t.name)}</option>`), ['<option value="기타">기타</option>'])
+    .join('');
   const now = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Seoul', dateStyle: 'short', timeStyle: 'short' }).format(new Date());
   return `<!DOCTYPE html>
 <html lang="ko">
@@ -255,31 +274,35 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
     --text:#e6e9ef; --text-dim:#9aa4b2; --text-mute:#6b7482; --accent:#7dd3c0; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:var(--bg); color:var(--text); font-family:system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif; line-height:1.55; padding:0 0 6rem; }
-  .wrap { max-width:1380px; margin:0 auto; padding:0 26px; }
+  .wrap { max-width:1520px; margin:0 auto; padding:0 28px; }
   header { padding:44px 0 20px; }
   .eyebrow { font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; font-family:monospace; }
   h1 { font-size:30px; letter-spacing:-.02em; margin-bottom:6px; }
   .sub { color:var(--text-dim); font-size:14px; }
   .controls { position:sticky; top:0; z-index:20; background:rgba(15,17,21,.97); backdrop-filter:blur(4px);
     padding:14px 0; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
-  #q { flex:1 1 260px; min-width:200px; background:var(--panel); border:1px solid var(--line); color:var(--text);
+  #q { flex:1 1 240px; min-width:180px; background:var(--panel); border:1px solid var(--line); color:var(--text);
     padding:10px 14px; border-radius:9px; font-size:14px; outline:none; }
   #q:focus { border-color:var(--accent); }
   .chip { background:var(--panel); border:1px solid var(--line); color:var(--text-dim); padding:8px 15px;
     border-radius:999px; font-size:13px; cursor:pointer; }
   .chip.on { background:var(--accent); color:#0f1115; border-color:var(--accent); font-weight:700; }
-  #monthSel { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:9px 10px; border-radius:9px; font-size:13px; }
+  select { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:9px 10px; border-radius:9px; font-size:13px; }
   .count-line { color:var(--text-mute); font-size:12.5px; margin-left:auto; }
   .count-line b { color:var(--accent); }
   .month { padding-top:34px; }
-  .month-head { display:flex; align-items:baseline; gap:12px; padding-bottom:14px; }
-  .month-head h2 { font-size:21px; color:var(--maccent); }
-  .month-head .count { font-family:monospace; font-size:13px; color:var(--text-mute); }
-  .m-body { columns:340px; column-gap:14px; }
-  .entry { background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--maccent);
-    border-radius:12px; padding:14px 16px; margin:0 0 14px; break-inside:avoid; }
-  .e-head { margin-bottom:6px; }
-  .e-date { font-family:monospace; font-size:12px; color:var(--maccent); font-weight:700; }
+  .month-head { display:flex; align-items:center; gap:12px; padding:11px 16px; margin-bottom:16px; border-radius:11px;
+    background:color-mix(in srgb, var(--maccent) 15%, var(--bg));
+    border:1px solid color-mix(in srgb, var(--maccent) 40%, var(--line)); }
+  .month-head h2 { font-size:22px; color:var(--maccent); }
+  .month-head .count { font-family:monospace; font-size:13px; color:var(--text-dim); }
+  .m-body { columns:430px; column-gap:16px; }
+  .entry { background:var(--panel); background:color-mix(in srgb, var(--maccent) 7%, var(--panel));
+    border:1px solid color-mix(in srgb, var(--maccent) 22%, var(--line));
+    border-left:4px solid var(--maccent);
+    border-radius:12px; padding:15px 17px; margin:0 0 16px; break-inside:avoid; }
+  .e-head { margin-bottom:7px; }
+  .e-date { font-family:monospace; font-size:16px; font-weight:800; color:var(--maccent); letter-spacing:.02em; }
   .e-text { white-space:pre-wrap; word-break:break-word; font-size:14px; line-height:1.65; margin-bottom:10px; }
   .e-btns { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
   .btn { display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:12.5px;
@@ -287,14 +310,14 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
   .btn:hover { opacity:.82; }
   .btn-slack { background:#4A154B; color:#fff; }
   .thumb-grid { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
-  .thumb { position:relative; display:block; width:100%; max-width:300px; border-radius:10px; overflow:hidden;
+  .thumb { position:relative; display:block; width:100%; max-width:340px; border-radius:10px; overflow:hidden;
     border:1px solid var(--line); }
   .thumb img { width:100%; display:block; }
   .thumb .th-tag { position:absolute; left:8px; bottom:8px; font-family:monospace; font-size:10.5px;
     font-weight:700; padding:3px 8px; border-radius:5px; opacity:.94; }
   .thumb:hover img { opacity:.85; }
   .attach { display:flex; flex-wrap:wrap; gap:12px; align-items:flex-start; }
-  .a-img { max-width:100%; max-height:240px; border-radius:10px; border:1px solid var(--line); display:block; }
+  .a-img { max-width:100%; max-height:260px; border-radius:10px; border:1px solid var(--line); display:block; }
   .v-wrap { margin:0; width:100%; }
   .v-wrap video { width:100%; border-radius:10px; border:1px solid var(--line); display:block; background:#000; }
   .v-wrap figcaption { font-size:12px; color:var(--text-mute); margin-top:5px; word-break:break-all; }
@@ -302,6 +325,11 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
   .file-link { display:inline-flex; align-items:center; gap:6px; background:var(--panel-2); border:1px solid var(--line);
     color:var(--text); padding:9px 13px; border-radius:9px; text-decoration:none; font-size:13px; word-break:break-all; }
   .file-link:hover { border-color:var(--accent); }
+  #toTop { position:fixed; right:26px; bottom:26px; z-index:30; width:48px; height:48px; border-radius:50%;
+    border:none; background:var(--accent); color:#0f1115; font-size:20px; font-weight:800; cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.45); opacity:0; pointer-events:none; transition:opacity .25s; }
+  #toTop.show { opacity:1; pointer-events:auto; }
+  #toTop:hover { opacity:.85; }
   footer { margin-top:48px; padding-top:18px; border-top:1px solid var(--line); color:var(--text-mute); font-size:12px; font-family:monospace; }
 </style>
 </head>
@@ -314,35 +342,51 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
   </header>
   <div class="controls">
     <input id="q" type="search" placeholder="검색 — 제목·링크·파일명 (띄어쓰기 무관)">
+    <select id="sortSel">
+      <option value="new">최신순</option>
+      <option value="old">오래된순</option>
+    </select>
+    <select id="topicSel">${topicOptions}</select>
+    <select id="monthSel">${monthOptions}</select>
     <button type="button" class="chip on" data-type="all">전체</button>
     <button type="button" class="chip" data-type="video">영상</button>
     <button type="button" class="chip" data-type="image">이미지</button>
     <button type="button" class="chip" data-type="doc">문서</button>
     <button type="button" class="chip" data-type="link">링크</button>
-    <select id="monthSel">${monthOptions}</select>
+    <button type="button" class="chip" data-type="text">텍스트</button>
     <span class="count-line">총 ${archive.length}건 중 <b id="resultCount">${archive.length}</b>건 표시</span>
   </div>
+  <main id="archiveRoot">
   ${sections}
+  </main>
   <footer>매일 자동 수집 · 최신순 정렬</footer>
 </div>
+<button id="toTop" title="맨 위로">↑</button>
 <script>
 (function () {
   var q = document.getElementById('q');
+  var sortSel = document.getElementById('sortSel');
+  var topicSel = document.getElementById('topicSel');
   var monthSel = document.getElementById('monthSel');
   var chips = document.querySelectorAll('.chip');
   var entries = document.querySelectorAll('.entry');
   var sections = document.querySelectorAll('.month');
   var countEl = document.getElementById('resultCount');
+  var toTop = document.getElementById('toTop');
+  var root = document.getElementById('archiveRoot');
   var activeType = 'all';
   function norm(s) { return (s || '').toLowerCase().replace(/\\s+/g, ''); }
+  function hasWord(attr, w) { return (' ' + attr + ' ').indexOf(' ' + w + ' ') !== -1; }
   function apply() {
     var nq = norm(q.value);
     var mon = monthSel.value;
+    var topic = topicSel.value;
     var shown = 0;
     entries.forEach(function (el) {
       var ok = true;
       if (nq && el.getAttribute('data-search').indexOf(nq) === -1) ok = false;
-      if (ok && activeType !== 'all' && (' ' + el.getAttribute('data-types') + ' ').indexOf(' ' + activeType + ' ') === -1) ok = false;
+      if (ok && activeType !== 'all' && !hasWord(el.getAttribute('data-types'), activeType)) ok = false;
+      if (ok && topic !== 'all' && !hasWord(el.getAttribute('data-topics'), topic)) ok = false;
       if (ok && mon !== 'all' && el.getAttribute('data-month') !== mon) ok = false;
       el.style.display = ok ? '' : 'none';
       if (ok) shown++;
@@ -354,8 +398,28 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
     });
     countEl.textContent = shown;
   }
+  function resort() {
+    var dir = sortSel.value;
+    var secs = Array.prototype.slice.call(root.querySelectorAll('.month'));
+    secs.sort(function (a, b) {
+      var x = a.getAttribute('data-key'), y = b.getAttribute('data-key');
+      return dir === 'new' ? y.localeCompare(x) : x.localeCompare(y);
+    });
+    secs.forEach(function (s) { root.appendChild(s); });
+    secs.forEach(function (s) {
+      var body = s.querySelector('.m-body');
+      var es = Array.prototype.slice.call(body.querySelectorAll('.entry'));
+      es.sort(function (a, b) {
+        var x = parseFloat(a.getAttribute('data-ts')), y = parseFloat(b.getAttribute('data-ts'));
+        return dir === 'new' ? y - x : x - y;
+      });
+      es.forEach(function (e) { body.appendChild(e); });
+    });
+  }
   q.addEventListener('input', apply);
   monthSel.addEventListener('change', apply);
+  topicSel.addEventListener('change', apply);
+  sortSel.addEventListener('change', resort);
   chips.forEach(function (c) {
     c.addEventListener('click', function () {
       chips.forEach(function (x) { x.classList.remove('on'); });
@@ -364,6 +428,11 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
       apply();
     });
   });
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 600) toTop.classList.add('show');
+    else toTop.classList.remove('show');
+  });
+  toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 })();
 </script>
 </body>
