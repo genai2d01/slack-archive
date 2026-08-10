@@ -1,14 +1,44 @@
 // 슬랙 자료방을 읽어 archive.html을 갱신하는 스크립트 (GitHub Actions가 매일 실행)
 const fs = require('fs');
+const crypto = require('crypto');
 
 const TOKEN = process.env.SLACK_BOT_TOKEN;
 const CHANNEL_ID = 'C0BJU8K7LSH';          // 자료방 채널 고유번호
 const CHANNEL_NAME = 'genai-2d_정보-공유';  // 화면 표시용 이름
 const DATA_FILE = 'data/archive.json';
 const STATE_FILE = 'data/state.json';
+const THUMBS_FILE = 'data/thumbs.json';
 const FILES_DIR = 'files';
+const THUMBS_DIR = 'files/thumbs';
 const HTML_FILE = 'archive.html';
-const MAX_FILE_MB = 95; // GitHub 파일당 한도(100MB)보다 살짝 작게
+const MAX_FILE_MB = 95;      // GitHub 파일당 한도(100MB)보다 살짝 작게
+const THUMB_BUDGET = 40;     // 실행 1회당 새로 시도할 썸네일 수
+
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
+
+// 사이트별 고유색 [배경, 글자색]
+const BRAND = {
+  'youtube.com': ['#FF0000', '#fff'], 'youtu.be': ['#FF0000', '#fff'],
+  'linkedin.com': ['#0A66C2', '#fff'],
+  'github.com': ['#24292F', '#fff'],
+  'huggingface.co': ['#FFB000', '#1b1f23'],
+  'pinterest.com': ['#E60023', '#fff'],
+  'instagram.com': ['#C13584', '#fff'],
+  'notion.site': ['#787774', '#fff'], 'notion.so': ['#787774', '#fff'],
+  'vimeo.com': ['#1AB7EA', '#0f1115'],
+  'x.com': ['#14171A', '#fff'], 'twitter.com': ['#1DA1F2', '#fff'],
+  'tistory.com': ['#EB531F', '#fff'],
+  'drive.google.com': ['#1FA463', '#fff'],
+  'docs.google.com': ['#4285F4', '#fff'],
+  'reddit.com': ['#FF4500', '#fff'],
+  'medium.com': ['#191919', '#fff'],
+  'openai.com': ['#10A37F', '#fff'],
+  'anthropic.com': ['#D97757', '#fff'],
+  'lumalabs.ai': ['#B36AE2', '#fff'],
+};
+
+// 월별 톤온톤 포인트 컬러 (차분한 톤, 순환)
+const MONTH_COLORS = ['#7dd3c0', '#8fb8de', '#b3a1e0', '#d9c08a', '#d99aa8', '#93c99a'];
 
 async function slack(method, params = {}) {
   const url = new URL('https://slack.com/api/' + method);
@@ -57,7 +87,7 @@ function fmtDate(ts) {
 }
 
 async function downloadFile(f, ts) {
-  if ((f.size || 0) > MAX_FILE_MB * 1024 * 1024) return null; // 대용량은 저장 생략
+  if ((f.size || 0) > MAX_FILE_MB * 1024 * 1024) return null;
   const safe = (f.name || 'file').replace(/[\\/:*?"<>|]/g, '_');
   const rel = FILES_DIR + '/' + ts.replace('.', '_') + '_' + safe;
   if (fs.existsSync(rel)) return rel;
@@ -69,6 +99,62 @@ async function downloadFile(f, ts) {
   return rel;
 }
 
+// ---------- 링크 썸네일 수집 ----------
+async function fetchWithTimeout(url, opts = {}, ms = 8000) {
+  const c = new AbortController();
+  const t = setTimeout(() => c.abort(), ms);
+  try { return await fetch(url, { ...opts, signal: c.signal, redirect: 'follow' }); }
+  finally { clearTimeout(t); }
+}
+
+function youtubeId(u) {
+  const m = u.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|live\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
+async function ogImageUrl(pageUrl) {
+  const res = await fetchWithTimeout(pageUrl, { headers: { 'User-Agent': UA, 'Accept-Language': 'ko,en' } });
+  if (!res.ok) return null;
+  const ct = res.headers.get('content-type') || '';
+  if (!ct.includes('text/html')) return null;
+  const html = (await res.text()).slice(0, 400000);
+  const m = html.match(/<meta[^>]+(?:property|name)=["'](?:og:image|twitter:image)(?::src)?["'][^>]*content=["']([^"']+)["']/i)
+        || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]*(?:property|name)=["'](?:og:image|twitter:image)/i);
+  if (!m) return null;
+  try { return new URL(m[1].replace(/&amp;/g, '&'), pageUrl).href; } catch { return null; }
+}
+
+async function downloadThumb(imgUrl, key) {
+  const res = await fetchWithTimeout(imgUrl, { headers: { 'User-Agent': UA } });
+  if (!res.ok) return null;
+  const ct = res.headers.get('content-type') || '';
+  if (!ct.startsWith('image/')) return null;
+  const buf = Buffer.from(await res.arrayBuffer());
+  if (buf.length < 1000 || buf.length > 5 * 1024 * 1024) return null;
+  const ext = ct.includes('png') ? '.png' : ct.includes('webp') ? '.webp' : ct.includes('gif') ? '.gif' : '.jpg';
+  const rel = THUMBS_DIR + '/' + key + ext;
+  fs.writeFileSync(rel, buf);
+  return rel;
+}
+
+async function collectThumbs(archive, thumbs) {
+  let budget = THUMB_BUDGET;
+  for (const e of archive) {
+    for (const u of e.links) {
+      if (u in thumbs || budget <= 0) continue;
+      budget--;
+      const yid = youtubeId(u);
+      if (yid) { thumbs[u] = 'https://i.ytimg.com/vi/' + yid + '/mqdefault.jpg'; continue; }
+      try {
+        const og = await ogImageUrl(u);
+        thumbs[u] = og ? await downloadThumb(og, crypto.createHash('md5').update(u).digest('hex').slice(0, 16)) : null;
+      } catch { thumbs[u] = null; }
+      console.log('썸네일 ' + (thumbs[u] ? 'OK' : '없음') + ': ' + u.slice(0, 60));
+    }
+  }
+}
+
+// ---------- HTML 생성 ----------
 function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
@@ -77,9 +163,11 @@ function domainOf(u) {
   try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return '링크'; }
 }
 
-function youtubeId(u) {
-  const m = u.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|live\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-  return m ? m[1] : null;
+function brandFor(host) {
+  for (const [k, v] of Object.entries(BRAND)) {
+    if (host === k || host.endsWith('.' + k)) return v;
+  }
+  return ['#7dd3c0', '#0f1115'];
 }
 
 function entryTypes(e) {
@@ -95,17 +183,21 @@ function entryTypes(e) {
 }
 
 function searchKey(e) {
-  const parts = [e.text, ...e.links, ...e.files.map(f => f.name)];
-  return parts.join(' ').toLowerCase().replace(/\s+/g, '');
+  return [e.text, ...e.links, ...e.files.map(f => f.name)].join(' ').toLowerCase().replace(/\s+/g, '');
 }
 
-function renderEntry(e) {
+function renderEntry(e, thumbs) {
   let btns = '';
-  const ytThumbs = [];
+  const thumbCards = [];
   for (const u of e.links) {
-    const yid = youtubeId(u);
-    if (yid) ytThumbs.push(`<a class="yt" href="${esc(u)}" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/${yid}/mqdefault.jpg" alt="YouTube 썸네일" loading="lazy"></a>`);
-    btns += `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">${esc(domainOf(u))} ↗</a>`;
+    const host = domainOf(u);
+    const [bg, fg] = brandFor(host);
+    btns += `<a class="btn" style="background:${bg};color:${fg}" href="${esc(u)}" target="_blank" rel="noopener">${esc(host)} ↗</a>`;
+    const th = thumbs[u];
+    if (th) {
+      const src = th.startsWith('http') ? esc(th) : encodeURI(th);
+      thumbCards.push(`<a class="thumb" href="${esc(u)}" target="_blank" rel="noopener"><img src="${src}" alt="" loading="lazy"><span class="th-tag" style="background:${bg};color:${fg}">${esc(host)}</span></a>`);
+    }
   }
   let attach = '';
   for (const f of e.files) {
@@ -124,15 +216,15 @@ function renderEntry(e) {
     }
   }
   return `<article class="entry" data-month="${e.date.slice(0, 7)}" data-types="${entryTypes(e)}" data-search="${esc(searchKey(e))}">
-<div class="e-row"><span class="e-date">${e.date.slice(5)}</span><div class="e-body">
+<div class="e-head"><span class="e-date">${e.date.slice(5)}</span></div>
 ${e.text ? `<p class="e-text">${esc(e.text)}</p>` : ''}
 ${btns ? `<div class="e-btns">${btns}</div>` : ''}
-${ytThumbs.length ? `<div class="yt-grid">${ytThumbs.join('')}</div>` : ''}
+${thumbCards.length ? `<div class="thumb-grid">${thumbCards.join('')}</div>` : ''}
 ${attach ? `<div class="attach">${attach}</div>` : ''}
-</div></div></article>`;
+</article>`;
 }
 
-function renderHtml(archive) {
+function renderHtml(archive, thumbs) {
   const months = new Map();
   for (const e of archive) {
     const key = e.date.slice(0, 7);
@@ -142,13 +234,15 @@ function renderHtml(archive) {
   const sortedMonths = [...months.entries()].sort((a, b) => b[0].localeCompare(a[0]));
   let sections = '';
   let monthOptions = '<option value="all">전체 기간</option>';
-  for (const [key, entries] of sortedMonths) {
+  sortedMonths.forEach(([key, entries], i) => {
     const [y, mo] = key.split('-');
+    const color = MONTH_COLORS[i % MONTH_COLORS.length];
     monthOptions += `<option value="${key}">${y}년 ${parseInt(mo)}월</option>`;
-    sections += `<section class="month"><div class="month-head"><h2>${y}년 ${parseInt(mo)}월</h2><span class="count">${entries.length}건</span></div>
-${entries.map(renderEntry).join('\n')}
-</section>\n`;
-  }
+    sections += `<section class="month" style="--maccent:${color}"><div class="month-head"><h2>${y}년 ${parseInt(mo)}월</h2><span class="count">${entries.length}건</span></div>
+<div class="m-body">
+${entries.map(e => renderEntry(e, thumbs)).join('\n')}
+</div></section>\n`;
+  });
   const now = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Seoul', dateStyle: 'short', timeStyle: 'short' }).format(new Date());
   return `<!DOCTYPE html>
 <html lang="ko">
@@ -161,7 +255,7 @@ ${entries.map(renderEntry).join('\n')}
     --text:#e6e9ef; --text-dim:#9aa4b2; --text-mute:#6b7482; --accent:#7dd3c0; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:var(--bg); color:var(--text); font-family:system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif; line-height:1.55; padding:0 0 6rem; }
-  .wrap { max-width:1080px; margin:0 auto; padding:0 24px; }
+  .wrap { max-width:1380px; margin:0 auto; padding:0 26px; }
   header { padding:44px 0 20px; }
   .eyebrow { font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; font-family:monospace; }
   h1 { font-size:30px; letter-spacing:-.02em; margin-bottom:6px; }
@@ -177,37 +271,38 @@ ${entries.map(renderEntry).join('\n')}
   #monthSel { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:9px 10px; border-radius:9px; font-size:13px; }
   .count-line { color:var(--text-mute); font-size:12.5px; margin-left:auto; }
   .count-line b { color:var(--accent); }
-  .month { padding-top:32px; }
-  .month-head { display:flex; align-items:baseline; gap:12px; padding-bottom:12px; }
-  .month-head h2 { font-size:21px; }
+  .month { padding-top:34px; }
+  .month-head { display:flex; align-items:baseline; gap:12px; padding-bottom:14px; }
+  .month-head h2 { font-size:21px; color:var(--maccent); }
   .month-head .count { font-family:monospace; font-size:13px; color:var(--text-mute); }
-  .entry { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:12px; }
-  .e-row { display:flex; gap:14px; }
-  .e-date { font-family:monospace; font-size:12px; color:var(--accent); white-space:nowrap; padding-top:4px; }
-  .e-body { flex:1; min-width:0; }
-  .e-text { white-space:pre-wrap; word-break:break-word; font-size:14.5px; line-height:1.7; margin-bottom:10px; }
-  .e-btns { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
-  .btn { display:inline-flex; align-items:center; gap:6px; background:var(--accent); color:#0f1115; font-weight:700;
-    font-size:13px; padding:8px 15px; border-radius:9px; text-decoration:none; }
-  .btn:hover { opacity:.85; }
+  .m-body { columns:340px; column-gap:14px; }
+  .entry { background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--maccent);
+    border-radius:12px; padding:14px 16px; margin:0 0 14px; break-inside:avoid; }
+  .e-head { margin-bottom:6px; }
+  .e-date { font-family:monospace; font-size:12px; color:var(--maccent); font-weight:700; }
+  .e-text { white-space:pre-wrap; word-break:break-word; font-size:14px; line-height:1.65; margin-bottom:10px; }
+  .e-btns { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
+  .btn { display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:12.5px;
+    padding:7px 13px; border-radius:8px; text-decoration:none; }
+  .btn:hover { opacity:.82; }
   .btn-slack { background:#4A154B; color:#fff; }
-  .yt-grid { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
-  .yt { position:relative; display:block; width:220px; border-radius:10px; overflow:hidden; border:1px solid var(--line); }
-  .yt img { width:100%; display:block; }
-  .yt::after { content:'▶'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    font-size:26px; color:#fff; background:rgba(0,0,0,.22); text-shadow:0 1px 8px rgba(0,0,0,.8); }
-  .yt:hover::after { background:rgba(0,0,0,.05); }
+  .thumb-grid { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
+  .thumb { position:relative; display:block; width:100%; max-width:300px; border-radius:10px; overflow:hidden;
+    border:1px solid var(--line); }
+  .thumb img { width:100%; display:block; }
+  .thumb .th-tag { position:absolute; left:8px; bottom:8px; font-family:monospace; font-size:10.5px;
+    font-weight:700; padding:3px 8px; border-radius:5px; opacity:.94; }
+  .thumb:hover img { opacity:.85; }
   .attach { display:flex; flex-wrap:wrap; gap:12px; align-items:flex-start; }
-  .a-img { max-width:300px; max-height:220px; border-radius:10px; border:1px solid var(--line); display:block; }
-  .v-wrap { margin:0; }
-  .v-wrap video { max-width:460px; width:100%; border-radius:10px; border:1px solid var(--line); display:block; background:#000; }
+  .a-img { max-width:100%; max-height:240px; border-radius:10px; border:1px solid var(--line); display:block; }
+  .v-wrap { margin:0; width:100%; }
+  .v-wrap video { width:100%; border-radius:10px; border:1px solid var(--line); display:block; background:#000; }
   .v-wrap figcaption { font-size:12px; color:var(--text-mute); margin-top:5px; word-break:break-all; }
   .v-wrap figcaption a { color:var(--accent); }
   .file-link { display:inline-flex; align-items:center; gap:6px; background:var(--panel-2); border:1px solid var(--line);
     color:var(--text); padding:9px 13px; border-radius:9px; text-decoration:none; font-size:13px; word-break:break-all; }
   .file-link:hover { border-color:var(--accent); }
   footer { margin-top:48px; padding-top:18px; border-top:1px solid var(--line); color:var(--text-mute); font-size:12px; font-family:monospace; }
-  @media (max-width:640px) { .e-row { flex-direction:column; gap:6px; } .count-line { margin-left:0; } }
 </style>
 </head>
 <body>
@@ -275,13 +370,16 @@ ${entries.map(renderEntry).join('\n')}
 </html>`;
 }
 
+// ---------- 메인 ----------
 (async () => {
   if (!TOKEN) { console.error('SLACK_BOT_TOKEN이 설정되지 않았습니다.'); process.exit(1); }
   fs.mkdirSync('data', { recursive: true });
   fs.mkdirSync(FILES_DIR, { recursive: true });
+  fs.mkdirSync(THUMBS_DIR, { recursive: true });
 
   const state = fs.existsSync(STATE_FILE) ? JSON.parse(fs.readFileSync(STATE_FILE, 'utf8')) : {};
   const archive = fs.existsSync(DATA_FILE) ? JSON.parse(fs.readFileSync(DATA_FILE, 'utf8')) : [];
+  const thumbs = fs.existsSync(THUMBS_FILE) ? JSON.parse(fs.readFileSync(THUMBS_FILE, 'utf8')) : {};
   const seen = new Set(archive.map(e => e.ts));
 
   const messages = await fetchNewMessages(CHANNEL_ID, state.lastTs);
@@ -307,8 +405,11 @@ ${entries.map(renderEntry).join('\n')}
   }
 
   archive.sort((a, b) => parseFloat(b.ts) - parseFloat(a.ts));
+  await collectThumbs(archive, thumbs);
+
   fs.writeFileSync(DATA_FILE, JSON.stringify(archive, null, 2));
   fs.writeFileSync(STATE_FILE, JSON.stringify({ lastTs }));
-  fs.writeFileSync(HTML_FILE, renderHtml(archive));
+  fs.writeFileSync(THUMBS_FILE, JSON.stringify(thumbs, null, 2));
+  fs.writeFileSync(HTML_FILE, renderHtml(archive, thumbs));
   console.log('완료: 총 ' + archive.length + '건, archive.html 갱신됨');
 })().catch(e => { console.error(e.message || e); process.exit(1); });
