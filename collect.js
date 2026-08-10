@@ -9,11 +9,13 @@ const CHANNEL_NAME = 'genai-2d_정보-공유';  // 화면 표시용 이름
 const DATA_FILE = 'data/archive.json';
 const STATE_FILE = 'data/state.json';
 const THUMBS_FILE = 'data/thumbs.json';
+const TITLES_FILE = 'data/titles.json';
 const FILES_DIR = 'files';
 const THUMBS_DIR = 'files/thumbs';
 const HTML_FILE = 'archive.html';
 const MAX_FILE_MB = 95;
 const THUMB_BUDGET = 40;
+const TITLE_BUDGET = 60;   // 실행 1회당 유튜브 제목 조회 최대 개수
 const CONVERT_BUDGET = 20; // 실행 1회당 영상 변환 최대 개수
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
@@ -111,7 +113,6 @@ async function downloadFile(f, ts) {
 }
 
 // ---------- 영상 코덱 검사·변환 ----------
-// 브라우저 재생 조건: h264/vp8/vp9/av1 + 8비트 yuv420 픽셀 형식. 그 외 전부 H.264로 변환.
 function ffprobeInfo(p) {
   try {
     const out = execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0',
@@ -122,7 +123,7 @@ function ffprobeInfo(p) {
 }
 
 function isWebPlayable(info) {
-  if (!info) return true; // 판별 불가 시 변환하지 않고 그대로 둠
+  if (!info) return true;
   const okCodec = ['h264', 'vp8', 'vp9', 'av1'].includes(info.codec);
   const okPix = info.pix === 'yuv420p' || info.pix === 'yuvj420p';
   return okCodec && okPix;
@@ -163,7 +164,7 @@ function ensureWebVideos(archive) {
   }
 }
 
-// ---------- 링크 썸네일 ----------
+// ---------- 링크 썸네일·유튜브 제목 ----------
 async function fetchWithTimeout(url, opts = {}, ms = 8000) {
   const c = new AbortController();
   const t = setTimeout(() => c.abort(), ms);
@@ -218,6 +219,22 @@ async function collectThumbs(archive, thumbs) {
   }
 }
 
+async function collectTitles(archive, titles) {
+  let budget = TITLE_BUDGET;
+  for (const e of archive) {
+    for (const u of e.links) {
+      if (!youtubeId(u) || u in titles || budget <= 0) continue;
+      budget--;
+      try {
+        const res = await fetchWithTimeout('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent(u),
+          { headers: { 'User-Agent': UA } });
+        titles[u] = res.ok ? ((await res.json()).title || null) : null;
+      } catch { titles[u] = null; }
+      console.log('유튜브 제목 ' + (titles[u] ? 'OK' : '없음') + ': ' + u.slice(0, 60));
+    }
+  }
+}
+
 // ---------- HTML 생성 ----------
 function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -254,11 +271,12 @@ function entryTopics(e) {
   return names.length ? names.join(' ') : '기타';
 }
 
-function searchKey(e) {
-  return [e.text, ...e.links, ...e.files.map(f => f.name)].join(' ').toLowerCase().replace(/\s+/g, '');
+function searchKey(e, titles) {
+  const ytTitles = e.links.map(u => titles[u] || '');
+  return [e.text, ...e.links, ...ytTitles, ...e.files.map(f => f.name)].join(' ').toLowerCase().replace(/\s+/g, '');
 }
 
-function renderEntry(e, thumbs) {
+function renderEntry(e, thumbs, titles) {
   let btns = '';
   const thumbCards = [];
   for (const u of e.links) {
@@ -268,7 +286,8 @@ function renderEntry(e, thumbs) {
     const th = thumbs[u];
     if (th) {
       const src = th.startsWith('http') ? esc(th) : encodeURI(th);
-      thumbCards.push(`<a class="thumb" href="${esc(u)}" target="_blank" rel="noopener"><img src="${src}" alt="" loading="lazy"><span class="th-tag" style="background:${bg};color:${fg}">${esc(host)}</span></a>`);
+      const yt = youtubeId(u) && titles[u] ? `<span class="th-title">${esc(titles[u])}</span>` : '';
+      thumbCards.push(`<a class="thumb" href="${esc(u)}" target="_blank" rel="noopener">${yt}<img src="${src}" alt="" loading="lazy"><span class="th-tag" style="background:${bg};color:${fg}">${esc(host)}</span></a>`);
     }
   }
   let attach = '';
@@ -287,8 +306,8 @@ function renderEntry(e, thumbs) {
       attach += `<a class="file-link" href="${src}" download>📎 ${esc(f.name)}</a>`;
     }
   }
-  const title = (e.text || e.links.map(domainOf).join(', ') || (e.files[0] && e.files[0].name) || '').slice(0, 60);
-  return `<article class="entry" data-ts="${e.ts}" data-month="${e.date.slice(0, 7)}" data-types="${entryTypes(e)}" data-topics="${esc(entryTopics(e))}" data-search="${esc(searchKey(e))}">
+  const title = (e.text || e.links.map(u => titles[u] || domainOf(u)).join(', ') || (e.files[0] && e.files[0].name) || '').slice(0, 60);
+  return `<article class="entry" data-ts="${e.ts}" data-month="${e.date.slice(0, 7)}" data-types="${entryTypes(e)}" data-topics="${esc(entryTopics(e))}" data-search="${esc(searchKey(e, titles))}">
 <div class="e-head"><span class="e-date">${e.date.slice(5)}</span><span class="e-title">${esc(title)}</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 ${e.text ? `<p class="e-text">${esc(e.text)}</p>` : ''}
@@ -299,7 +318,7 @@ ${attach ? `<div class="attach">${attach}</div>` : ''}
 </article>`;
 }
 
-function renderHtml(archive, thumbs) {
+function renderHtml(archive, thumbs, titles) {
   const months = new Map();
   for (const e of archive) {
     const key = e.date.slice(0, 7);
@@ -315,7 +334,7 @@ function renderHtml(archive, thumbs) {
     monthOptions += `<option value="${key}">${y}년 ${parseInt(mo)}월</option>`;
     sections += `<section class="month" data-key="${key}" style="--maccent:${color}"><div class="month-head"><h2>${y}년 ${parseInt(mo)}월</h2><span class="count">${entries.length}건</span><button type="button" class="m-tgl">▾ 접기</button></div>
 <div class="m-body">
-${entries.map(e => renderEntry(e, thumbs)).join('\n')}
+${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
 </div></section>\n`;
   }
   const topicOptions = ['<option value="all">주제: 전체</option>']
@@ -358,7 +377,7 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
   .m-tgl { margin-left:auto; background:none; border:1px solid color-mix(in srgb, var(--maccent) 45%, var(--line));
     color:var(--maccent); padding:6px 14px; border-radius:8px; cursor:pointer; font-size:12.5px; font-weight:700; }
   .m-tgl:hover { background:color-mix(in srgb, var(--maccent) 18%, var(--bg)); }
-  .month.closed .m-body { display:none; }
+  .month.closed .m-body { display:none !important; }
   .m-body { columns:4; column-gap:16px; }
   @media (max-width:1500px) { .m-body { columns:3; } #archiveRoot.view-fixed .m-body { grid-template-columns:repeat(3,1fr); } }
   @media (max-width:1050px) { .m-body { columns:2; } #archiveRoot.view-fixed .m-body { grid-template-columns:repeat(2,1fr); } }
@@ -386,8 +405,10 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
   .btn-slack { background:#4A154B; color:#fff; }
   .thumb-grid { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
   .thumb { position:relative; display:block; width:100%; max-width:340px; border-radius:10px; overflow:hidden;
-    border:1px solid var(--line); }
+    border:1px solid var(--line); background:var(--panel-2); }
   .thumb img { width:100%; display:block; }
+  .thumb .th-title { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+    font-size:12px; line-height:1.45; color:var(--text); padding:7px 10px; border-bottom:1px solid var(--line); }
   .thumb .th-tag { position:absolute; left:8px; bottom:8px; font-family:monospace; font-size:10.5px;
     font-weight:700; padding:3px 8px; border-radius:5px; opacity:.94; }
   .thumb:hover img { opacity:.85; }
@@ -564,6 +585,7 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
   const state = fs.existsSync(STATE_FILE) ? JSON.parse(fs.readFileSync(STATE_FILE, 'utf8')) : {};
   const archive = fs.existsSync(DATA_FILE) ? JSON.parse(fs.readFileSync(DATA_FILE, 'utf8')) : [];
   const thumbs = fs.existsSync(THUMBS_FILE) ? JSON.parse(fs.readFileSync(THUMBS_FILE, 'utf8')) : {};
+  const titles = fs.existsSync(TITLES_FILE) ? JSON.parse(fs.readFileSync(TITLES_FILE, 'utf8')) : {};
   const seen = new Set(archive.map(e => e.ts));
 
   const messages = await fetchNewMessages(CHANNEL_ID, state.lastTs);
@@ -591,10 +613,12 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
   archive.sort((a, b) => parseFloat(b.ts) - parseFloat(a.ts));
   ensureWebVideos(archive);
   await collectThumbs(archive, thumbs);
+  await collectTitles(archive, titles);
 
   fs.writeFileSync(DATA_FILE, JSON.stringify(archive, null, 2));
   fs.writeFileSync(STATE_FILE, JSON.stringify({ lastTs }));
   fs.writeFileSync(THUMBS_FILE, JSON.stringify(thumbs, null, 2));
-  fs.writeFileSync(HTML_FILE, renderHtml(archive, thumbs));
+  fs.writeFileSync(TITLES_FILE, JSON.stringify(titles, null, 2));
+  fs.writeFileSync(HTML_FILE, renderHtml(archive, thumbs, titles));
   console.log('완료: 총 ' + archive.length + '건, archive.html 갱신됨');
 })().catch(e => { console.error(e.message || e); process.exit(1); });
