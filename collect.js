@@ -18,6 +18,11 @@ const THUMB_BUDGET = 40;
 const TITLE_BUDGET = 60;   // 실행 1회당 유튜브 제목 조회 최대 개수
 const CONVERT_BUDGET = 20; // 실행 1회당 영상 변환 최대 개수
 
+// 검사를 통과했는데도 화면이 안 나오는 영상 — 여기에 파일명을 적으면 무조건 재인코딩함
+const FORCE_CONVERT = [
+  'Emotion_Flow.mp4',
+];
+
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
 
 // 사이트별 고유색 [배경, 글자색]
@@ -133,14 +138,18 @@ function ensureWebVideos(archive) {
   let budget = CONVERT_BUDGET;
   for (const e of archive) {
     for (const f of e.files) {
-      if (f.oversized || f.webok) continue;
+      if (f.oversized) continue;
       if (!(f.mimetype || '').startsWith('video/')) continue;
       if (!f.path || !fs.existsSync(f.path)) { f.webok = true; continue; }
+      const force = FORCE_CONVERT.includes(f.name) && !f.path.endsWith('_web2.mp4') && !f.path.endsWith('_web3.mp4');
+      if (!force && f.webok) continue;
       if (budget <= 0) continue;
       const info = ffprobeInfo(f.path);
-      if (isWebPlayable(info)) { f.webok = true; continue; }
+      if (!force && isWebPlayable(info)) { f.webok = true; continue; }
       budget--;
-      const out = f.path.replace(/(_web)?\.[^.]+$/, '') + '_web2.mp4';
+      const suffix = force ? '_web3.mp4' : '_web2.mp4';
+      const out = f.path.replace(/(_web2?)?\.[^.]+$/, '') + suffix;
+      const codecInfo = info ? info.codec + '/' + info.pix : '판별불가';
       try {
         execFileSync('ffmpeg', ['-y', '-i', f.path,
           '-vf', 'scale=trunc(iw/2)*2:trunc(ih/2)*2',
@@ -154,11 +163,11 @@ function ensureWebVideos(archive) {
         }
         fs.unlinkSync(f.path);
         f.path = out; f.mimetype = 'video/mp4'; f.webok = true;
-        console.log('영상 변환 완료(' + info.codec + '/' + info.pix + ' → h264/yuv420p): ' + f.name);
+        console.log((force ? '강제 ' : '') + '영상 변환 완료(' + codecInfo + ' → h264/yuv420p): ' + f.name);
       } catch {
         f.tries = (f.tries || 0) + 1;
         if (f.tries >= 3) { f.webok = true; console.warn('변환 3회 실패, 포기: ' + f.name); }
-        else console.warn('변환 실패(다음 실행 때 재시도): ' + f.name);
+        else console.warn('변환 실패(다음 실행 때 재시도): ' + f.name + ' (' + codecInfo + ')');
       }
     }
   }
@@ -365,6 +374,11 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
   .chip { background:var(--panel); border:1px solid var(--line); color:var(--text-dim); padding:8px 15px;
     border-radius:999px; font-size:13px; cursor:pointer; }
   .chip.on { background:var(--accent); color:#0f1115; border-color:var(--accent); font-weight:700; }
+  .lbl { font-size:12px; color:var(--text-mute); margin-left:2px; }
+  .vgroup { display:flex; gap:6px; align-items:center; }
+  .sub-btn { background:var(--panel-2); border:1px dashed var(--line); color:var(--text-dim); padding:7px 13px;
+    border-radius:999px; font-size:12.5px; cursor:pointer; }
+  .sub-btn:hover { border-color:var(--accent); color:var(--accent); }
   select { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:9px 10px; border-radius:9px; font-size:13px; }
   .count-line { color:var(--text-mute); font-size:12.5px; margin-left:auto; }
   .count-line b { color:var(--accent); }
@@ -437,12 +451,13 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
   </header>
   <div class="controls">
     <input id="q" type="search" placeholder="검색 — 제목·링크·파일명 (띄어쓰기 무관)">
-    <select id="viewSel">
-      <option value="expand">보기: 펼침</option>
-      <option value="collapse">보기: 접기식</option>
-      <option value="fixed">보기: 균일 크기</option>
-    </select>
-    <button type="button" id="allTgl" class="chip" style="display:none">모두 접기</button>
+    <span class="lbl">보기</span>
+    <div class="vgroup">
+      <button type="button" id="viewCollapse" class="chip on">접기식</button>
+      <button type="button" id="btnCloseAll" class="sub-btn">모두 접기</button>
+      <button type="button" id="btnOpenAll" class="sub-btn">모두 펼치기</button>
+      <button type="button" id="viewFixed" class="chip">균일 크기</button>
+    </div>
     <select id="sortSel">
       <option value="new">최신순</option>
       <option value="old">오래된순</option>
@@ -457,7 +472,7 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
     <button type="button" class="chip" data-type="text">텍스트</button>
     <span class="count-line">총 ${archive.length}건 중 <b id="resultCount">${archive.length}</b>건 표시</span>
   </div>
-  <main id="archiveRoot" class="view-expand">
+  <main id="archiveRoot" class="view-collapse">
   ${sections}
   </main>
   <footer>격주 금요일 자동 수집 · 최신순 정렬</footer>
@@ -466,8 +481,10 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
 <script>
 (function () {
   var q = document.getElementById('q');
-  var viewSel = document.getElementById('viewSel');
-  var allTgl = document.getElementById('allTgl');
+  var viewCollapse = document.getElementById('viewCollapse');
+  var viewFixed = document.getElementById('viewFixed');
+  var btnCloseAll = document.getElementById('btnCloseAll');
+  var btnOpenAll = document.getElementById('btnOpenAll');
   var sortSel = document.getElementById('sortSel');
   var topicSel = document.getElementById('topicSel');
   var monthSel = document.getElementById('monthSel');
@@ -478,7 +495,6 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
   var toTop = document.getElementById('toTop');
   var root = document.getElementById('archiveRoot');
   var activeType = 'all';
-  var allClosed = false;
   function norm(s) { return (s || '').toLowerCase().replace(/\\s+/g, ''); }
   function hasWord(attr, w) { return (' ' + attr + ' ').indexOf(' ' + w + ' ') !== -1; }
   function apply() {
@@ -520,26 +536,29 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
       es.forEach(function (e) { body.appendChild(e); });
     });
   }
-  function setView() {
-    var v = viewSel.value;
-    root.classList.remove('view-expand', 'view-collapse', 'view-fixed');
-    root.classList.add('view-' + v);
-    allTgl.style.display = v === 'collapse' ? '' : 'none';
-    if (v !== 'collapse') {
+  function setView(mode) {
+    root.classList.remove('view-collapse', 'view-fixed');
+    root.classList.add('view-' + mode);
+    viewCollapse.classList.toggle('on', mode === 'collapse');
+    viewFixed.classList.toggle('on', mode === 'fixed');
+    var showSub = mode === 'collapse' ? '' : 'none';
+    btnCloseAll.style.display = showSub;
+    btnOpenAll.style.display = showSub;
+    if (mode !== 'collapse') {
       entries.forEach(function (el) { el.classList.remove('closed'); });
-      allClosed = false;
-      allTgl.textContent = '모두 접기';
     }
   }
   q.addEventListener('input', apply);
   monthSel.addEventListener('change', apply);
   topicSel.addEventListener('change', apply);
   sortSel.addEventListener('change', resort);
-  viewSel.addEventListener('change', setView);
-  allTgl.addEventListener('click', function () {
-    allClosed = !allClosed;
-    entries.forEach(function (el) { el.classList.toggle('closed', allClosed); });
-    allTgl.textContent = allClosed ? '모두 펼치기' : '모두 접기';
+  viewCollapse.addEventListener('click', function () { setView('collapse'); });
+  viewFixed.addEventListener('click', function () { setView('fixed'); });
+  btnCloseAll.addEventListener('click', function () {
+    entries.forEach(function (el) { el.classList.add('closed'); });
+  });
+  btnOpenAll.addEventListener('click', function () {
+    entries.forEach(function (el) { el.classList.remove('closed'); });
   });
   document.querySelectorAll('.e-head').forEach(function (h) {
     h.addEventListener('click', function () {
@@ -568,7 +587,7 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
     else toTop.classList.remove('show');
   });
   toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-  setView();
+  setView('collapse');
 })();
 </script>
 </body>
