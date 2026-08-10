@@ -34,7 +34,7 @@
   .m-tgl { margin-left:auto; background:none; border:1px solid color-mix(in srgb, var(--maccent) 45%, var(--line));
     color:var(--maccent); padding:6px 14px; border-radius:8px; cursor:pointer; font-size:12.5px; font-weight:700; }
   .m-tgl:hover { background:color-mix(in srgb, var(--maccent) 18%, var(--bg)); }
-  .month.closed .m-body { display:none; }
+  .month.closed .m-body { display:none !important; }
   .m-body { columns:4; column-gap:16px; }
   @media (max-width:1500px) { .m-body { columns:3; } #archiveRoot.view-fixed .m-body { grid-template-columns:repeat(3,1fr); } }
   @media (max-width:1050px) { .m-body { columns:2; } #archiveRoot.view-fixed .m-body { grid-template-columns:repeat(2,1fr); } }
@@ -62,8 +62,10 @@
   .btn-slack { background:#4A154B; color:#fff; }
   .thumb-grid { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
   .thumb { position:relative; display:block; width:100%; max-width:340px; border-radius:10px; overflow:hidden;
-    border:1px solid var(--line); }
+    border:1px solid var(--line); background:var(--panel-2); }
   .thumb img { width:100%; display:block; }
+  .thumb .th-title { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+    font-size:12px; line-height:1.45; color:var(--text); padding:7px 10px; border-bottom:1px solid var(--line); }
   .thumb .th-tag { position:absolute; left:8px; bottom:8px; font-family:monospace; font-size:10.5px;
     font-weight:700; padding:3px 8px; border-radius:5px; opacity:.94; }
   .thumb:hover img { opacity:.85; }
@@ -88,7 +90,7 @@
   <header>
     <div class="eyebrow">Slack Auto Archive</div>
     <h1>#genai-2d_정보-공유 채널</h1>
-    <p class="sub">슬랙 아카이브 · 총 280건 · 마지막 갱신 2026-08-10 14:44 (KST)</p>
+    <p class="sub">슬랙 아카이브 · 총 280건 · 마지막 갱신 2026-08-10 14:53 (KST)</p>
   </header>
   <div class="controls">
     <input id="q" type="search" placeholder="검색 — 제목·링크·파일명 (띄어쓰기 무관)">
@@ -115,7 +117,7 @@
   <main id="archiveRoot" class="view-expand">
   <section class="month" data-key="2026-08" style="--maccent:#b3a1e0"><div class="month-head"><h2>2026년 8월</h2><span class="count">19건</span><button type="button" class="m-tgl">▾ 접기</button></div>
 <div class="m-body">
-<article class="entry" data-ts="1786327879.865299" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=wexc-jgwewo유튜브기본자막의품질이좋지않아,아래폴더에클로드를활용해한글자막을추가해두었습니다.영상이다소길지만내용이좋은세미나영상이니,시간되실때천천히전체시청해보시면좋을것같습니다.=========================================p:\graphic\library\영상\tutorial\ai\seminar=========================================https://www.youtube.com/watch?v=wexc-jgwewo">
+<article class="entry" data-ts="1786327879.865299" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=wexc-jgwewo유튜브기본자막의품질이좋지않아,아래폴더에클로드를활용해한글자막을추가해두었습니다.영상이다소길지만내용이좋은세미나영상이니,시간되실때천천히전체시청해보시면좋을것같습니다.=========================================p:\graphic\library\영상\tutorial\ai\seminar=========================================https://www.youtube.com/watch?v=wexc-jgwewocontrollingtheframe:thefutureofaivfx|siggraph2026boftalk">
 <div class="e-head"><span class="e-date">08-10</span><span class="e-title">youtube.com/watch?v=weXc-JGwewo
 
 유튜브 기본 자막의 품질이 좋지 않아, 아래 폴더</span><button type="button" class="e-tgl">▾</button></div>
@@ -131,7 +133,7 @@ P:\graphic\library\영상\Tutorial\AI\seminar
 
 =========================================</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=weXc-JGwewo" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=weXc-JGwewo" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/weXc-JGwewo/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=weXc-JGwewo" target="_blank" rel="noopener"><span class="th-title">Controlling the Frame: The Future of AI VFX | SIGGRAPH 2026 BOF Talk</span><img src="https://i.ytimg.com/vi/weXc-JGwewo/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -157,21 +159,21 @@ github.com/smixs/visual-skills
 
 </div>
 </article>
-<article class="entry" data-ts="1786325065.900149" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=fwxtpokmrikhttps://www.youtube.com/watch?v=fwxtpokmrik">
+<article class="entry" data-ts="1786325065.900149" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=fwxtpokmrikhttps://www.youtube.com/watch?v=fwxtpokmrikimixedrealfootagewithaivfx…andit'sactuallyscary!">
 <div class="e-head"><span class="e-date">08-10</span><span class="e-title">youtube.com/watch?v=FwxTpOkmRik</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=FwxTpOkmRik</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=FwxTpOkmRik" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=FwxTpOkmRik" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/FwxTpOkmRik/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=FwxTpOkmRik" target="_blank" rel="noopener"><span class="th-title">I Mixed Real Footage with AI VFX… and it's actually scary!</span><img src="https://i.ytimg.com/vi/FwxTpOkmRik/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1786325027.145679" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtu.be/uifmgrq_x6ehttps://youtu.be/uifmgrq_x6e">
+<article class="entry" data-ts="1786325027.145679" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtu.be/uifmgrq_x6ehttps://youtu.be/uifmgrq_x6e[비공개]dot.act1.부름thecalling_4k">
 <div class="e-head"><span class="e-date">08-10</span><span class="e-title">youtu.be/UiFmGrQ_X6E</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtu.be/UiFmGrQ_X6E</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://youtu.be/UiFmGrQ_X6E" target="_blank" rel="noopener">youtu.be ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://youtu.be/UiFmGrQ_X6E" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/UiFmGrQ_X6E/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://youtu.be/UiFmGrQ_X6E" target="_blank" rel="noopener"><span class="th-title">[비공개] DOT. act 1. 부름 The Calling_4K</span><img src="https://i.ytimg.com/vi/UiFmGrQ_X6E/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
 
 </div>
 </article>
@@ -247,21 +249,21 @@ github.com/smixs/visual-skills
 <div class="attach"><figure class="v-wrap"><video src="files/1786071034_346779_wire.mp4" controls preload="metadata"></video><figcaption>🎬 wire.mp4</figcaption></figure></div>
 </div>
 </article>
-<article class="entry" data-ts="1786013677.146849" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=jvftx3exkauhttps://www.youtube.com/watch?v=jvftx3exkau">
+<article class="entry" data-ts="1786013677.146849" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=jvftx3exkauhttps://www.youtube.com/watch?v=jvftx3exkau시댄스2.5연기좋은데?!">
 <div class="e-head"><span class="e-date">08-06</span><span class="e-title">youtube.com/watch?v=jvftx3eXKaU</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=jvftx3eXKaU</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=jvftx3eXKaU" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=jvftx3eXKaU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/jvftx3eXKaU/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=jvftx3eXKaU" target="_blank" rel="noopener"><span class="th-title">시댄스 2.5 연기 좋은데?!</span><img src="https://i.ytimg.com/vi/jvftx3eXKaU/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1786000649.379499" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…https://www.youtube.com/watch?v=miidu04n7_4">
+<article class="entry" data-ts="1786000649.379499" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…https://www.youtube.com/watch?v=miidu04n7_4seedance+blenderunlocksadvancedaifilmmakingtechniques">
 <div class="e-head"><span class="e-date">08-06</span><span class="e-title">youtube.com/watch?v=…</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=…</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=miIDu04N7_4" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=miIDu04N7_4" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/miIDu04N7_4/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=miIDu04N7_4" target="_blank" rel="noopener"><span class="th-title">Seedance + Blender Unlocks Advanced AI Filmmaking Techniques</span><img src="https://i.ytimg.com/vi/miIDu04N7_4/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -278,12 +280,12 @@ github.com/zju3dv/GVHMR</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1785755403.394649" data-month="2026-08" data-types="video image" data-topics="기타" data-search="youtube.com/watch?v=xjyunokwapwhttps://www.youtube.com/watch?v=xjyunokwapwimage.png">
+<article class="entry" data-ts="1785755403.394649" data-month="2026-08" data-types="video image" data-topics="기타" data-search="youtube.com/watch?v=xjyunokwapwhttps://www.youtube.com/watch?v=xjyunokwapwseedance2.5isincredible...untilitisn'timage.png">
 <div class="e-head"><span class="e-date">08-03</span><span class="e-title">youtube.com/watch?v=xjyuNokwAPw</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=xjyuNokwAPw</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=xjyuNokwAPw" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=xjyuNokwAPw" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/xjyuNokwAPw/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=xjyuNokwAPw" target="_blank" rel="noopener"><span class="th-title">Seedance 2.5 Is Incredible... Until It Isn't</span><img src="https://i.ytimg.com/vi/xjyuNokwAPw/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 <div class="attach"><a href="files/1785755403_394649_image.png" target="_blank"><img class="a-img" src="files/1785755403_394649_image.png" alt="image.png" loading="lazy"></a></div>
 </div>
 </article>
@@ -296,12 +298,12 @@ github.com/zju3dv/GVHMR</p>
 <div class="attach"><figure class="v-wrap"><video src="files/1785725713_813789_test.mp4" controls preload="metadata"></video><figcaption>🎬 test.mp4</figcaption></figure></div>
 </div>
 </article>
-<article class="entry" data-ts="1785722196.712579" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=c1xlaojbdjmhttps://www.youtube.com/watch?v=c1xlaojbdjm">
+<article class="entry" data-ts="1785722196.712579" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=c1xlaojbdjmhttps://www.youtube.com/watch?v=c1xlaojbdjmbilateralblurexample">
 <div class="e-head"><span class="e-date">08-03</span><span class="e-title">youtube.com/watch?v=c1xLaOJBdjM</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=c1xLaOJBdjM</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=c1xLaOJBdjM" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=c1xLaOJBdjM" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/c1xLaOJBdjM/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=c1xLaOJBdjM" target="_blank" rel="noopener"><span class="th-title">Bilateral Blur Example </span><img src="https://i.ytimg.com/vi/c1xLaOJBdjM/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -382,12 +384,12 @@ github.com/zju3dv/GVHMR</p>
 <div class="attach"><a href="files/1785223044_693079_i7nbybecm7dh1.png" target="_blank"><img class="a-img" src="files/1785223044_693079_i7nbybecm7dh1.png" alt="i7nbybecm7dh1.png" loading="lazy"></a></div>
 </div>
 </article>
-<article class="entry" data-ts="1785222017.620539" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…https://www.youtube.com/watch?v=7qj8c8me0z4">
+<article class="entry" data-ts="1785222017.620539" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…https://www.youtube.com/watch?v=7qj8c8me0z4알고보니vfx도시댄스가최강이네요!!시댄스영상수정법공개">
 <div class="e-head"><span class="e-date">07-28</span><span class="e-title">youtube.com/watch?v=…</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=…</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=7QJ8c8ME0Z4" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=7QJ8c8ME0Z4" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/7QJ8c8ME0Z4/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=7QJ8c8ME0Z4" target="_blank" rel="noopener"><span class="th-title">알고보니 VFX도 시댄스가 최강이네요!! 시댄스 영상수정법 공개</span><img src="https://i.ytimg.com/vi/7QJ8c8ME0Z4/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -400,18 +402,18 @@ github.com/zju3dv/GVHMR</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1785143831.417969" data-month="2026-07" data-types="video" data-topics="기타" data-search="혜리예쁘다고난리난ai광고영상제작과정공개!실사촬영기반으로광고제작한영상이있어공유드립니다.https://www.youtube.com/watch?v=9dq-nzwg800">
+<article class="entry" data-ts="1785143831.417969" data-month="2026-07" data-types="video" data-topics="기타" data-search="혜리예쁘다고난리난ai광고영상제작과정공개!실사촬영기반으로광고제작한영상이있어공유드립니다.https://www.youtube.com/watch?v=9dq-nzwg800혜리예쁘다고난리난ai광고영상제작과정공개!">
 <div class="e-head"><span class="e-date">07-27</span><span class="e-title">혜리 예쁘다고 난리 난 AI 광고 영상 제작 과정 공개!
 실사촬영 기반으로 광고 제작한 영상이 있어 공유드립</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">혜리 예쁘다고 난리 난 AI 광고 영상 제작 과정 공개!
 실사촬영 기반으로 광고 제작한 영상이 있어 공유드립니다.</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=9dQ-NZwG800" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=9dQ-NZwG800" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/9dQ-NZwG800/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=9dQ-NZwG800" target="_blank" rel="noopener"><span class="th-title">혜리 예쁘다고 난리 난 AI 광고 영상 제작 과정 공개!</span><img src="https://i.ytimg.com/vi/9dQ-NZwG800/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1785122974.101779" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…디스트릭트9감독의full-ai단편영화https://www.youtube.com/watch?v=8wbtt2jxp7g">
+<article class="entry" data-ts="1785122974.101779" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…디스트릭트9감독의full-ai단편영화https://www.youtube.com/watch?v=8wbtt2jxp7gnightborne—aneillblomkampsci-fifilm.fullyai(4k)">
 <div class="e-head"><span class="e-date">07-27</span><span class="e-title">youtube.com/watch?v=…
 
 디스트릭트 9 감독의 Full-Ai 단편영화</span><button type="button" class="e-tgl">▾</button></div>
@@ -420,7 +422,7 @@ github.com/zju3dv/GVHMR</p>
 
 디스트릭트 9 감독의 Full-Ai 단편영화</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=8Wbtt2JxP7g" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=8Wbtt2JxP7g" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/8Wbtt2JxP7g/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=8Wbtt2JxP7g" target="_blank" rel="noopener"><span class="th-title">NIGHTBORNE — A Neill Blomkamp Sci-Fi Film. Fully AI (4K)</span><img src="https://i.ytimg.com/vi/8Wbtt2JxP7g/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -486,7 +488,7 @@ Refine only the existing hair texture by restoring fine strand definition, subtl
 
 </div>
 </article>
-<article class="entry" data-ts="1784703036.450649" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="*aifeaturefilmteaser*youtube.com/watch?v=msredhxtdwm요약하자면,약50만dreamina크레딧이소요되었고,3명의아티스트가2주에걸쳐작업했습니다.모든애니메이션은seedance2.0을사용했고,이미지는다양한이미지모델을활용했습니다.*7insaneaicheatcodesthatkavanusestocreatehisviralaiseries(fullbreakdown)*youtube.com/watch?v=…https://www.youtube.com/watch?v=msredhxtdwmhttps://www.youtube.com/watch?v=l8k5rc20pyc">
+<article class="entry" data-ts="1784703036.450649" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="*aifeaturefilmteaser*youtube.com/watch?v=msredhxtdwm요약하자면,약50만dreamina크레딧이소요되었고,3명의아티스트가2주에걸쳐작업했습니다.모든애니메이션은seedance2.0을사용했고,이미지는다양한이미지모델을활용했습니다.*7insaneaicheatcodesthatkavanusestocreatehisviralaiseries(fullbreakdown)*youtube.com/watch?v=…https://www.youtube.com/watch?v=msredhxtdwmhttps://www.youtube.com/watch?v=l8k5rc20pycnexus-wetmarketsofkafar-aifeaturefilmteaser7insaneaicheatcodesthatkavanusestocreatehisviralaiseries(fullbreakdown)">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">*AI Feature Film Teaser*
  youtube.com/watch?v=MsREdHXtdWM
 
@@ -503,7 +505,7 @@ Refine only the existing hair texture by restoring fine strand definition, subtl
 *7 INSANE AI Cheatcodes that Kavan Uses to Create his Viral AI Series (FULL BREAKDOWN)*
 youtube.com/watch?v=…</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=MsREdHXtdWM" target="_blank" rel="noopener">youtube.com ↗</a><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=L8k5rc20pYc" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=MsREdHXtdWM" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/MsREdHXtdWM/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a><a class="thumb" href="https://www.youtube.com/watch?v=L8k5rc20pYc" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/L8k5rc20pYc/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=MsREdHXtdWM" target="_blank" rel="noopener"><span class="th-title">Nexus - Wet Markets of Kafar - AI Feature Film Teaser</span><img src="https://i.ytimg.com/vi/MsREdHXtdWM/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a><a class="thumb" href="https://www.youtube.com/watch?v=L8k5rc20pYc" target="_blank" rel="noopener"><span class="th-title">7 INSANE AI Cheatcodes that Kavan Uses to Create his Viral AI Series (FULL BREAKDOWN)</span><img src="https://i.ytimg.com/vi/L8k5rc20pYc/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -517,12 +519,12 @@ youtube.com/watch?v=…</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784699618.039399" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…https://www.youtube.com/watch?v=icffnlltzg8">
+<article class="entry" data-ts="1784699618.039399" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…https://www.youtube.com/watch?v=icffnlltzg8gpt5.6압도적1위?!⚡ai영상프롬프트비교|gpt5.6vs페이블5">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=…</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=…</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=icFFNllTzg8" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=icFFNllTzg8" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/icFFNllTzg8/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=icFFNllTzg8" target="_blank" rel="noopener"><span class="th-title">GPT 5.6 압도적 1위?!⚡AI 영상 프롬프트 비교 | GPT 5.6 vs 페이블5</span><img src="https://i.ytimg.com/vi/icFFNllTzg8/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -561,12 +563,12 @@ youtube.com/watch?v=…</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784699576.341809" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-imadeanaicharactersitwithmeandhaveaconversation(fulltutorial)https://www.youtube.com/watch?v=klswoquhsm8">
+<article class="entry" data-ts="1784699576.341809" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-imadeanaicharactersitwithmeandhaveaconversation(fulltutorial)https://www.youtube.com/watch?v=klswoquhsm8imadeanaicharactersitwithmeandhaveaconversation(fulltutorial)">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - I Made an AI Character Sit W</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - I Made an AI Character Sit With Me and Have a Conversation (Full Tutorial)</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=KLswOquhsM8" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=KLswOquhsM8" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/KLswOquhsM8/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=KLswOquhsM8" target="_blank" rel="noopener"><span class="th-title">I Made an AI Character Sit With Me and Have a Conversation (Full Tutorial)</span><img src="https://i.ytimg.com/vi/KLswOquhsM8/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -579,30 +581,30 @@ youtube.com/watch?v=…</p>
 <div class="attach"><figure class="v-wrap"><video src="files/1784699543_865469_seedance_25_%ED%99%8D%EB%B3%B4%EC%98%81%EC%83%81.mp4" controls preload="metadata"></video><figcaption>🎬 seedance_25_홍보영상.mp4</figcaption></figure></div>
 </div>
 </article>
-<article class="entry" data-ts="1784699494.666989" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/watch?v=…youtube-[ai찌라시]seedance2.5출시?!뭐?4k,영상편집까지도된다고??!현재알려진기능은더긴생성시간(30초),더많은참고소재,더정밀한편집제어,더다양한언어지원(한국어지원도강화됨)https://www.youtube.com/watch?v=jqkfjamdlz8">
+<article class="entry" data-ts="1784699494.666989" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/watch?v=…youtube-[ai찌라시]seedance2.5출시?!뭐?4k,영상편집까지도된다고??!현재알려진기능은더긴생성시간(30초),더많은참고소재,더정밀한편집제어,더다양한언어지원(한국어지원도강화됨)https://www.youtube.com/watch?v=jqkfjamdlz8[ai찌라시]seedance2.5출시?!뭐?4k,영상편집까지도된다고??!">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - [AI찌라시] SEEDANCE 2.5 출시?! 뭐?</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - [AI찌라시] SEEDANCE 2.5 출시?! 뭐? 4K, 영상 편집까지도 된다고??! 현재 알려진 기능은 더 긴 생성 시간(30초), 더 많은 참고 소재, 더 정밀한 편집 제어, 더 다양한 언어 지원(한국어 지원도 강화됨)</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=JQKfjAmdlz8" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=JQKfjAmdlz8" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/JQKfjAmdlz8/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=JQKfjAmdlz8" target="_blank" rel="noopener"><span class="th-title">[AI찌라시] SEEDANCE 2.5 출시?! 뭐? 4K, 영상 편집까지도 된다고??!</span><img src="https://i.ytimg.com/vi/JQKfjAmdlz8/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784699491.394149" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtu.be/…youtube-[메이킹]ai영상,프로에서도쓰려면갖춰야하는점들.파이프라인그리고...https://youtu.be/u_9wo5bbb54">
+<article class="entry" data-ts="1784699491.394149" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtu.be/…youtube-[메이킹]ai영상,프로에서도쓰려면갖춰야하는점들.파이프라인그리고...https://youtu.be/u_9wo5bbb54[메이킹]ai영상,프로에서도쓰려면갖춰야하는점들.파이프라인그리고...">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtu.be/… YouTube - [메이킹] AI 영상, 프로에서도 쓰려면 갖춰야 하는 점들. 파이프라인</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtu.be/… YouTube - [메이킹] AI 영상, 프로에서도 쓰려면 갖춰야 하는 점들. 파이프라인 그리고...</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://youtu.be/U_9Wo5bbb54" target="_blank" rel="noopener">youtu.be ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://youtu.be/U_9Wo5bbb54" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/U_9Wo5bbb54/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://youtu.be/U_9Wo5bbb54" target="_blank" rel="noopener"><span class="th-title">[메이킹] AI 영상, 프로에서도 쓰려면 갖춰야 하는 점들. 파이프라인 그리고...</span><img src="https://i.ytimg.com/vi/U_9Wo5bbb54/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784699484.570209" data-month="2026-07" data-types="video image" data-topics="기타" data-search="youtu.be/hpkley_x92u?si=…https://youtu.be/hpkley_x92u?si=cqx4vcwigrxkvrasimage(6).png">
+<article class="entry" data-ts="1784699484.570209" data-month="2026-07" data-types="video image" data-topics="기타" data-search="youtu.be/hpkley_x92u?si=…https://youtu.be/hpkley_x92u?si=cqx4vcwigrxkvraswegenerated120cinematic4kshotsin8daysusinganai-assistedpipeline|griptape|foundryimage(6).png">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtu.be/hpklEY_X92U?si=…</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtu.be/hpklEY_X92U?si=…</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://youtu.be/hpklEY_X92U?si=CqX4VcwigrxKVraS" target="_blank" rel="noopener">youtu.be ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://youtu.be/hpklEY_X92U?si=CqX4VcwigrxKVraS" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/hpklEY_X92U/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://youtu.be/hpklEY_X92U?si=CqX4VcwigrxKVraS" target="_blank" rel="noopener"><span class="th-title">We generated 120 cinematic 4K shots in 8 days using an AI-assisted pipeline | Griptape | Foundry</span><img src="https://i.ytimg.com/vi/hpklEY_X92U/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
 <div class="attach"><a href="files/1784699484_570209_image%20(6).png" target="_blank"><img class="a-img" src="files/1784699484_570209_image%20(6).png" alt="image (6).png" loading="lazy"></a></div>
 </div>
 </article>
@@ -654,48 +656,48 @@ MAI-Image-2.5는 MAI의 가장 강력한 이미지 모델로, Arena 이미지 �
 <div class="attach"><a href="files/1784699372_116459_image%20(5).png" target="_blank"><img class="a-img" src="files/1784699372_116459_image%20(5).png" alt="image (5).png" loading="lazy"></a></div>
 </div>
 </article>
-<article class="entry" data-ts="1784699363.788499" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/shorts/…youtube-雑誌表紙撮ってみたhttps://www.youtube.com/shorts/flg0oeausqm">
+<article class="entry" data-ts="1784699363.788499" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/shorts/…youtube-雑誌表紙撮ってみたhttps://www.youtube.com/shorts/flg0oeausqm雑誌表紙撮ってみた">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/shorts/… YouTube - 雑誌表紙撮ってみた</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/shorts/… YouTube - 雑誌表紙撮ってみた</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/shorts/fLG0OeausQM" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/fLG0OeausQM" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/fLG0OeausQM/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/fLG0OeausQM" target="_blank" rel="noopener"><span class="th-title">雑誌表紙撮ってみた</span><img src="https://i.ytimg.com/vi/fLG0OeausQM/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784699359.442439" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/shorts/…youtube-雑誌表紙撮ってみたhttps://www.youtube.com/shorts/rek8fctlkya">
+<article class="entry" data-ts="1784699359.442439" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/shorts/…youtube-雑誌表紙撮ってみたhttps://www.youtube.com/shorts/rek8fctlkya雑誌表紙撮ってみた">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/shorts/… YouTube - 雑誌表紙撮ってみた</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/shorts/… YouTube - 雑誌表紙撮ってみた</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/shorts/reK8FCTLkYA" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/reK8FCTLkYA" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/reK8FCTLkYA/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/reK8FCTLkYA" target="_blank" rel="noopener"><span class="th-title">雑誌表紙撮ってみた</span><img src="https://i.ytimg.com/vi/reK8FCTLkYA/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784699356.533159" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/shorts/gzmrbi_y3ykyoutube-雑誌表紙撮ってみたhttps://www.youtube.com/shorts/gzmrbi_y3yk">
+<article class="entry" data-ts="1784699356.533159" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/shorts/gzmrbi_y3ykyoutube-雑誌表紙撮ってみたhttps://www.youtube.com/shorts/gzmrbi_y3yk雑誌表紙撮ってみた">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/shorts/gZmRBi_Y3yk YouTube - 雑誌表紙撮ってみた</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/shorts/gZmRBi_Y3yk YouTube - 雑誌表紙撮ってみた</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/shorts/gZmRBi_Y3yk" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/gZmRBi_Y3yk" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/gZmRBi_Y3yk/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/gZmRBi_Y3yk" target="_blank" rel="noopener"><span class="th-title">雑誌表紙撮ってみた</span><img src="https://i.ytimg.com/vi/gZmRBi_Y3yk/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784699354.166469" data-month="2026-07" data-types="video" data-topics="AI영상생성 AI툴·LLM" data-search="youtu.be/…youtube-geminiomnivsseedance2|20+promptsyouneedtotryhttps://youtu.be/9rjrgu_eej4">
+<article class="entry" data-ts="1784699354.166469" data-month="2026-07" data-types="video" data-topics="AI영상생성 AI툴·LLM" data-search="youtu.be/…youtube-geminiomnivsseedance2|20+promptsyouneedtotryhttps://youtu.be/9rjrgu_eej4geminiomnivsseedance2|20+promptsyouneedtotry">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtu.be/… YouTube - Gemini OMNI vs Seedance 2 | 20+ Prompts</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtu.be/… YouTube - Gemini OMNI vs Seedance 2 | 20+ Prompts you need to try</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://youtu.be/9RJrGu_eEj4" target="_blank" rel="noopener">youtu.be ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://youtu.be/9RJrGu_eEj4" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/9RJrGu_eEj4/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://youtu.be/9RJrGu_eEj4" target="_blank" rel="noopener"><span class="th-title">Gemini OMNI vs Seedance 2 | 20+ Prompts you need to try</span><img src="https://i.ytimg.com/vi/9RJrGu_eEj4/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784699351.556899" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/shorts/…youtube-99%모르는구글영상ai(gemniomni)플로우도구기능활용법꿀팁lshotexplorer,imageediter,typeoverlayshttps://www.youtube.com/shorts/covc8lizlk0">
+<article class="entry" data-ts="1784699351.556899" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/shorts/…youtube-99%모르는구글영상ai(gemniomni)플로우도구기능활용법꿀팁lshotexplorer,imageediter,typeoverlayshttps://www.youtube.com/shorts/covc8lizlk099%모르는구글영상ai(gemniomni)플로우도구기능활용법꿀팁lshotexplorer,imageediter,typeoverlaysl40초">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/shorts/… YouTube - 99%모르는 구글 영상AI(Gemni Omni)플로우</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/shorts/… YouTube - 99%모르는 구글 영상AI(Gemni Omni)플로우 도구 기능 활용법 꿀팁 l Shot Explorer, Image Editer, Type Overlays</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/shorts/COVc8LiZLk0" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/COVc8LiZLk0" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/COVc8LiZLk0/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/COVc8LiZLk0" target="_blank" rel="noopener"><span class="th-title">99%모르는 구글 영상AI(Gemni Omni)플로우 도구 기능 활용법 꿀팁 l Shot Explorer, Image Editer, Type Overlays l 40초</span><img src="https://i.ytimg.com/vi/COVc8LiZLk0/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -722,21 +724,21 @@ MAI-Image-2.5는 MAI의 가장 강력한 이미지 모델로, Arena 이미지 �
 <div class="attach"><figure class="v-wrap"><video src="files/1784699284_261749_%F0%9D%97%A7%F0%9D%97%B2%F0%9D%98%80%F0%9D%98%81%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4%20%F0%9D%97%9A%F0%9D%97%B2%F0%9D%97%BA%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B6%20%F0%9D%97%A2%F0%9D%97%BA%F0%9D%97%BB%F0%9D%97%B6%20%F0%9D%97%99%F0%9D%97%B9%F0%9D%97%AE%F0%9D%98%80%F0%9D%97%B5%20%F0%9D%97%B3%F0%9D%97%BC%F0%9D%97%BF%20%F0%9D%97%A9%F0%9D%97%B6%F0%9D%97%B1%F0%9D%97%B2%F0%9D%97%BC.mp4" controls preload="metadata"></video><figcaption>🎬 𝗧𝗲𝘀𝘁𝗶𝗻𝗴 𝗚𝗲𝗺𝗶𝗻𝗶 𝗢𝗺𝗻𝗶 𝗙𝗹𝗮𝘀𝗵 𝗳𝗼𝗿 𝗩𝗶𝗱𝗲𝗼.mp4</figcaption></figure></div>
 </div>
 </article>
-<article class="entry" data-ts="1784699247.578489" data-month="2026-07" data-types="video" data-topics="AI영상생성 ComfyUI·워크플로우 AI툴·LLM" data-search="youtube.com/watch?v=…youtube-thetwoclaudeskillsthatrunourentireaivideopipeline(freedownload+easysetup)https://www.youtube.com/watch?v=0yhhpqvxa7c">
+<article class="entry" data-ts="1784699247.578489" data-month="2026-07" data-types="video" data-topics="AI영상생성 ComfyUI·워크플로우 AI툴·LLM" data-search="youtube.com/watch?v=…youtube-thetwoclaudeskillsthatrunourentireaivideopipeline(freedownload+easysetup)https://www.youtube.com/watch?v=0yhhpqvxa7cthetwoclaudeskillsthatrunourentireaivideopipeline(freedownload+easysetup)">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - The TWO Claude Skills that r</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - The TWO Claude Skills that run our entire AI video pipeline (free download + easy setup)</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=0YhhPQVXA7c" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=0YhhPQVXA7c" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/0YhhPQVXA7c/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=0YhhPQVXA7c" target="_blank" rel="noopener"><span class="th-title">The TWO Claude Skills that run our entire AI video pipeline (free download + easy setup)</span><img src="https://i.ytimg.com/vi/0YhhPQVXA7c/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784699245.237159" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-판타지광고를만드는과정공개합니다_kty아티스트ai공모전https://www.youtube.com/watch?v=9drsv7s4kj8">
+<article class="entry" data-ts="1784699245.237159" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-판타지광고를만드는과정공개합니다_kty아티스트ai공모전https://www.youtube.com/watch?v=9drsv7s4kj8판타지광고를만드는과정공개합니다_kty아티스트ai공모전">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - 판타지 광고를 만드는 과정 공개합니다 _ KT Y아</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - 판타지 광고를 만드는 과정 공개합니다 _ KT Y아티스트 AI공모전</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=9DRSv7s4kj8" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=9DRSv7s4kj8" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/9DRSv7s4kj8/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=9DRSv7s4kj8" target="_blank" rel="noopener"><span class="th-title">판타지 광고를 만드는 과정 공개합니다 _ KT Y아티스트 AI공모전</span><img src="https://i.ytimg.com/vi/9DRSv7s4kj8/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -919,21 +921,21 @@ SEEDANCE 2.0:
 
 </div>
 </article>
-<article class="entry" data-ts="1784698959.444749" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-thepatchwright|cyberpunkshortfilmhttps://www.youtube.com/watch?v=-rzl7nudes4">
+<article class="entry" data-ts="1784698959.444749" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-thepatchwright|cyberpunkshortfilmhttps://www.youtube.com/watch?v=-rzl7nudes4thepatchwright|cyberpunkshortfilm">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - THE PATCHWRIGHT | Cyberpunk </span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - THE PATCHWRIGHT | Cyberpunk Short Film</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=-Rzl7nUdEs4" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=-Rzl7nUdEs4" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/-Rzl7nUdEs4/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=-Rzl7nUdEs4" target="_blank" rel="noopener"><span class="th-title">THE PATCHWRIGHT | Cyberpunk Short Film</span><img src="https://i.ytimg.com/vi/-Rzl7nUdEs4/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784698956.991759" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-곡물도감ai광고제작과정공개할게요https://www.youtube.com/watch?v=yaauxd3jwdq">
+<article class="entry" data-ts="1784698956.991759" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-곡물도감ai광고제작과정공개할게요https://www.youtube.com/watch?v=yaauxd3jwdq곡물도감ai광고제작과정공개할게요">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - 곡물도감 AI광고 제작과정 공개할게요</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - 곡물도감 AI광고 제작과정 공개할게요</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=yAAUXd3jWDQ" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=yAAUXd3jWDQ" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/yAAUXd3jWDQ/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=yAAUXd3jWDQ" target="_blank" rel="noopener"><span class="th-title">곡물도감 AI광고 제작과정 공개할게요</span><img src="https://i.ytimg.com/vi/yAAUXd3jWDQ/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -946,48 +948,48 @@ SEEDANCE 2.0:
 
 </div>
 </article>
-<article class="entry" data-ts="1784698950.640189" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-시댄스2.0의연기력테스트:감정연기를시켜봤습니다https://www.youtube.com/watch?v=oe2tmwye6xu">
+<article class="entry" data-ts="1784698950.640189" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-시댄스2.0의연기력테스트:감정연기를시켜봤습니다https://www.youtube.com/watch?v=oe2tmwye6xu시댄스2.0의연기력테스트:감정연기를시켜봤습니다">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - 시댄스 2.0의 연기력 테스트: 감정 연기를 시켜봤</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - 시댄스 2.0의 연기력 테스트: 감정 연기를 시켜봤습니다</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=oe2TmwYe6xU" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=oe2TmwYe6xU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/oe2TmwYe6xU/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=oe2TmwYe6xU" target="_blank" rel="noopener"><span class="th-title">시댄스 2.0의 연기력 테스트: 감정 연기를 시켜봤습니다</span><img src="https://i.ytimg.com/vi/oe2TmwYe6xU/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784698946.995459" data-month="2026-07" data-types="video" data-topics="AI영상생성 AI툴·LLM" data-search="youtube.com/shorts/…youtube-blueblood-aifilmtrailer|madewithseedance2.0on@openart_aiscreenplaypromptinghttps://www.youtube.com/shorts/gfww6okofro">
+<article class="entry" data-ts="1784698946.995459" data-month="2026-07" data-types="video" data-topics="AI영상생성 AI툴·LLM" data-search="youtube.com/shorts/…youtube-blueblood-aifilmtrailer|madewithseedance2.0on@openart_aiscreenplaypromptinghttps://www.youtube.com/shorts/gfww6okofroblueblood-aifilmtrailer|madewithseedance2.0on@openart_aiscreenplayprompting">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/shorts/… YouTube - BLUE BLOOD - AI Film Trailer </span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/shorts/… YouTube - BLUE BLOOD - AI Film Trailer | Made with Seedance 2.0 on @openart_ai Screenplay Prompting</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/shorts/GFWW6okoFro" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/GFWW6okoFro" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/GFWW6okoFro/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/GFWW6okoFro" target="_blank" rel="noopener"><span class="th-title">BLUE BLOOD - AI Film Trailer | Made with Seedance 2.0 on @openart_ai Screenplay Prompting</span><img src="https://i.ytimg.com/vi/GFWW6okoFro/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784698944.051809" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/shorts/…youtube-fightsceneinseedance2.0https://www.youtube.com/shorts/ccsu6qhyiho">
+<article class="entry" data-ts="1784698944.051809" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/shorts/…youtube-fightsceneinseedance2.0https://www.youtube.com/shorts/ccsu6qhyihofightsceneinseedance2.0🔥#shorts#aivideo#filmmakers">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/shorts/… YouTube - Fight scene in seedance 2.0</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/shorts/… YouTube - Fight scene in seedance 2.0</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/shorts/CCSU6qHyiho" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/CCSU6qHyiho" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/CCSU6qHyiho/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/CCSU6qHyiho" target="_blank" rel="noopener"><span class="th-title">Fight scene in seedance 2.0 🔥#shorts #aivideo #filmmakers</span><img src="https://i.ytimg.com/vi/CCSU6qHyiho/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784698941.147419" data-month="2026-07" data-types="video" data-topics="AI영상생성 AI툴·LLM" data-search="youtube.com/shorts/…youtube-seedance2.5|howipromptaitogeneratecinematicscenehttps://www.youtube.com/shorts/9nqmielznhq">
+<article class="entry" data-ts="1784698941.147419" data-month="2026-07" data-types="video" data-topics="AI영상생성 AI툴·LLM" data-search="youtube.com/shorts/…youtube-seedance2.5|howipromptaitogeneratecinematicscenehttps://www.youtube.com/shorts/9nqmielznhqseedance2.5|howipromptaitogeneratecinematicscene#shorts">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/shorts/… YouTube - Seedance 2.5 | How I Prompt A</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/shorts/… YouTube - Seedance 2.5 | How I Prompt AI To Generate Cinematic Scene</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/shorts/9NqMIelZNHQ" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/9NqMIelZNHQ" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/9NqMIelZNHQ/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/9NqMIelZNHQ" target="_blank" rel="noopener"><span class="th-title">Seedance 2.5 | How I Prompt AI To Generate Cinematic Scene #shorts</span><img src="https://i.ytimg.com/vi/9NqMIelZNHQ/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784698937.808909" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/shorts/…youtube-crazyfightsequenceandcinematicvisualsfromseedance2.0https://www.youtube.com/shorts/pku4dr2knjm">
+<article class="entry" data-ts="1784698937.808909" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/shorts/…youtube-crazyfightsequenceandcinematicvisualsfromseedance2.0https://www.youtube.com/shorts/pku4dr2knjmcrazyfightsequenceandcinematicvisualsfromseedance2.0#shorts#aivideo">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/shorts/… YouTube - Crazy fight sequence and cine</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/shorts/… YouTube - Crazy fight sequence and cinematic visuals from seedance 2.0</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/shorts/pKU4Dr2knJM" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/pKU4Dr2knJM" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/pKU4Dr2knJM/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/shorts/pKU4Dr2knJM" target="_blank" rel="noopener"><span class="th-title">Crazy fight sequence and cinematic visuals from seedance 2.0 #shorts #aivideo</span><img src="https://i.ytimg.com/vi/pKU4Dr2knJM/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -1244,12 +1246,12 @@ _이는 AI 영상 제작에서 가장 어려운 부분인데, 이 영상은 그 
 
 </div>
 </article>
-<article class="entry" data-ts="1784698269.166709" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/watch?v=…youtube-thelazywaytostartyouraishortfilmwithseedance2.0+higgsfieldaihttps://www.youtube.com/watch?v=0oee8npjs5e">
+<article class="entry" data-ts="1784698269.166709" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/watch?v=…youtube-thelazywaytostartyouraishortfilmwithseedance2.0+higgsfieldaihttps://www.youtube.com/watch?v=0oee8npjs5ethelazywaytostartyouraishortfilmwithseedance2.0+higgsfieldai">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - The Lazy Way to Start Your A</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - The Lazy Way to Start Your AI Short Film With Seedance 2.0 + Higgsfield AI</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=0oee8NpjS5E" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=0oee8NpjS5E" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/0oee8NpjS5E/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=0oee8NpjS5E" target="_blank" rel="noopener"><span class="th-title">The Lazy Way to Start Your AI Short Film With Seedance 2.0 + Higgsfield AI</span><img src="https://i.ytimg.com/vi/0oee8NpjS5E/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -1271,12 +1273,12 @@ _이는 AI 영상 제작에서 가장 어려운 부분인데, 이 영상은 그 
 
 </div>
 </article>
-<article class="entry" data-ts="1784698260.881039" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-neweraofcinematicaifilms-cinemastudio3.0https://www.youtube.com/watch?v=y59lwqnmrjy">
+<article class="entry" data-ts="1784698260.881039" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-neweraofcinematicaifilms-cinemastudio3.0https://www.youtube.com/watch?v=y59lwqnmrjyfilmmakersareabouttopanicwhentheyseethis">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - New Era of Cinematic AI Film</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - New Era of Cinematic AI Films - Cinema Studio 3.0</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=Y59LwQNmRJY" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=Y59LwQNmRJY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/Y59LwQNmRJY/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=Y59LwQNmRJY" target="_blank" rel="noopener"><span class="th-title">Filmmakers Are About to Panic When They See This</span><img src="https://i.ytimg.com/vi/Y59LwQNmRJY/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -1307,30 +1309,30 @@ _이는 AI 영상 제작에서 가장 어려운 부분인데, 이 영상은 그 
 
 </div>
 </article>
-<article class="entry" data-ts="1784698238.300619" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/watch?v=…youtube-adventuresoflunlun|seedance2.0musicvideohttps://www.youtube.com/watch?v=hdbrewgfv3a">
+<article class="entry" data-ts="1784698238.300619" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/watch?v=…youtube-adventuresoflunlun|seedance2.0musicvideohttps://www.youtube.com/watch?v=hdbrewgfv3aadventuresoflunlun|seedance2.0musicvideo">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - Adventures Of Lunlun | Seeda</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - Adventures Of Lunlun | Seedance 2.0 Music Video</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=HdBrEWgFV3A" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=HdBrEWgFV3A" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/HdBrEWgFV3A/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=HdBrEWgFV3A" target="_blank" rel="noopener"><span class="th-title">Adventures Of Lunlun | Seedance 2.0 Music Video</span><img src="https://i.ytimg.com/vi/HdBrEWgFV3A/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784698235.729999" data-month="2026-07" data-types="video" data-topics="AI영상생성 ComfyUI·워크플로우" data-search="youtube.com/watch?v=suiwxbo-_zeyoutube-howtouseseedance2.0foraifilmmaking(fullworkflow)https://www.youtube.com/watch?v=suiwxbo-_ze">
+<article class="entry" data-ts="1784698235.729999" data-month="2026-07" data-types="video" data-topics="AI영상생성 ComfyUI·워크플로우" data-search="youtube.com/watch?v=suiwxbo-_zeyoutube-howtouseseedance2.0foraifilmmaking(fullworkflow)https://www.youtube.com/watch?v=suiwxbo-_zehowtouseseedance2.0foraifilmmaking(fullworkflow)">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=suIwxbO-_ZE YouTube - How to Use Seedanc</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=suIwxbO-_ZE YouTube - How to Use Seedance 2.0 for AI Filmmaking (Full Workflow)</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=suIwxbO-_ZE" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=suIwxbO-_ZE" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/suIwxbO-_ZE/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=suIwxbO-_ZE" target="_blank" rel="noopener"><span class="th-title">How to Use Seedance 2.0 for AI Filmmaking (Full Workflow)</span><img src="https://i.ytimg.com/vi/suIwxbO-_ZE/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784698232.799069" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/watch?v=…youtube-wemadeak-popactionseriesusingseedance2.0https://www.youtube.com/watch?v=luwmi0zy0bq">
+<article class="entry" data-ts="1784698232.799069" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/watch?v=…youtube-wemadeak-popactionseriesusingseedance2.0https://www.youtube.com/watch?v=luwmi0zy0bqwemadeak-popactionseriesusingseedance2.0">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - We Made a K-Pop Action Serie</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - We Made a K-Pop Action Series Using Seedance 2.0</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=LUWMI0zy0BQ" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=LUWMI0zy0BQ" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/LUWMI0zy0BQ/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=LUWMI0zy0BQ" target="_blank" rel="noopener"><span class="th-title">We Made a K-Pop Action Series Using Seedance 2.0</span><img src="https://i.ytimg.com/vi/LUWMI0zy0BQ/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -1390,21 +1392,21 @@ happyhorses.io/#… HappyHorse 1.0 — Open-Source AI Video Generation Model (15
 
 </div>
 </article>
-<article class="entry" data-ts="1784698051.516189" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/watch?v=…youtube-darkbarbiebts:realchoreographymeetsaimusicvideoproduction.poweredbyseedance2.0https://www.youtube.com/watch?v=y9qdf1uoa3c">
+<article class="entry" data-ts="1784698051.516189" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/watch?v=…youtube-darkbarbiebts:realchoreographymeetsaimusicvideoproduction.poweredbyseedance2.0https://www.youtube.com/watch?v=y9qdf1uoa3cdarkbarbiebts:realchoreographymeetsaimusicvideoproduction.poweredbyseedance2.0">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - Dark Barbie BTS: Real Choreo</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - Dark Barbie BTS: Real Choreography Meets AI Music Video Production. Powered By SeeDance2.0</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=Y9QdF1Uoa3c" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=Y9QdF1Uoa3c" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/Y9QdF1Uoa3c/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=Y9QdF1Uoa3c" target="_blank" rel="noopener"><span class="th-title">Dark Barbie BTS: Real Choreography Meets AI Music Video Production. Powered By SeeDance2.0</span><img src="https://i.ytimg.com/vi/Y9QdF1Uoa3c/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784698047.230759" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-code:42[ria리아]&quot;o.o&quot;officialm/vhttps://www.youtube.com/watch?v=6k2qfznbves">
+<article class="entry" data-ts="1784698047.230759" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-code:42[ria리아]&quot;o.o&quot;officialm/vhttps://www.youtube.com/watch?v=6k2qfznbvescode:42[ria리아]&quot;o.o&quot;officialm/v">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - CODE:42 [ RIA 리아 ] &quot;O.O&quot; Off</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - CODE:42 [ RIA 리아 ] &quot;O.O&quot; Official M/V</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=6K2QFZNBvEs" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=6K2QFZNBvEs" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/6K2QFZNBvEs/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=6K2QFZNBvEs" target="_blank" rel="noopener"><span class="th-title">CODE:42 [ RIA 리아 ] &quot;O.O&quot; Official M/V</span><img src="https://i.ytimg.com/vi/6K2QFZNBvEs/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -1473,21 +1475,21 @@ Share your thoughts about these 3 AI models</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697858.381119" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtu.be/…youtube-&quot;aihitsdifferent&quot;|billybomanaiproductionsreelii2026https://youtu.be/br-uwtu2www">
+<article class="entry" data-ts="1784697858.381119" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtu.be/…youtube-&quot;aihitsdifferent&quot;|billybomanaiproductionsreelii2026https://youtu.be/br-uwtu2www&quot;aihitsdifferent&quot;abilly'saioriginals|‪billybomanaiproductions">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtu.be/… YouTube - &quot;AI Hits Different&quot; | Billy Boman AI Pr</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtu.be/… YouTube - &quot;AI Hits Different&quot; | Billy Boman AI Productions Reel II 2026</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://youtu.be/bR-UwTU2Www" target="_blank" rel="noopener">youtu.be ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://youtu.be/bR-UwTU2Www" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/bR-UwTU2Www/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://youtu.be/bR-UwTU2Www" target="_blank" rel="noopener"><span class="th-title">&quot;AI Hits Different&quot; a Billy's AI Originals |‪ Billy Boman AI Productions</span><img src="https://i.ytimg.com/vi/bR-UwTU2Www/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697855.420299" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=inyynylngjwyoutube-billysaifood|culinaryreel2026https://www.youtube.com/watch?v=inyynylngjw">
+<article class="entry" data-ts="1784697855.420299" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=inyynylngjwyoutube-billysaifood|culinaryreel2026https://www.youtube.com/watch?v=inyynylngjwbillysaifood|culinaryreel2026">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=inyYNYlngJw YouTube - Billys AI Food | C</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=inyYNYlngJw YouTube - Billys AI Food | Culinary Reel 2026</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=inyYNYlngJw" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=inyYNYlngJw" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/inyYNYlngJw/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=inyYNYlngJw" target="_blank" rel="noopener"><span class="th-title">Billys AI Food | Culinary Reel 2026</span><img src="https://i.ytimg.com/vi/inyYNYlngJw/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -1509,12 +1511,12 @@ Share your thoughts about these 3 AI models</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697846.109499" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtu.be/…youtube-darkbarbie(aik-popmvmadewithmidjourney,seedance2.0,andnanobanana)https://youtu.be/3har7kqks3k">
+<article class="entry" data-ts="1784697846.109499" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtu.be/…youtube-darkbarbie(aik-popmvmadewithmidjourney,seedance2.0,andnanobanana)https://youtu.be/3har7kqks3kdarkbarbie(aik-popmvmadewithmidjourney,seedance2.0,andnanobanana)">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtu.be/… YouTube - Dark Barbie (AI K-pop MV made with MidJ</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtu.be/… YouTube - Dark Barbie (AI K-pop MV made with MidJourney, Seedance2.0, and Nano Banana)</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://youtu.be/3Har7KQKs3k" target="_blank" rel="noopener">youtu.be ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://youtu.be/3Har7KQKs3k" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/3Har7KQKs3k/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://youtu.be/3Har7KQKs3k" target="_blank" rel="noopener"><span class="th-title">Dark Barbie  (AI K-pop MV made with MidJourney, Seedance2.0, and Nano Banana)</span><img src="https://i.ytimg.com/vi/3Har7KQKs3k/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
 
 </div>
 </article>
@@ -1540,48 +1542,48 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697737.409949" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-matanyone2:scalingvideomattingviaalearnedqualityevaluatorhttps://www.youtube.com/watch?v=tyi8cnyjohc">
+<article class="entry" data-ts="1784697737.409949" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-matanyone2:scalingvideomattingviaalearnedqualityevaluatorhttps://www.youtube.com/watch?v=tyi8cnyjohcmatanyone2:scalingvideomattingviaalearnedqualityevaluator">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - MatAnyone 2: Scaling Video M</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - MatAnyone 2: Scaling Video Matting via a Learned Quality Evaluator</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=tyi8CNyjOhc" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=tyi8CNyjOhc" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/tyi8CNyjOhc/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=tyi8CNyjOhc" target="_blank" rel="noopener"><span class="th-title">MatAnyone 2: Scaling Video Matting via a Learned Quality Evaluator</span><img src="https://i.ytimg.com/vi/tyi8CNyjOhc/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697734.432469" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-corridorcrew'sperfectchromakeyaimodel(corridorkey)inunder6gbvram!-tutorialhttps://www.youtube.com/watch?v=6qghgap0rgy">
+<article class="entry" data-ts="1784697734.432469" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-corridorcrew'sperfectchromakeyaimodel(corridorkey)inunder6gbvram!-tutorialhttps://www.youtube.com/watch?v=6qghgap0rgycorridorcrew'sperfectchromakeyaimodel(corridorkey)inunder6gbvram!-tutorial">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - Corridor Crew's PERFECT Chro</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - Corridor Crew's PERFECT Chroma Key AI Model (CorridorKey) in Under 6GB VRAM! - Tutorial</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=6QGHgap0rgY" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=6QGHgap0rgY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/6QGHgap0rgY/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=6QGHgap0rgY" target="_blank" rel="noopener"><span class="th-title">Corridor Crew's PERFECT Chroma Key AI Model (CorridorKey) in Under 6GB VRAM! - Tutorial</span><img src="https://i.ytimg.com/vi/6QGHgap0rgY/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697731.758329" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtu.be/…youtube-onyxaimattev2.1—newfeaturesupdate!https://youtu.be/a0f8nfo-c68">
+<article class="entry" data-ts="1784697731.758329" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtu.be/…youtube-onyxaimattev2.1—newfeaturesupdate!https://youtu.be/a0f8nfo-c68onyxaimattev2.1—newfeaturesupdate!">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtu.be/… YouTube - ONYX Ai Matte v2.1 — NEW FEATURES UPDAT</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtu.be/… YouTube - ONYX Ai Matte v2.1 — NEW FEATURES UPDATE!</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://youtu.be/A0F8nFo-c68" target="_blank" rel="noopener">youtu.be ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://youtu.be/A0F8nFo-c68" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/A0F8nFo-c68/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://youtu.be/A0F8nFo-c68" target="_blank" rel="noopener"><span class="th-title">ONYX AI Matte v2.1 — NEW FEATURES UPDATE!</span><img src="https://i.ytimg.com/vi/A0F8nFo-c68/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697728.917549" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtu.be/ijjmn_xazh0youtube-영상계의나노바나나출시,씨댄스2.0완벽가이드https://youtu.be/ijjmn_xazh0">
+<article class="entry" data-ts="1784697728.917549" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtu.be/ijjmn_xazh0youtube-영상계의나노바나나출시,씨댄스2.0완벽가이드https://youtu.be/ijjmn_xazh0영상계의나노바나나출시,씨댄스2.0완벽가이드">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtu.be/ijJMn_xAZH0 YouTube - 영상계의 나노바나나 출시, 씨댄스2.0 완벽 가이드</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtu.be/ijJMn_xAZH0 YouTube - 영상계의 나노바나나 출시, 씨댄스2.0 완벽 가이드</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://youtu.be/ijJMn_xAZH0" target="_blank" rel="noopener">youtu.be ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://youtu.be/ijJMn_xAZH0" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/ijJMn_xAZH0/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://youtu.be/ijJMn_xAZH0" target="_blank" rel="noopener"><span class="th-title">영상계의 나노바나나 출시, 씨댄스2.0 완벽 가이드</span><img src="https://i.ytimg.com/vi/ijJMn_xAZH0/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697725.484849" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtu.be/…youtube-woodnuts|sci-fishortfilm(cosmichorror)https://youtu.be/nlazubea6x4">
+<article class="entry" data-ts="1784697725.484849" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtu.be/…youtube-woodnuts|sci-fishortfilm(cosmichorror)https://youtu.be/nlazubea6x4woodnuts|sci-fishortfilm(cosmichorror)">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtu.be/… YouTube - WOODNUTS | Sci-Fi Short Film (Cosmic Ho</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtu.be/… YouTube - WOODNUTS | Sci-Fi Short Film (Cosmic Horror)</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://youtu.be/NLAZubEa6X4" target="_blank" rel="noopener">youtu.be ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://youtu.be/NLAZubEa6X4" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/NLAZubEa6X4/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://youtu.be/NLAZubEa6X4" target="_blank" rel="noopener"><span class="th-title">WOODNUTS | Sci-Fi Short Film (Cosmic Horror)</span><img src="https://i.ytimg.com/vi/NLAZubEa6X4/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
 
 </div>
 </article>
@@ -1617,12 +1619,12 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 <div class="attach"><figure class="v-wrap"><video src="files/1784697498_395069_The%20Dor%20Brothers.mp4" controls preload="metadata"></video><figcaption>🎬 The Dor Brothers.mp4</figcaption></figure></div>
 </div>
 </article>
-<article class="entry" data-ts="1784697469.147879" data-month="2026-07" data-types="video" data-topics="VFX·합성" data-search="youtube.com/watch?v=…youtube-onyxaimatte—aisegmentationplugindemo|davinciresolve,nuke,fusionhttps://www.youtube.com/watch?v=0vihbafhdcw">
+<article class="entry" data-ts="1784697469.147879" data-month="2026-07" data-types="video" data-topics="VFX·합성" data-search="youtube.com/watch?v=…youtube-onyxaimatte—aisegmentationplugindemo|davinciresolve,nuke,fusionhttps://www.youtube.com/watch?v=0vihbafhdcwonyxaimatte—aisegmentationplugindemo|davinciresolve,nuke,fusion">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - ONYX AI Matte — AI Segmentat</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - ONYX AI Matte — AI Segmentation Plugin Demo | DaVinci Resolve, Nuke, Fusion</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=0vIHBAfHdcw" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=0vIHBAfHdcw" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/0vIHBAfHdcw/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=0vIHBAfHdcw" target="_blank" rel="noopener"><span class="th-title">ONYX AI Matte — AI Segmentation Plugin Demo | DaVinci Resolve, Nuke, Fusion</span><img src="https://i.ytimg.com/vi/0vIHBAfHdcw/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -1644,12 +1646,12 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697460.828239" data-month="2026-07" data-types="video" data-topics="ComfyUI·워크플로우" data-search="youtube.com/watch?v=…youtube-videoobjectremovalwithai-comfyuitpomnimattezero-aiclean-upshttps://www.youtube.com/watch?v=twj9mqd9-f8">
+<article class="entry" data-ts="1784697460.828239" data-month="2026-07" data-types="video" data-topics="ComfyUI·워크플로우" data-search="youtube.com/watch?v=…youtube-videoobjectremovalwithai-comfyuitpomnimattezero-aiclean-upshttps://www.youtube.com/watch?v=twj9mqd9-f8videoobjectremovalwithai-comfyuitpomnimattezero-aiclean-ups">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - Video Object removal with AI</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - Video Object removal with AI - ComfyUI TP OmnimatteZero - AI Clean-ups</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=TWj9MQD9-F8" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=TWj9MQD9-F8" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/TWj9MQD9-F8/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=TWj9MQD9-F8" target="_blank" rel="noopener"><span class="th-title">Video Object removal with AI - ComfyUI TP OmnimatteZero - AI Clean-ups</span><img src="https://i.ytimg.com/vi/TWj9MQD9-F8/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -1671,30 +1673,30 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 <div class="attach"><figure class="v-wrap"><video src="files/1784697456_543239_Decart.mp4" controls preload="metadata"></video><figcaption>🎬 Decart.mp4</figcaption></figure></div>
 </div>
 </article>
-<article class="entry" data-ts="1784697309.190189" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/shorts/…youtube-'사진한장'이면된다는생성형ai기술근황?https://youtube.com/shorts/luzducj9m-q">
+<article class="entry" data-ts="1784697309.190189" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/shorts/…youtube-'사진한장'이면된다는생성형ai기술근황?https://youtube.com/shorts/luzducj9m-q‘사진한장’이면된다는생성형ai기술근황?ㄷㄷ..">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/shorts/… YouTube - '사진 한 장'이면 된다는 생성형 AI 기술 근황?</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/shorts/… YouTube - '사진 한 장'이면 된다는 생성형 AI 기술 근황?</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://youtube.com/shorts/lUzduCJ9M-Q" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://youtube.com/shorts/lUzduCJ9M-Q" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/lUzduCJ9M-Q/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://youtube.com/shorts/lUzduCJ9M-Q" target="_blank" rel="noopener"><span class="th-title">‘사진 한 장’이면 된다는 생성형 AI 기술 근황?ㄷㄷ..</span><img src="https://i.ytimg.com/vi/lUzduCJ9M-Q/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697302.761469" data-month="2026-07" data-types="video" data-topics="AI영상생성 ComfyUI·워크플로우" data-search="youtube.com/watch?v=…youtube-wanmoveimage2video-fullcameracontrolusingreferencevideoformotiontransferincomfyui!https://www.youtube.com/watch?v=3whnt7smkms">
+<article class="entry" data-ts="1784697302.761469" data-month="2026-07" data-types="video" data-topics="AI영상생성 ComfyUI·워크플로우" data-search="youtube.com/watch?v=…youtube-wanmoveimage2video-fullcameracontrolusingreferencevideoformotiontransferincomfyui!https://www.youtube.com/watch?v=3whnt7smkmswanmoveimage2video-fullcameracontrolusingreferencevideoformotiontransferincomfyui!">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - Wan Move Image2Video - Full </span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - Wan Move Image2Video - Full Camera Control using reference Video for motion transfer in Comfyui!</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=3Whnt7SMKMs" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=3Whnt7SMKMs" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/3Whnt7SMKMs/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=3Whnt7SMKMs" target="_blank" rel="noopener"><span class="th-title">Wan Move Image2Video - Full Camera Control using reference Video for motion transfer in Comfyui!</span><img src="https://i.ytimg.com/vi/3Whnt7SMKMs/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697299.850599" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-충격!!구글'프로젝트지니'직접써본후기.이건진짜미쳤다…https://www.youtube.com/watch?v=huonc4frs1q">
+<article class="entry" data-ts="1784697299.850599" data-month="2026-07" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=…youtube-충격!!구글'프로젝트지니'직접써본후기.이건진짜미쳤다…https://www.youtube.com/watch?v=huonc4frs1q충격!!구글'프로젝트지니'직접써본후기.이건진짜미쳤다…">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - 충격!! 구글 '프로젝트 지니' 직접 써본 후기. </span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - 충격!! 구글 '프로젝트 지니' 직접 써본 후기. 이건 진짜 미쳤다…</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=hUONc4FRS1Q" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=hUONc4FRS1Q" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/hUONc4FRS1Q/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=hUONc4FRS1Q" target="_blank" rel="noopener"><span class="th-title">충격!! 구글 '프로젝트 지니' 직접 써본 후기. 이건 진짜 미쳤다…</span><img src="https://i.ytimg.com/vi/hUONc4FRS1Q/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -1734,30 +1736,30 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697276.591649" data-month="2026-07" data-types="video" data-topics="AI영상생성 ComfyUI·워크플로우 VFX·합성" data-search="youtube.com/watch?v=…youtube-wan2.2animateforvfxworkflow|aiface&amp;characterreplacementhttps://www.youtube.com/watch?v=ejdxkjnts2s">
+<article class="entry" data-ts="1784697276.591649" data-month="2026-07" data-types="video" data-topics="AI영상생성 ComfyUI·워크플로우 VFX·합성" data-search="youtube.com/watch?v=…youtube-wan2.2animateforvfxworkflow|aiface&amp;characterreplacementhttps://www.youtube.com/watch?v=ejdxkjnts2swan2.2animateforvfxworkflow|aiface&amp;characterreplacement">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - Wan 2.2 Animate for VFX Work</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - Wan 2.2 Animate for VFX Workflow | AI Face &amp; Character Replacement</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=ejDXkjNtS2s" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=ejDXkjNtS2s" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/ejDXkjNtS2s/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=ejDXkjNtS2s" target="_blank" rel="noopener"><span class="th-title">Wan 2.2 Animate for VFX Workflow | AI Face &amp; Character Replacement</span><img src="https://i.ytimg.com/vi/ejDXkjNtS2s/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697273.046149" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/watch?v=…youtube-cinematicworldswithgen-4.5|runwayhttps://www.youtube.com/watch?v=ikgrhqk7ql0">
+<article class="entry" data-ts="1784697273.046149" data-month="2026-07" data-types="video" data-topics="AI영상생성" data-search="youtube.com/watch?v=…youtube-cinematicworldswithgen-4.5|runwayhttps://www.youtube.com/watch?v=ikgrhqk7ql0cinematicworldswithgen-4.5|runway">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - Cinematic Worlds with Gen-4.</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - Cinematic Worlds with Gen-4.5 | Runway</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=IKGRhqk7Ql0" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=IKGRhqk7Ql0" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/IKGRhqk7Ql0/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=IKGRhqk7Ql0" target="_blank" rel="noopener"><span class="th-title">Cinematic Worlds with Gen-4.5 | Runway</span><img src="https://i.ytimg.com/vi/IKGRhqk7Ql0/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697269.605029" data-month="2026-07" data-types="video" data-topics="ComfyUI·워크플로우" data-search="youtube.com/watch?v=…youtube-ai-acceleratedcleanups|01.generatingacleanplatewithcomfyuihttps://www.youtube.com/watch?v=qif2q4jwm1m">
+<article class="entry" data-ts="1784697269.605029" data-month="2026-07" data-types="video" data-topics="ComfyUI·워크플로우" data-search="youtube.com/watch?v=…youtube-ai-acceleratedcleanups|01.generatingacleanplatewithcomfyuihttps://www.youtube.com/watch?v=qif2q4jwm1mai-acceleratedcleanups|01.generatingacleanplatewithcomfyui">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - AI-Accelerated Cleanups | 01</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - AI-Accelerated Cleanups | 01. Generating a clean plate with ComfyUI</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=qif2Q4JWm1M" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=qif2Q4JWm1M" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/qif2Q4JWm1M/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=qif2Q4JWm1M" target="_blank" rel="noopener"><span class="th-title">AI-Accelerated Cleanups | 01. Generating a clean plate with ComfyUI</span><img src="https://i.ytimg.com/vi/qif2Q4JWm1M/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -1897,21 +1899,21 @@ STRICTLY AVOID:
 <div class="attach"><figure class="v-wrap"><video src="files/1784697151_538849_Luma%20AI%20Ray3%20Modify_02.mp4" controls preload="metadata"></video><figcaption>🎬 Luma AI Ray3 Modify_02.mp4</figcaption></figure><figure class="v-wrap"><video src="files/1784697151_538849_Luma%20AI%20Ray3%20Modify_01.mp4" controls preload="metadata"></video><figcaption>🎬 Luma AI Ray3 Modify_01.mp4</figcaption></figure></div>
 </div>
 </article>
-<article class="entry" data-ts="1784697124.210119" data-month="2026-07" data-types="video" data-topics="ComfyUI·워크플로우 3D·CG" data-search="youtube.com/watch?v=…youtube-achievingsilky-smooth&quot;camera-centric&quot;freedomwith3dgaussiansplashing:qwen-edit-2511workflowhttps://www.youtube.com/watch?v=9vyxjty9qao">
+<article class="entry" data-ts="1784697124.210119" data-month="2026-07" data-types="video" data-topics="ComfyUI·워크플로우 3D·CG" data-search="youtube.com/watch?v=…youtube-achievingsilky-smooth&quot;camera-centric&quot;freedomwith3dgaussiansplashing:qwen-edit-2511workflowhttps://www.youtube.com/watch?v=9vyxjty9qaoachievingsilky-smooth&quot;camera-centric&quot;freedomwith3dgaussiansplashing:qwen-edit-2511workflow">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - Achieving silky-smooth &quot;came</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - Achieving silky-smooth &quot;camera-centric&quot; freedom with 3D Gaussian splashing: Qwen-Edit-2511 workflow</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=9Vyxjty9Qao" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=9Vyxjty9Qao" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/9Vyxjty9Qao/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=9Vyxjty9Qao" target="_blank" rel="noopener"><span class="th-title">Achieving silky-smooth &quot;camera-centric&quot; freedom with 3D Gaussian splashing: Qwen-Edit-2511 workflow</span><img src="https://i.ytimg.com/vi/9Vyxjty9Qao/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697016.683089" data-month="2026-07" data-types="video" data-topics="AI툴·LLM" data-search="youtu.be/…youtube-lily(1billionfollowerssummitincollaborationwithgooglegemini)https://youtu.be/f2d40ey7p1s">
+<article class="entry" data-ts="1784697016.683089" data-month="2026-07" data-types="video" data-topics="AI툴·LLM" data-search="youtu.be/…youtube-lily(1billionfollowerssummitincollaborationwithgooglegemini)https://youtu.be/f2d40ey7p1slily(1billionfollowerssummitincollaborationwithgooglegemini)">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtu.be/… YouTube - LILY (1 Billion Followers Summit in col</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtu.be/… YouTube - LILY (1 Billion Followers Summit in collaboration with Google Gemini)</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://youtu.be/f2d40eY7P1s" target="_blank" rel="noopener">youtu.be ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://youtu.be/f2d40eY7P1s" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/f2d40eY7P1s/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://youtu.be/f2d40eY7P1s" target="_blank" rel="noopener"><span class="th-title"> LILY (1 Billion Followers Summit in collaboration with Google Gemini)</span><img src="https://i.ytimg.com/vi/f2d40eY7P1s/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
 
 </div>
 </article>
@@ -1933,12 +1935,12 @@ STRICTLY AVOID:
 
 </div>
 </article>
-<article class="entry" data-ts="1784696929.303209" data-month="2026-07" data-types="video" data-topics="AI영상생성 ComfyUI·워크플로우" data-search="youtube.com/watch?v=…youtube-ltx2incomfyuijusttkoeveryotheropen-sourceaivideo–fullhdvideo,local!https://www.youtube.com/watch?v=g2jbquhubfq">
+<article class="entry" data-ts="1784696929.303209" data-month="2026-07" data-types="video" data-topics="AI영상생성 ComfyUI·워크플로우" data-search="youtube.com/watch?v=…youtube-ltx2incomfyuijusttkoeveryotheropen-sourceaivideo–fullhdvideo,local!https://www.youtube.com/watch?v=g2jbquhubfqltx2incomfyuijusttkoeveryotheropen-sourceaivideo–fullhdvideo,local!">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtube.com/watch?v=… YouTube - LTX2 in ComfyUI Just TKO Eve</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtube.com/watch?v=… YouTube - LTX2 in ComfyUI Just TKO Every Other Open-Source AI Video – Full HD Video, Local!</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://www.youtube.com/watch?v=G2JBqUHUbfQ" target="_blank" rel="noopener">youtube.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=G2JBqUHUbfQ" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/G2JBqUHUbfQ/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.youtube.com/watch?v=G2JBqUHUbfQ" target="_blank" rel="noopener"><span class="th-title">LTX2 in ComfyUI Just TKO Every Other Open-Source AI Video – Full HD Video, Local!</span><img src="https://i.ytimg.com/vi/G2JBqUHUbfQ/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtube.com</span></a></div>
 
 </div>
 </article>
@@ -2033,12 +2035,12 @@ picsart.com/create/workflows/2242a0162bc3…</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784696788.002169" data-month="2026-07" data-types="video" data-topics="AI툴·LLM" data-search="youtu.be/…youtube-allcameramovementpromptsinaifilmmaking(38cinematicmoves)https://youtu.be/zqi_pww9qwo">
+<article class="entry" data-ts="1784696788.002169" data-month="2026-07" data-types="video" data-topics="AI툴·LLM" data-search="youtu.be/…youtube-allcameramovementpromptsinaifilmmaking(38cinematicmoves)https://youtu.be/zqi_pww9qwoallcameramovementpromptsinaifilmmaking(38cinematicmoves)">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">youtu.be/… YouTube - ALL Camera Movement Prompts in AI Filmm</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">youtu.be/… YouTube - ALL Camera Movement Prompts in AI Filmmaking (38 Cinematic Moves)</p>
 <div class="e-btns"><a class="btn" style="background:#FF0000;color:#fff" href="https://youtu.be/zQI_pWw9qWo" target="_blank" rel="noopener">youtu.be ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://youtu.be/zQI_pWw9qWo" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/zQI_pWw9qWo/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://youtu.be/zQI_pWw9qWo" target="_blank" rel="noopener"><span class="th-title">ALL Camera Movement Prompts in AI Filmmaking (38 Cinematic Moves)</span><img src="https://i.ytimg.com/vi/zQI_pWw9qWo/mqdefault.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#FF0000;color:#fff">youtu.be</span></a></div>
 
 </div>
 </article>
