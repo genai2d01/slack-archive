@@ -8,6 +8,7 @@ const DATA_FILE = 'data/archive.json';
 const STATE_FILE = 'data/state.json';
 const FILES_DIR = 'files';
 const HTML_FILE = 'archive.html';
+const MAX_FILE_MB = 95; // GitHub 파일당 한도(100MB)보다 살짝 작게
 
 async function slack(method, params = {}) {
   const url = new URL('https://slack.com/api/' + method);
@@ -56,6 +57,7 @@ function fmtDate(ts) {
 }
 
 async function downloadFile(f, ts) {
+  if ((f.size || 0) > MAX_FILE_MB * 1024 * 1024) return null; // 대용량은 저장 생략
   const safe = (f.name || 'file').replace(/[\\/:*?"<>|]/g, '_');
   const rel = FILES_DIR + '/' + ts.replace('.', '_') + '_' + safe;
   if (fs.existsSync(rel)) return rel;
@@ -91,6 +93,10 @@ function renderHtml(archive) {
         `<a class="src-badge" href="${esc(u)}" target="_blank" rel="noopener">${esc(domainOf(u))}</a>`).join(' ');
       let attach = '';
       for (const f of e.files) {
+        if (f.oversized) {
+          attach += `<a class="file-link" href="${esc(f.permalink || '#')}" target="_blank" rel="noopener">📦 ${esc(f.name)} <span class="dim">(용량이 커서 슬랙에서 열림)</span></a>`;
+          continue;
+        }
         const src = encodeURI(f.path);
         if (f.mimetype.startsWith('image/')) attach += `<a href="${src}" target="_blank"><img src="${src}" alt="${esc(f.name)}"></a>`;
         else if (f.mimetype.startsWith('video/')) attach += `<video src="${src}" controls preload="metadata"></video>`;
@@ -173,7 +179,12 @@ function renderHtml(archive) {
     for (const f of m.files || []) {
       try {
         const rel = await downloadFile(f, m.ts);
-        entry.files.push({ path: rel, name: f.name || 'file', mimetype: f.mimetype || '' });
+        if (rel) {
+          entry.files.push({ path: rel, name: f.name || 'file', mimetype: f.mimetype || '' });
+        } else {
+          entry.files.push({ path: '', name: f.name || 'file', mimetype: f.mimetype || '', oversized: true, permalink: f.permalink || '' });
+          console.log('용량 초과로 링크만 기록: ' + (f.name || ''));
+        }
       } catch (e) { console.warn('파일 다운로드 실패: ' + (f.name || '') + ' — ' + e.message); }
     }
     if (entry.text || entry.links.length || entry.files.length) archive.push(entry);
