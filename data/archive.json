@@ -1,5 +1,14 @@
 [
   {
+    "ts": "1786327879.865299",
+    "date": "2026-08-10",
+    "text": "youtube.com/watch?v=weXc-JGwewo\n\n유튜브 기본 자막의 품질이 좋지 않아, 아래 폴더에 클로드를 활용해 한글 자막을 추가해두었습니다.\n영상이 다소 길지만 내용이 좋은 세미나 영상이니, 시간 되실 때 천천히 전체 시청해보시면 좋을 것 같습니다.\n\n=========================================\n\nP:\\graphic\\library\\영상\\Tutorial\\AI\\seminar\n\n=========================================",
+    "links": [
+      "https://www.youtube.com/watch?v=weXc-JGwewo"
+    ],
+    "files": []
+  },
+  {
     "ts": "1786325142.478699",
     "date": "2026-08-10",
     "text": "claudeskills.info/skills/OSideMedia/higgsfield-ai-prompt-skill/higgsfield-seedance-vfx\n\nskillsllm.com/skill/ai-video-generator-claude\n\ngithub.com/smixs/creative-director-skill\n\ngithub.com/smixs/visual-skills\n\n본체 `SKILL.md`는 얇은 라우터이고, 그 장치는 에이전트가 순서대로 불러와야 하는 참조 파일 속에 존재합니다.\n1. 극작술 ( `dramaturgy.md`) — 장면 구성, 박자, 샷 기능, 리듬.\n2. 보편적 규칙 ( `universal-rules.md`) — 모든 모델에 적용되는 12가지 규칙: 프롬프트 골격, 캐릭터 앵커, 보여주되 말하지 않기, 지속 시간 규율, 최종 이미지 규칙.\n3. 하나의 모델 파일 — `seedance.md`또는 `kling.md`: `veo.md`정확한 구문, 멀티샷 마커, 대화 프로토콜, 참조 태그, 수정 사항이 포함된 오류 모드.\n4. 필요에 따라 작업 모듈 제공 - 스토리보드 및 역할 모드, 애니매틱 키프레임, 속도 및 진행 문법, 장르 패턴, 프롬프트 수정 골격, 카메라 및 조명 용어.\n5. 출력 전 두 가지 필수 검사가 있습니다 . 6가지 핵심 사항에 대한 극적 구성 검사와 모든 장면에 대한 3가지 세부 사항 검토입니다. 이 중 하나라도 통과하지 못한 프롬프트는 출하되지 않습니다.",
