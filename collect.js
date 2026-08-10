@@ -14,7 +14,7 @@ const THUMBS_DIR = 'files/thumbs';
 const HTML_FILE = 'archive.html';
 const MAX_FILE_MB = 95;
 const THUMB_BUDGET = 40;
-const CONVERT_BUDGET = 10; // 실행 1회당 영상 변환 최대 개수
+const CONVERT_BUDGET = 20; // 실행 1회당 영상 변환 최대 개수
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
 
@@ -110,41 +110,55 @@ async function downloadFile(f, ts) {
   return rel;
 }
 
-// ---------- 영상 코덱 검사·변환 (브라우저에서 재생 안 되는 코덱 → H.264) ----------
-function ffprobeCodec(p) {
+// ---------- 영상 코덱 검사·변환 ----------
+// 브라우저 재생 조건: h264/vp8/vp9/av1 + 8비트 yuv420 픽셀 형식. 그 외 전부 H.264로 변환.
+function ffprobeInfo(p) {
   try {
-    return execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0',
-      '-show_entries', 'stream=codec_name', '-of', 'csv=p=0', p]).toString().trim();
+    const out = execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0',
+      '-show_entries', 'stream=codec_name,pix_fmt', '-of', 'csv=p=0', p]).toString().trim();
+    const [codec, pix] = out.split(',');
+    return { codec: (codec || '').trim(), pix: (pix || '').trim() };
   } catch { return null; }
 }
 
+function isWebPlayable(info) {
+  if (!info) return true; // 판별 불가 시 변환하지 않고 그대로 둠
+  const okCodec = ['h264', 'vp8', 'vp9', 'av1'].includes(info.codec);
+  const okPix = info.pix === 'yuv420p' || info.pix === 'yuvj420p';
+  return okCodec && okPix;
+}
+
 function ensureWebVideos(archive) {
-  const WEB_OK = ['h264', 'vp8', 'vp9', 'av1'];
   let budget = CONVERT_BUDGET;
   for (const e of archive) {
     for (const f of e.files) {
-      if (f.oversized || f.web) continue;
+      if (f.oversized || f.webok) continue;
       if (!(f.mimetype || '').startsWith('video/')) continue;
-      if (!f.path || !fs.existsSync(f.path)) { f.web = true; continue; }
+      if (!f.path || !fs.existsSync(f.path)) { f.webok = true; continue; }
       if (budget <= 0) continue;
-      const codec = ffprobeCodec(f.path);
-      if (!codec || WEB_OK.includes(codec)) { f.web = true; continue; }
+      const info = ffprobeInfo(f.path);
+      if (isWebPlayable(info)) { f.webok = true; continue; }
       budget--;
-      const out = f.path.replace(/\.[^.]+$/, '') + '_web.mp4';
+      const out = f.path.replace(/(_web)?\.[^.]+$/, '') + '_web2.mp4';
       try {
         execFileSync('ffmpeg', ['-y', '-i', f.path,
           '-vf', 'scale=trunc(iw/2)*2:trunc(ih/2)*2',
-          '-c:v', 'libx264', '-preset', 'fast', '-crf', '23', '-pix_fmt', 'yuv420p',
+          '-c:v', 'libx264', '-preset', 'fast', '-crf', '23',
+          '-profile:v', 'high', '-pix_fmt', 'yuv420p',
           '-c:a', 'aac', '-movflags', '+faststart', out], { stdio: 'ignore' });
         if (fs.statSync(out).size > MAX_FILE_MB * 1024 * 1024) {
-          fs.unlinkSync(out); f.web = true;
+          fs.unlinkSync(out); f.webok = true;
           console.log('변환 결과가 너무 커서 원본 유지: ' + f.name);
           continue;
         }
         fs.unlinkSync(f.path);
-        f.path = out; f.mimetype = 'video/mp4'; f.web = true;
-        console.log('영상 변환 완료(' + codec + ' → h264): ' + f.name);
-      } catch { console.warn('영상 변환 실패: ' + f.name); f.web = true; }
+        f.path = out; f.mimetype = 'video/mp4'; f.webok = true;
+        console.log('영상 변환 완료(' + info.codec + '/' + info.pix + ' → h264/yuv420p): ' + f.name);
+      } catch {
+        f.tries = (f.tries || 0) + 1;
+        if (f.tries >= 3) { f.webok = true; console.warn('변환 3회 실패, 포기: ' + f.name); }
+        else console.warn('변환 실패(다음 실행 때 재시도): ' + f.name);
+      }
     }
   }
 }
@@ -224,8 +238,8 @@ function entryTypes(e) {
   const t = new Set();
   const hasYt = e.links.some(u => youtubeId(u));
   const hasVidFile = e.files.some(f => (f.mimetype || '').startsWith('video/'));
-  if (hasYt || hasVidFile) t.add('video');                 // 영상/유튜브
-  if (e.links.some(u => !youtubeId(u))) t.add('link');     // 유튜브 제외 일반 링크
+  if (hasYt || hasVidFile) t.add('video');
+  if (e.links.some(u => !youtubeId(u))) t.add('link');
   for (const f of e.files) {
     if ((f.mimetype || '').startsWith('image/')) t.add('image');
     else if (!(f.mimetype || '').startsWith('video/')) t.add('doc');
