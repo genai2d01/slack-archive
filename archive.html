@@ -22,6 +22,11 @@
   .chip { background:var(--panel); border:1px solid var(--line); color:var(--text-dim); padding:8px 15px;
     border-radius:999px; font-size:13px; cursor:pointer; }
   .chip.on { background:var(--accent); color:#0f1115; border-color:var(--accent); font-weight:700; }
+  .lbl { font-size:12px; color:var(--text-mute); margin-left:2px; }
+  .vgroup { display:flex; gap:6px; align-items:center; }
+  .sub-btn { background:var(--panel-2); border:1px dashed var(--line); color:var(--text-dim); padding:7px 13px;
+    border-radius:999px; font-size:12.5px; cursor:pointer; }
+  .sub-btn:hover { border-color:var(--accent); color:var(--accent); }
   select { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:9px 10px; border-radius:9px; font-size:13px; }
   .count-line { color:var(--text-mute); font-size:12.5px; margin-left:auto; }
   .count-line b { color:var(--accent); }
@@ -90,16 +95,17 @@
   <header>
     <div class="eyebrow">Slack Auto Archive</div>
     <h1>#genai-2d_정보-공유 채널</h1>
-    <p class="sub">슬랙 아카이브 · 총 280건 · 마지막 갱신 2026-08-10 14:56 (KST)</p>
+    <p class="sub">슬랙 아카이브 · 총 280건 · 마지막 갱신 2026-08-10 15:14 (KST)</p>
   </header>
   <div class="controls">
     <input id="q" type="search" placeholder="검색 — 제목·링크·파일명 (띄어쓰기 무관)">
-    <select id="viewSel">
-      <option value="expand">보기: 펼침</option>
-      <option value="collapse">보기: 접기식</option>
-      <option value="fixed">보기: 균일 크기</option>
-    </select>
-    <button type="button" id="allTgl" class="chip" style="display:none">모두 접기</button>
+    <span class="lbl">보기</span>
+    <div class="vgroup">
+      <button type="button" id="viewCollapse" class="chip on">접기식</button>
+      <button type="button" id="btnCloseAll" class="sub-btn">모두 접기</button>
+      <button type="button" id="btnOpenAll" class="sub-btn">모두 펼치기</button>
+      <button type="button" id="viewFixed" class="chip">균일 크기</button>
+    </div>
     <select id="sortSel">
       <option value="new">최신순</option>
       <option value="old">오래된순</option>
@@ -114,7 +120,7 @@
     <button type="button" class="chip" data-type="text">텍스트</button>
     <span class="count-line">총 280건 중 <b id="resultCount">280</b>건 표시</span>
   </div>
-  <main id="archiveRoot" class="view-expand">
+  <main id="archiveRoot" class="view-collapse">
   <section class="month" data-key="2026-08" style="--maccent:#b3a1e0"><div class="month-head"><h2>2026년 8월</h2><span class="count">19건</span><button type="button" class="m-tgl">▾ 접기</button></div>
 <div class="m-body">
 <article class="entry" data-ts="1786327879.865299" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=wexc-jgwewo유튜브기본자막의품질이좋지않아,아래폴더에클로드를활용해한글자막을추가해두었습니다.영상이다소길지만내용이좋은세미나영상이니,시간되실때천천히전체시청해보시면좋을것같습니다.=========================================p:\graphic\library\영상\tutorial\ai\seminar=========================================https://www.youtube.com/watch?v=wexc-jgwewocontrollingtheframe:thefutureofaivfx|siggraph2026boftalk">
@@ -3218,8 +3224,10 @@ Light-A-Video: Training-free Video Relighting via Progressive Light Fusion</p>
 <script>
 (function () {
   var q = document.getElementById('q');
-  var viewSel = document.getElementById('viewSel');
-  var allTgl = document.getElementById('allTgl');
+  var viewCollapse = document.getElementById('viewCollapse');
+  var viewFixed = document.getElementById('viewFixed');
+  var btnCloseAll = document.getElementById('btnCloseAll');
+  var btnOpenAll = document.getElementById('btnOpenAll');
   var sortSel = document.getElementById('sortSel');
   var topicSel = document.getElementById('topicSel');
   var monthSel = document.getElementById('monthSel');
@@ -3230,7 +3238,6 @@ Light-A-Video: Training-free Video Relighting via Progressive Light Fusion</p>
   var toTop = document.getElementById('toTop');
   var root = document.getElementById('archiveRoot');
   var activeType = 'all';
-  var allClosed = false;
   function norm(s) { return (s || '').toLowerCase().replace(/\s+/g, ''); }
   function hasWord(attr, w) { return (' ' + attr + ' ').indexOf(' ' + w + ' ') !== -1; }
   function apply() {
@@ -3272,26 +3279,29 @@ Light-A-Video: Training-free Video Relighting via Progressive Light Fusion</p>
       es.forEach(function (e) { body.appendChild(e); });
     });
   }
-  function setView() {
-    var v = viewSel.value;
-    root.classList.remove('view-expand', 'view-collapse', 'view-fixed');
-    root.classList.add('view-' + v);
-    allTgl.style.display = v === 'collapse' ? '' : 'none';
-    if (v !== 'collapse') {
+  function setView(mode) {
+    root.classList.remove('view-collapse', 'view-fixed');
+    root.classList.add('view-' + mode);
+    viewCollapse.classList.toggle('on', mode === 'collapse');
+    viewFixed.classList.toggle('on', mode === 'fixed');
+    var showSub = mode === 'collapse' ? '' : 'none';
+    btnCloseAll.style.display = showSub;
+    btnOpenAll.style.display = showSub;
+    if (mode !== 'collapse') {
       entries.forEach(function (el) { el.classList.remove('closed'); });
-      allClosed = false;
-      allTgl.textContent = '모두 접기';
     }
   }
   q.addEventListener('input', apply);
   monthSel.addEventListener('change', apply);
   topicSel.addEventListener('change', apply);
   sortSel.addEventListener('change', resort);
-  viewSel.addEventListener('change', setView);
-  allTgl.addEventListener('click', function () {
-    allClosed = !allClosed;
-    entries.forEach(function (el) { el.classList.toggle('closed', allClosed); });
-    allTgl.textContent = allClosed ? '모두 펼치기' : '모두 접기';
+  viewCollapse.addEventListener('click', function () { setView('collapse'); });
+  viewFixed.addEventListener('click', function () { setView('fixed'); });
+  btnCloseAll.addEventListener('click', function () {
+    entries.forEach(function (el) { el.classList.add('closed'); });
+  });
+  btnOpenAll.addEventListener('click', function () {
+    entries.forEach(function (el) { el.classList.remove('closed'); });
   });
   document.querySelectorAll('.e-head').forEach(function (h) {
     h.addEventListener('click', function () {
@@ -3320,7 +3330,7 @@ Light-A-Video: Training-free Video Relighting via Progressive Light Fusion</p>
     else toTop.classList.remove('show');
   });
   toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-  setView();
+  setView('collapse');
 })();
 </script>
 </body>

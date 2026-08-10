@@ -64,7 +64,8 @@
         "name": "Emotion_Flow.mp4",
         "mimetype": "video/mp4",
         "web": true,
-        "webok": true
+        "webok": true,
+        "tries": 1
       }
     ]
   },
