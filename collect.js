@@ -40,7 +40,7 @@ const BRAND = {
 // 월별 톤온톤 포인트 컬러 (월 숫자 기준 고정 — 7월은 항상 같은 색)
 const MONTH_COLORS = ['#7dd3c0', '#8fb8de', '#b3a1e0', '#d9c08a', '#d99aa8', '#93c99a'];
 
-// 주제 자동 분류 규칙 (위에서부터 순서대로 검사, 여러 주제에 동시 포함 가능)
+// 주제 자동 분류 규칙 (여러 주제에 동시 포함 가능)
 const TOPICS = [
   { name: 'AI영상생성', keywords: ['seedance', 'runway', 'luma', 'kling', 'veo', 'ltx', 'wan', 'higgsfield', 'sora', 'midjourney', 'nano banana', 'ai video', 'aivideo', 'reve', 'decart', 'vace'] },
   { name: 'ComfyUI·워크플로우', keywords: ['comfyui', 'griptape', 'workflow', '워크플로우', 'prism', 'kitsu', 'pipeline'] },
@@ -268,7 +268,7 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>슬랙 아카이브 — ${esc(CHANNEL_NAME)}</title>
+<title>#${esc(CHANNEL_NAME)} — 슬랙 아카이브</title>
 <style>
   :root { --bg:#0f1115; --panel:#161a21; --panel-2:#1c212a; --line:#262c37; --line-soft:#1f242e;
     --text:#e6e9ef; --text-dim:#9aa4b2; --text-mute:#6b7482; --accent:#7dd3c0; }
@@ -337,8 +337,8 @@ ${entries.map(e => renderEntry(e, thumbs)).join('\n')}
 <div class="wrap">
   <header>
     <div class="eyebrow">Slack Auto Archive</div>
-    <h1>슬랙 아카이브</h1>
-    <p class="sub">#${esc(CHANNEL_NAME)} 채널 · 총 ${archive.length}건 · 마지막 갱신 ${now} (KST)</p>
+    <h1>#${esc(CHANNEL_NAME)} 채널</h1>
+    <p class="sub">슬랙 아카이브 · 총 ${archive.length}건 · 마지막 갱신 ${now} (KST)</p>
   </header>
   <div class="controls">
     <input id="q" type="search" placeholder="검색 — 제목·링크·파일명 (띄어쓰기 무관)">
