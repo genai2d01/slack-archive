@@ -1,0 +1,2766 @@
+[
+  {
+    "ts": "1786325142.478699",
+    "date": "2026-08-10",
+    "text": "claudeskills.info/skills/OSideMedia/higgsfield-ai-prompt-skill/higgsfield-seedance-vfx\n\nskillsllm.com/skill/ai-video-generator-claude\n\ngithub.com/smixs/creative-director-skill\n\ngithub.com/smixs/visual-skills\n\n본체 `SKILL.md`는 얇은 라우터이고, 그 장치는 에이전트가 순서대로 불러와야 하는 참조 파일 속에 존재합니다.\n1. 극작술 ( `dramaturgy.md`) — 장면 구성, 박자, 샷 기능, 리듬.\n2. 보편적 규칙 ( `universal-rules.md`) — 모든 모델에 적용되는 12가지 규칙: 프롬프트 골격, 캐릭터 앵커, 보여주되 말하지 않기, 지속 시간 규율, 최종 이미지 규칙.\n3. 하나의 모델 파일 — `seedance.md`또는 `kling.md`: `veo.md`정확한 구문, 멀티샷 마커, 대화 프로토콜, 참조 태그, 수정 사항이 포함된 오류 모드.\n4. 필요에 따라 작업 모듈 제공 - 스토리보드 및 역할 모드, 애니매틱 키프레임, 속도 및 진행 문법, 장르 패턴, 프롬프트 수정 골격, 카메라 및 조명 용어.\n5. 출력 전 두 가지 필수 검사가 있습니다 . 6가지 핵심 사항에 대한 극적 구성 검사와 모든 장면에 대한 3가지 세부 사항 검토입니다. 이 중 하나라도 통과하지 못한 프롬프트는 출하되지 않습니다.",
+    "links": [
+      "https://claudeskills.info/skills/OSideMedia/higgsfield-ai-prompt-skill/higgsfield-seedance-vfx/",
+      "https://skillsllm.com/skill/ai-video-generator-claude",
+      "https://github.com/smixs/creative-director-skill",
+      "https://github.com/smixs/visual-skills"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1786325065.900149",
+    "date": "2026-08-10",
+    "text": "youtube.com/watch?v=FwxTpOkmRik",
+    "links": [
+      "https://www.youtube.com/watch?v=FwxTpOkmRik"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1786325027.145679",
+    "date": "2026-08-10",
+    "text": "youtu.be/UiFmGrQ_X6E",
+    "links": [
+      "https://youtu.be/UiFmGrQ_X6E"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1786080724.463699",
+    "date": "2026-08-07",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1786080724_463699_re-action.mp4",
+        "name": "re-action.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1786080539.433309",
+    "date": "2026-08-07",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1786080539_433309_Emotion_Flow.mp4",
+        "name": "Emotion_Flow.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1786080344.620269",
+    "date": "2026-08-07",
+    "text": "Claude Code는 프로젝트 구조가 Claude에게 작업 방식을 가르쳐줄 때 훨씬 더 강력해집니다.\n잘 구성된 프로젝트는 Claude에게 지속적인 컨텍스트, 제어된 도구 접근 권한, 재사용 가능한 워크플로, 전문화된 에이전트, 그리고 자동화된 안전 점검을 제공합니다.\n그 기반은 *CLAUDE.md*입니다.\n`CLAUDE.md`는 세션이 시작될 때 자동으로 로드되며, 프로젝트 개요, 기술 스택, 아키텍처, 명령어, 코딩 규칙 등을 정의합니다. 개인별 또는 로컬 환경 전용 설정은 *CLAUDE.local.md*에 별도로 저장할 수 있습니다.\n그 이후에는 각 구성 요소가 고유한 역할을 담당합니다.\n• *.mcp.json*: GitHub, Jira, Slack, 데이터베이스 등 외부 시스템과 Claude Code를 연결합니다.\n• *settings.json*: 권한, 도구 접근, 모델 선택, 훅(Hooks) 등을 제어하며, 개발자별 로컬 설정도 지원합니다.\n• *rules/*: 코드 스타일, 테스트 방식, API 규칙 등 주제별 코딩 표준을 분리하여 관리합니다.\n• *commands/*: 코드 리뷰나 이슈 해결과 같은 반복 작업을 슬래시 명령으로 재사용할 수 있도록 합니다.\n• *skills/*: 필요한 작업에서만 특정 지식을 불러와 활성 컨텍스트를 가볍고 집중된 상태로 유지합니다.\n• *agents/*: 코드 리뷰어, 보안 감사자 등 역할이 분리된 전문 서브 에이전트를 정의하며, 각각 독립적인 역할, 도구, 모델 설정을 가질 수 있습니다.\n• *hooks/*: 도구 실행 전후에 스크립트를 자동으로 실행하여 검증, 포맷팅, 린트, 안전성 검사 등을 수행합니다.\n진정한 장점은 *일관성*입니다.\n더 이상 모든 프롬프트에서 같은 지시를 반복할 필요가 없습니다. 프로젝트 자체가 Claude에게 필요한 컨텍스트, 규칙, 워크플로, 그리고 안전장치를 제공합니다.\n잘 설계된 Claude Code 프로젝트 구조는 AI 기반 개발을 일회성 프롬프트 작성에서 벗어나, *반복 가능하고 체계적인 엔지니어링 시스템*으로 발전시켜 줍니다.",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1786080344_620269_Claude_markdown.gif",
+        "name": "Claude_markdown.gif",
+        "mimetype": "image/gif"
+      }
+    ]
+  },
+  {
+    "ts": "1786080153.083969",
+    "date": "2026-08-07",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1786080153_083969_ComfyUI_MCP.mp4",
+        "name": "ComfyUI_MCP.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1786071034.346779",
+    "date": "2026-08-07",
+    "text": "*AI 와이어 제거*\n스턴트 와이어 제거 — 로토 작업도, 트래킹도, 수작업 페인팅도 필요 없습니다.\n샷을 넣고, 폴더를 지정한 뒤, 실행만 하면 됩니다. 단일 GPU 기준으로 샷 하나당 약 90초 정도면 처리됩니다.\n이 모델은 제가 직접 학습시켰습니다. 시중의 모델을 가져다 쓰거나 다른 사람의 API를 감싼 래퍼가 아닙니다. 실제 와이어 리깅 촬영 데이터를 직접 구축하고, 모델을 학습시키며, 샷 단위로 성능을 검증했습니다.\n프레임별 마스크 작업도 필요 없고, 트래킹 마커도 필요 없으며, 클린 플레이트를 만들 필요도 없습니다. 모델이 리깅을 스스로 찾아내고, 그 뒤에 가려져 있던 배경을 자연스럽게 복원합니다.\n모든 작업은 사용자의 로컬 머신에서만 실행됩니다. 영상은 외부로 전송되지 않으며, 클라우드 서비스를 전혀 사용하지 않습니다. 네트워크를 완전히 끊은 환경에서도 정상적으로 동작합니다.\n비디오 파일은 물론 EXR·DPX 시퀀스도 지원합니다. 결과는 원본 컬러 스페이스를 그대로 유지한 EXR로 출력되며, 수정이 필요한 영역을 제외한 모든 픽셀은 원본 플레이트를 그대로 사용합니다. 따라서 기존 컬러 그레이딩도 온전히 유지됩니다.\n다음 버전에서는 카라비너(Carabiner)와 더 큰 리깅 하드웨어까지 제거할 수 있도록 지원 범위를 확대할 예정입니다.\n최종 결과는 여전히 사람이 검수합니다. 하지만 사람이 직접 손으로 해야 하는 작업량은 크게 줄었습니다.\n곧 출시됩니다. 출시 소식을 받아보고 싶다면 팔로우해 주세요. 또는 여러분이 주로 다루는 샷의 종류를 메시지로 보내주시면 테스트 대상으로 검토해 보겠습니다.\n*4개의 샷, Before & After로 확인해 보세요.*",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1786071034_346779_wire.mp4",
+        "name": "wire.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1786013677.146849",
+    "date": "2026-08-06",
+    "text": "youtube.com/watch?v=jvftx3eXKaU",
+    "links": [
+      "https://www.youtube.com/watch?v=jvftx3eXKaU"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1786000649.379499",
+    "date": "2026-08-06",
+    "text": "youtube.com/watch?v=…",
+    "links": [
+      "https://www.youtube.com/watch?v=miIDu04N7_4"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1785989454.171329",
+    "date": "2026-08-06",
+    "text": "단일영상기반 모션캡처 GVHMR 링크 공유드립니다!\n\ngithub.com/zju3dv/GVHMR",
+    "links": [
+      "https://github.com/zju3dv/GVHMR"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1785755403.394649",
+    "date": "2026-08-03",
+    "text": "youtube.com/watch?v=xjyuNokwAPw",
+    "links": [
+      "https://www.youtube.com/watch?v=xjyuNokwAPw"
+    ],
+    "files": [
+      {
+        "path": "files/1785755403_394649_image.png",
+        "name": "image.png",
+        "mimetype": "image/png"
+      }
+    ]
+  },
+  {
+    "ts": "1785725713.813789",
+    "date": "2026-08-03",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1785725713_813789_test.mp4",
+        "name": "test.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1785722196.712579",
+    "date": "2026-08-03",
+    "text": "youtube.com/watch?v=c1xLaOJBdjM",
+    "links": [
+      "https://www.youtube.com/watch?v=c1xLaOJBdjM"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1785721635.281579",
+    "date": "2026-08-03",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1785721635_281579_depth.mp4",
+        "name": "depth.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1785721478.089809",
+    "date": "2026-08-03",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1785721478_089809_ltx.mp4",
+        "name": "ltx.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1785721412.353339",
+    "date": "2026-08-03",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1785721412_353339_before_after.mp4",
+        "name": "before_after.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1785721119.680469",
+    "date": "2026-08-03",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1785721119_680469_polyplay.mp4",
+        "name": "polyplay.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1785490257.330169",
+    "date": "2026-07-31",
+    "text": "시댄스 2.5 활용예시\n bytedance.larkoffice.com/wiki/…?from=from_copylink",
+    "links": [
+      "https://bytedance.larkoffice.com/wiki/O3mXwSFm5i48IJkjXdNcHsqDnfd?from=from_copylink"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1785381718.164979",
+    "date": "2026-07-30",
+    "text": "provideocoalition.com/is-this-the-future-of-filmmaking",
+    "links": [
+      "https://www.provideocoalition.com/is-this-the-future-of-filmmaking/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1785381695.023719",
+    "date": "2026-07-30",
+    "text": "docs.beeble.ai/beeble/switchx",
+    "links": [
+      "https://docs.beeble.ai/beeble/switchx"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1785223044.693079",
+    "date": "2026-07-28",
+    "text": "reddit.com/r/generativeAI/…/stop_trying_to_prompt_for_character_consistency",
+    "links": [
+      "https://www.reddit.com/r/generativeAI/comments/1uwbbz6/stop_trying_to_prompt_for_character_consistency/"
+    ],
+    "files": [
+      {
+        "path": "files/1785223044_693079_i7nbybecm7dh1.png",
+        "name": "i7nbybecm7dh1.png",
+        "mimetype": "image/png"
+      }
+    ]
+  },
+  {
+    "ts": "1785222017.620539",
+    "date": "2026-07-28",
+    "text": "youtube.com/watch?v=…",
+    "links": [
+      "https://www.youtube.com/watch?v=7QJ8c8ME0Z4"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1785202970.686819",
+    "date": "2026-07-28",
+    "text": "reddit.com/r/StableDiffusion/…/cleared_the_titanics_deck_of_all_sentimentality?solution=…&share_id=…&…",
+    "links": [
+      "https://www.reddit.com/r/StableDiffusion/comments/1v57vjd/cleared_the_titanics_deck_of_all_sentimentality/?solution=fd55d206624a1a01fd55d206624a1a01&js_challenge=1&token=7afd7253fec22262ff1c52b1703fe9ecd0ece80c8041635e739f50077d33ed76&jsc_orig_r=&share_id=2b5gpFT9UMNUxu3w13tlf&utm_content=2&utm_medium=ios_app&utm_name=ioscss&utm_source=share&utm_term=1"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1785143831.417969",
+    "date": "2026-07-27",
+    "text": "혜리 예쁘다고 난리 난 AI 광고 영상 제작 과정 공개!\n실사촬영 기반으로 광고 제작한 영상이 있어 공유드립니다.",
+    "links": [
+      "https://www.youtube.com/watch?v=9dQ-NZwG800"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1785122974.101779",
+    "date": "2026-07-27",
+    "text": "youtube.com/watch?v=…\n\n디스트릭트 9 감독의 Full-Ai 단편영화",
+    "links": [
+      "https://www.youtube.com/watch?v=8Wbtt2JxP7g"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784886214.513289",
+    "date": "2026-07-24",
+    "text": "해당 AI 영화 트레일러 제작자의 제작 팁 영상과 인터뷰를 바탕으로 정리한 피그마 링크입니다.\nAI 영화 제작 과정과 관련된 팁과 함께 저의 개인적인 의견도 일부 포함했습니다.\n기존에 알고 있던 내용도 있지만 새롭게 알게 된 유용한 팁도 있어 공유드립니다.\n\nfigma.com/design/…?node-id=1212-167&t=…",
+    "links": [
+      "https://www.figma.com/design/556a5RPhPRgg6ds3A23VJD/%EC%9D%B4%EC%98%81%ED%98%84-%EA%B0%9C%EC%9D%B8%EA%B3%B5%EA%B0%84?node-id=1212-167&t=7DoUNgQfdDmly9AR-1"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784777307.976139",
+    "date": "2026-07-23",
+    "text": "TARGETED HAIR TEXTURE REFINEMENT ONLY.\nDO NOT REGENERATE THE PERSON.\nDO NOT REDESIGN THE HAIRSTYLE.\n\nPreserve the face, identity, expression, pose, hand position, jacket, clothing, body proportions, lighting, background, and overall composition exactly as they are.\n\nOnly refine the hair texture.\nImprove the hair so it looks less blurry and less clumped, with clearer strand definition and more natural hair fiber detail.\n\nEnhance:\n- fine strand separation\n- subtle hair texture\n- clean directional hair flow\n- soft natural sheen\n- delicate specular highlights following the direction of the hair\n\nThe hair should look smoother, more defined, and more realistic, but not overly sharpened.\n\nDo not change:\n- hairstyle\n- hair shape\n- hair volume\n- hair length\n- hairline\n- hair direction\n- pose or composition\n\nDo not add extra flyaway hair.\nDo not make the hair look wet, greasy, plastic, overly glossy, or artificially sharpened.\n\nOnly restore and refine the existing hair detail.\n\nRefine only the existing hair texture by restoring fine strand definition, subtle strand separation, and soft directional specular highlights, without changing the hairstyle.\n\n카탈로그 모델 작업했을때, 헤어 디테일 리파인 프롬프트 공유드립니다. (모발 뭉침 현상 개선 및 실사 퀄리티 업그레이드 용도) 필요하신 분들은 자유롭게 사용해 주세요.\n\n좀 더 간단한건  아래 꺼 쓰셔도 잘 나오긴 합니다.\n\nRefine only the existing hair texture by restoring fine strand definition, subtle strand separation, and soft directional specular highlights, without changing the hairstyle.",
+    "links": [],
+    "files": []
+  },
+  {
+    "ts": "1784703036.450649",
+    "date": "2026-07-22",
+    "text": "*AI Feature Film Teaser*\n youtube.com/watch?v=MsREdHXtdWM\n\n요약하자면, 약 50만 Dreamina 크레딧이 소요되었고, 3명의 아티스트가 2주에 걸쳐 작업했습니다.\n모든 애니메이션은 Seedance 2.0을 사용했고, 이미지는 다양한 이미지 모델을 활용했습니다.\n\n\n\n*7 INSANE AI Cheatcodes that Kavan Uses to Create his Viral AI Series (FULL BREAKDOWN)*\nyoutube.com/watch?v=…",
+    "links": [
+      "https://www.youtube.com/watch?v=MsREdHXtdWM",
+      "https://www.youtube.com/watch?v=L8k5rc20pYc"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699672.768859",
+    "date": "2026-07-22",
+    "text": "--------------------------------------------------------------------------------------------------\n7/22 기준, 이전 내용 모두 복사 완료하였습니다.",
+    "links": [],
+    "files": []
+  },
+  {
+    "ts": "1784699618.039399",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=…",
+    "links": [
+      "https://www.youtube.com/watch?v=icFFNllTzg8"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699608.057039",
+    "date": "2026-07-22",
+    "text": "github.com/…/Nuke-Sam3-Gizmo",
+    "links": [
+      "https://github.com/Code2Collapse/Nuke-Sam3-Gizmo"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699593.914199",
+    "date": "2026-07-22",
+    "text": "bytedance.larkoffice.com/wiki/…\n\n나노바나나 대체제 시드림 5.0 프로 소개\n\n오늘 안에 인하우스 툴에 업데이트 될 예정입니다",
+    "links": [
+      "https://bytedance.larkoffice.com/wiki/HQ8HwXpNFiy6umkP8jNcBwF3nab"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699582.468689",
+    "date": "2026-07-22",
+    "text": "bytedance.larkoffice.com/docx/…",
+    "links": [
+      "https://bytedance.larkoffice.com/docx/IKvPdzG6Uo2JEXxJ6XNcJgi9ndg"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699576.341809",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - I Made an AI Character Sit With Me and Have a Conversation (Full Tutorial)",
+    "links": [
+      "https://www.youtube.com/watch?v=KLswOquhsM8"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699543.865469",
+    "date": "2026-07-22",
+    "text": "시댄스 2.5 홍보영상",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784699543_865469_seedance_25_홍보영상.mp4",
+        "name": "seedance_25_홍보영상.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784699494.666989",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - [AI찌라시] SEEDANCE 2.5 출시?! 뭐? 4K, 영상 편집까지도 된다고??! 현재 알려진 기능은 더 긴 생성 시간(30초), 더 많은 참고 소재, 더 정밀한 편집 제어, 더 다양한 언어 지원(한국어 지원도 강화됨)",
+    "links": [
+      "https://www.youtube.com/watch?v=JQKfjAmdlz8"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699491.394149",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - [메이킹] AI 영상, 프로에서도 쓰려면 갖춰야 하는 점들. 파이프라인 그리고...",
+    "links": [
+      "https://youtu.be/U_9Wo5bbb54"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699484.570209",
+    "date": "2026-07-22",
+    "text": "youtu.be/hpklEY_X92U?si=…",
+    "links": [
+      "https://youtu.be/hpklEY_X92U?si=CqX4VcwigrxKVraS"
+    ],
+    "files": [
+      {
+        "path": "files/1784699484_570209_image (6).png",
+        "name": "image (6).png",
+        "mimetype": "image/png"
+      }
+    ]
+  },
+  {
+    "ts": "1784699449.028669",
+    "date": "2026-07-22",
+    "text": "<GPT 2.0 이미지 깔끔하게 개선해주는 프롬프트>\n\nGPT 이미지 2.0으로 디테일 많은 이미지를 만들면 표면이 먹물처럼 번진 느낌 피부에 재가 묻은 듯한 얼룩, 암부에도 밝은 점이 박히는 현상, 전체가 점묘처럼 점화된 느낌을 제거하는 프롬프트입니다. 작성 프롬프트 하단에 붙여넣기하시면 됩니다.",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784699449_028669_GPT 노이즈 방지 프롬프트.txt",
+        "name": "GPT 노이즈 방지 프롬프트.txt",
+        "mimetype": "application/octet-stream"
+      }
+    ]
+  },
+  {
+    "ts": "1784699400.387159",
+    "date": "2026-07-22",
+    "text": "*이미지 분야: MAI-Image-2.5와 2.5-Flash*\nMAI-Image-2.5는 MAI의 가장 강력한 이미지 모델로, Arena 이미지 편집 리더보드에서 Nano Banana 2를 앞서며 *2위*로 데뷔했습니다. 고품질 생성과 정밀하고 제어 가능한 편집을 위해 만들어졌으며, 최고 충실도를 노리는 *MAI-Image-2.5*와 대규모 프로덕션 워크로드를 위한 고속, 저비용의 *MAI-Image-2.5-Flash* 두 가지로 출시됩니다.\n주요 기능은 다음과 같습니다.\n\n• *텍스트-이미지 품질의 비약*: 프롬프트로부터 더 디테일하고 일관된 이미지를 생성하며, 텍스트 렌더링, 제품 이미지, 프롬프트 준수도가 향상되었습니다.\n• *복잡한 시각적 추론*: 장면 구조, 조명, 스케일, 공간 관계를 이해해, 예를 들어 객체를 추가할 때 올바른 원근과 그림자를 맞춰 이미지 맥락에 어울리는 편집을 합니다.\n• *세밀한 편집 제어*: 객체 교체, 텍스트 수정, 모션 블러 제거 같은 정밀하고 국소적인 편집을 나머지 부분을 바꾸지 않고 수행합니다.\n• *얼굴 및 정체성 일관성*: 포즈, 표정, 시점이 바뀌어도 알아볼 수 있는 인물의 정체성을 유지합니다.",
+    "links": [],
+    "files": []
+  },
+  {
+    "ts": "1784699376.262039",
+    "date": "2026-07-22",
+    "text": "playground.microsoft.ai/chat?model=mai-image-2-5 MAI Playground | Microsoft AI",
+    "links": [
+      "https://playground.microsoft.ai/chat?model=mai-image-2-5"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699372.116459",
+    "date": "2026-07-22",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784699372_116459_image (5).png",
+        "name": "image (5).png",
+        "mimetype": "image/png"
+      }
+    ]
+  },
+  {
+    "ts": "1784699363.788499",
+    "date": "2026-07-22",
+    "text": "youtube.com/shorts/… YouTube - 雑誌表紙撮ってみた",
+    "links": [
+      "https://www.youtube.com/shorts/fLG0OeausQM"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699359.442439",
+    "date": "2026-07-22",
+    "text": "youtube.com/shorts/… YouTube - 雑誌表紙撮ってみた",
+    "links": [
+      "https://www.youtube.com/shorts/reK8FCTLkYA"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699356.533159",
+    "date": "2026-07-22",
+    "text": "youtube.com/shorts/gZmRBi_Y3yk YouTube - 雑誌表紙撮ってみた",
+    "links": [
+      "https://www.youtube.com/shorts/gZmRBi_Y3yk"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699354.166469",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - Gemini OMNI vs Seedance 2 | 20+ Prompts you need to try",
+    "links": [
+      "https://youtu.be/9RJrGu_eEj4"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699351.556899",
+    "date": "2026-07-22",
+    "text": "youtube.com/shorts/… YouTube - 99%모르는 구글 영상AI(Gemni Omni)플로우 도구 기능 활용법 꿀팁 l Shot Explorer, Image Editer, Type Overlays",
+    "links": [
+      "https://www.youtube.com/shorts/COVc8LiZLk0"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699284.261749",
+    "date": "2026-07-22",
+    "text": "𝗧𝗲𝘀𝘁𝗶𝗻𝗴 𝗚𝗲𝗺𝗶𝗻𝗶 𝗢𝗺𝗻𝗶 𝗙𝗹𝗮𝘀𝗵 𝗳𝗼𝗿 𝗩𝗶𝗱𝗲𝗼\n\n테스트 후 간단한 소감:\n• 프롬프트 이해력은 꽤 좋은 편 (완벽하진 않음! Seedance와 비교 테스트를 했는데 V2V는 Gemini가 더 나았던 경우도 있었음)\n• 생성 속도가 상당히 빠름\n• 2D / 3D 감성과 리얼리즘을 섞는 재미가 큼\n• 창의적인 실험용으로 굉장히 유연하고 플레이풀한 느낌\n\n아쉬운 점:\n• 최대 해상도가 720p\n• 디테일 선명도는 아직 Seedance나 Kling 수준에는 못 미침\n• 레퍼런스 이미지 기반 스타일 일관성이 꽤 흔들림\n• 캐릭터도 조금씩 바뀜 (특히 SKY 머리색을 계속 틀리게 만듦)\n\n그래도 전체적으로 보면… 영상계의 “Nanobanana” 같은 느낌이라고 할 수 있을 것 같습니다",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784699284_261749_𝗧𝗲𝘀𝘁𝗶𝗻𝗴 𝗚𝗲𝗺𝗶𝗻𝗶 𝗢𝗺𝗻𝗶 𝗙𝗹𝗮𝘀𝗵 𝗳𝗼𝗿 𝗩𝗶𝗱𝗲𝗼.mp4",
+        "name": "𝗧𝗲𝘀𝘁𝗶𝗻𝗴 𝗚𝗲𝗺𝗶𝗻𝗶 𝗢𝗺𝗻𝗶 𝗙𝗹𝗮𝘀𝗵 𝗳𝗼𝗿 𝗩𝗶𝗱𝗲𝗼.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784699247.578489",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - The TWO Claude Skills that run our entire AI video pipeline (free download + easy setup)",
+    "links": [
+      "https://www.youtube.com/watch?v=0YhhPQVXA7c"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699245.237159",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - 판타지 광고를 만드는 과정 공개합니다 _ KT Y아티스트 AI공모전",
+    "links": [
+      "https://www.youtube.com/watch?v=9DRSv7s4kj8"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699189.236529",
+    "date": "2026-07-22",
+    "text": "합성 3D 가우시안 스플래팅을 위한 Seedance 2.0 해킹\n\n그래서 지난 몇 주 동안 Seedance 2.0을 사용해 시작 프레임과 모션 참조 영상만으로 합성 장면의 괜찮은 플라이스루 영상을 생성하려고 실험해왔습니다.\n간단히 말하면, 어느 정도는 효과가 있지만 최종 결과물은 여전히 매우 이상하고, 그 과정에서 많은 교훈을 얻었으며, 아래에 기꺼이 공유하겠습니다!\n\n하지만 그 전에, 마지막 3DGS 장면 링크를 공유합니다:\nsuperspl.at/scene/1420f92d\n\n:small_orange_diamond: 모델 자체가 매우 비쌉니다. 1개의 15초 720p 동영상 생성에 쉽게 4달러에서 5달러 정도 들 수 있습니다. 현재 일부 인기 제공업체들은 월 ~$100에서 200달러 사이의 무제한 요금제를 제공하고 있지만,\n      제 테스트와 여러 디스코드 토론에 따르면 많은 업체가 SD 2.0 Fast를 사용하고 있는데, 이는 공간적/시간적 안정성이 훨씬 떨어져 이 작업에 거의 적합하지 않습니다\n\n:small_orange_diamond: 생성 듀레이션이 15초로 제한되어 있어, 약 360프레임만 사용할 수 있습니다. 이 작업을 위해서는 Omni 모델을 사용해야 하며, 이 모델은 이미지와 동영상을 입력으로 받고, 그 입력을 어떻게 사용해야 하는지 설명하는 텍스트 프롬프트를 함께 제공합니다\n\n:small_orange_diamond: 가장 어려운 부분은 모션 레퍼런스 영상을 준비하는 것입니다. 먼저, 3DGS에 넣기 전에도 장면의 초기 3D 표현을 만들어야 합니다. 저는 애플 ML Sharp모델의 싱글 포토 3DGS 생성을 사용해 이 작업을 했고, 커스텀 체크보드 셰이더 + 도트 오버레이를 사용해\n      모션 트래킹을 개선했습니다. 그 다음 모든 각도에서 15초 이내에 장면을 가장 잘 커버하는 카메라 경로를 설계합니다. 현실적으로는 약 ~30개의 뚜렷한 뷰포인트를 끼워 넣고, 스플라인 경로로 연결할 수 있습니다.\n      마지막으로, 레퍼런스를 렌더링해 모델에게 넘기고, 모델이 실제로 이를 존중해 어느 정도 괜찮은 결과를 내길 바라며 모든 크레딧을 이 슬롯머신에 쏟아붓는 것입니다!\n\n:small_orange_diamond: 모션 레퍼런스 자료의 외관이나 재질이 매우 중요합니다. 저는 12가지 다른 룩(그레이 박스, 깊이 셰이더, 포지션 투 컬러 등)을 시도해봤지만, 90%의 경우 모델은 모션에만 사용하라고 명시적으로 프롬프트 했음에도 불구하고\n      레퍼런스 요소의 외관을 최종 출력과 융합하는 것만 했습니다. 아마도 진짜 Seedance 2.0 대신 Fast 모델이 이용되었기 때문일 수도 있지만, 지금으로서는 증명하기 어렵습니다.\n      결국 일주일 동안 시도했지만 괜찮은 출력물은 몇 개밖에 없었고, 결국 최종 3DGS 씬을 만들 최고의 출력물을 골랐습니다\n\n:small_blue_diamond: 제가 사용한 프롬프트는 다음과 같습니다 :\n\n     [image 1] 을 정지된 시간을 움직이는 연속된 영상의 시작 프레임으로 사용하세요. [video 1]에서 [image 1]의 카메라 움직임을 적용하세요. 카메라는 완전히 멈춘 장면을 극적으로 누비며 지나간다.\n     광각 직선 렌즈(Rectilinear Wide-angle Lens), 수평/수직 라인유지, 어안 렌즈 아님, 배럴 왜곡 없음, 구면 왜곡 없음, 렌즈 플레어 없음, 선명한 초점, 모션블러 없음, 보케 없음\n\n:small_blue_diamond: Here is the prompt I used :\n\n      Use Image 1 as the starting frame for a single, continuous shot in freeze time. Apply camera motion from Video 1 to the scene in Image 1. The camera dramatically weaves through the completely frozen scene.\n      Wide-angle rectilinear lens, straight lines preserved, no fisheye, no barrel distortion, no spherical warping. No lens flares. Sharp focus, no motion blur, no bokeh",
+    "links": [
+      "https://superspl.at/scene/1420f92d"
+    ],
+    "files": [
+      {
+        "path": "files/1784699189_236529_gaussian.mp4",
+        "name": "gaussian.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784699149.347999",
+    "date": "2026-07-22",
+    "text": "reddit.com/r/aivideo/…/aigc_short_film_zombie_scavenger_credit_mxshell Reddit - AIGC short film: Zombie Scavenger (credit: Mx-Shell)",
+    "links": [
+      "https://www.reddit.com/r/aivideo/comments/1t8rq6m/aigc_short_film_zombie_scavenger_credit_mxshell/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699146.764339",
+    "date": "2026-07-22",
+    "text": "reddit.com/r/seedance2pro/…/the_last_hold_video_trend_using_seedance_20_with Reddit - The Last Hold Video Trend using Seedance 2.0 with a Prompt",
+    "links": [
+      "https://www.reddit.com/r/seedance2pro/comments/1t8nogz/the_last_hold_video_trend_using_seedance_20_with/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699143.752199",
+    "date": "2026-07-22",
+    "text": "wireflow.ai/flow/cmoxjixl6000ejx04pxhaqmnj Wireflow - AI-Powered Creative Platform",
+    "links": [
+      "https://www.wireflow.ai/flow/cmoxjixl6000ejx04pxhaqmnj"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699141.296109",
+    "date": "2026-07-22",
+    "text": "reddit.com/r/seedance2pro/…/how_to_turn_ai_character_sheets_into_cinematic Reddit - How to Turn AI Character Sheets into Cinematic Videos with GPT Images 2 × Seedance 2.0?",
+    "links": [
+      "https://www.reddit.com/r/seedance2pro/comments/1t2ke30/how_to_turn_ai_character_sheets_into_cinematic/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699139.185929",
+    "date": "2026-07-22",
+    "text": "jzr99.github.io/Syn4D Syn4D: A Multiview Synthetic 4D Dataset",
+    "links": [
+      "https://jzr99.github.io/Syn4D/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784699070.255999",
+    "date": "2026-07-22",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784699070_255999_Seedance2.0_분석보고서_칼리버스_Rev4.docx",
+        "name": "Seedance2.0_분석보고서_칼리버스_Rev4.docx",
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      }
+    ]
+  },
+  {
+    "ts": "1784699065.563989",
+    "date": "2026-07-22",
+    "text": "GPT2 + Seedance 2.0 → 요가 플로우\n포즈 전환 제어하기.\n(프롬프트는 댓글 섹션 참고)\n프로세스:\n 01. GPT2 이미지: 포즈 시퀀스 생성\n 02. GPT2 이미지: 베이스 캐릭터 생성\n 03. SD2 Omni-Ref: 장면 애니메이션화\n 04. Codex: 스티칭 + 프레임 보간 처리\nGPT2:\n• 간단한 지시를 잘 처리함\n• 사실상 어떤 것이든 다이어그램 형태로 생성 가능\n• 여기서는 (24)개의 가이드 스텝 다이어그램 제작\n• 그래서 캐릭터 움직임을 제어할 수 있었음\nSEEDANCE 2.0:\n• Omni-Reference 기능이 상당히 견고함\n• 포즈 + 전환 다이어그램을 사용해 움직임 매핑\n• 캐릭터 이미지를 레퍼런스 + 시작 프레임으로 사용\n• 캐릭터 설명 + 카메라 움직임을 프롬프트로 입력\n문제점:\n• SD2가 모든 단계를 순차적으로 따라가진 않았음\n• 시퀀스 중 일부 단계를 건너뜀\n• 하지만 전체적으로는 흐름을 잘 따라감\n• 아마도 너무 많은 정보를 한 번에 넣은 내 실수에 가까움\n• 이 영상은 (2)개의 별도 비디오 생성 결과를 이어붙인 것\n• 만약 (3)개로 나눴다면 드리프트가 더 적었을 수도 있음\n• (그 점을 강조하는 게 중요하다고 생각했음)\n• 또 하나, 베이스 캐릭터 이미지를 만들 때…\n• 플랭크 자세를 취할 공간을 충분히 남겨두지 않았음\n• 그래서 SD2가 장면 중간에 그녀를 회전시켜 방의 물리 구조에 맞춤\n• (그 부분이 꽤 흥미로웠음)\n짧은 소감:\n• 이 조합은 굉장히 강력해지고 있는 중\n• GPT2는 디테일과 텍스트 제어가 매우 정밀함\n• SD2는 적절한 방향성만 주면 일관성과 수행력이 뛰어남\n• SD2 Omni-Ref는 이미지/비디오/오디오 모두 처리 가능\n• 그래서 여러 생성 결과 간 컨텍스트 유지 능력이 인상적임\n• 이 프로세스 자체만으로도 많은 아이디어가 열림\n• 그리고 제어와 실행 방식을 새롭게 생각하게 만듦",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784699065_563989_seedance2_storyboard_attach_2.mp4",
+        "name": "seedance2_storyboard_attach_2.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784699023.227869",
+    "date": "2026-07-22",
+    "text": "스토리보드 첨부하기",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784699023_227869_seedance2_storyboard_attach.mp4",
+        "name": "seedance2_storyboard_attach.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784698969.864609",
+    "date": "2026-07-22",
+    "text": "github.com/nikopueringer/CorridorKey",
+    "links": [
+      "https://github.com/nikopueringer/CorridorKey"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698965.556749",
+    "date": "2026-07-22",
+    "text": "github.com/edenaion/EZ-CorridorKey",
+    "links": [
+      "https://github.com/edenaion/EZ-CorridorKey"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698963.208679",
+    "date": "2026-07-22",
+    "text": "github.com/gitcapoom/corridorkey_ofx 콜리더 키어 OFX",
+    "links": [
+      "https://github.com/gitcapoom/corridorkey_ofx"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698959.444749",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - THE PATCHWRIGHT | Cyberpunk Short Film",
+    "links": [
+      "https://www.youtube.com/watch?v=-Rzl7nUdEs4"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698956.991759",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - 곡물도감 AI광고 제작과정 공개할게요",
+    "links": [
+      "https://www.youtube.com/watch?v=yAAUXd3jWDQ"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698953.364179",
+    "date": "2026-07-22",
+    "text": "magiceraser.org/remove-watermark-from-video MagicEraser - Best AI Video Watermark Remover Online (무료, 4K 품질)",
+    "links": [
+      "https://magiceraser.org/remove-watermark-from-video/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698950.640189",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - 시댄스 2.0의 연기력 테스트: 감정 연기를 시켜봤습니다",
+    "links": [
+      "https://www.youtube.com/watch?v=oe2TmwYe6xU"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698946.995459",
+    "date": "2026-07-22",
+    "text": "youtube.com/shorts/… YouTube - BLUE BLOOD - AI Film Trailer | Made with Seedance 2.0 on @openart_ai Screenplay Prompting",
+    "links": [
+      "https://www.youtube.com/shorts/GFWW6okoFro"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698944.051809",
+    "date": "2026-07-22",
+    "text": "youtube.com/shorts/… YouTube - Fight scene in seedance 2.0",
+    "links": [
+      "https://www.youtube.com/shorts/CCSU6qHyiho"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698941.147419",
+    "date": "2026-07-22",
+    "text": "youtube.com/shorts/… YouTube - Seedance 2.5 | How I Prompt AI To Generate Cinematic Scene",
+    "links": [
+      "https://www.youtube.com/shorts/9NqMIelZNHQ"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698937.808909",
+    "date": "2026-07-22",
+    "text": "youtube.com/shorts/… YouTube - Crazy fight sequence and cinematic visuals from seedance 2.0",
+    "links": [
+      "https://www.youtube.com/shorts/pKU4Dr2knJM"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698753.021529",
+    "date": "2026-07-22",
+    "text": "𝗙𝗿𝗼𝗺 𝗮 𝘀𝗶𝗻𝗴𝗹𝗲 𝟮𝗗 𝗶𝗺𝗮𝗴𝗲 𝘁𝗼 𝗮 𝗻𝗮𝘃𝗶𝗴𝗮𝗯𝗹𝗲 𝟯𝗗-𝗶𝘀𝗵 𝘀𝗰𝗲𝗻𝗲 — 𝗹𝗼𝗰𝗮𝗹𝗹𝘆.\n In this video, I’m using local ComfyUI to convert one 𝟮𝗗 𝗵𝗲𝗿𝗼 𝗳𝗿𝗮𝗺𝗲 𝗶𝗻𝘁𝗼 𝗮 𝗚𝗮𝘂𝘀𝘀𝗶𝗮𝗻 𝗦𝗽𝗹𝗮𝘁 𝘀𝗰𝗲𝗻𝗲 you can actually “move” through—subtle camera shifts, parallax, and depth exploration without doing a full 3D build.\nThen comes the practical part: I run a 𝗤𝘄𝗲𝗻 𝗘𝗱𝗶𝘁 𝗟𝗼𝗥𝗔 trained specifically for 𝗚𝗮𝘂𝘀𝘀𝗶𝗮𝗻 𝗦𝗽𝗹𝗮𝘁 to repair distortions, stabilize geometry, and infer missing regions. It’s more production-usable than it sounds—and it unlocks a new way to generate extra angles for storyboards/previz (and it’s also great for creating first/last frames for generative AI video).\nTools used (local / in-house):\nComfyUI\nSharp Gaussian Splat Generator\nQwen Edit (Splat LoRA)",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784698753_021529_comfyui_gaussian_alt.mp4",
+        "name": "comfyui_gaussian_alt.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784698737.182839",
+    "date": "2026-07-22",
+    "text": "eyeline-labs.github.io/Vista4D",
+    "links": [
+      "https://eyeline-labs.github.io/Vista4D/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698674.758079",
+    "date": "2026-07-22",
+    "text": "What if you could generate multiple camera angles from a single image…\nwithout APIs, without credits, and without limits?\n\nWe’re so used to browser-based AI tools that come with #restrictions — #credits, queues, and #API dependencies.\nBut there’s a more practical and scalable approach.\n\nUsing ComfyUI, I’ve been building a fully local workflow that converts a single 2D image into a #navigable Gaussian Space scene — allowing subtle #camera #movement and #spatial exploration.\nNo cloud. No API. Just your system.\n\n:wrench: What this workflow does:\n• Convert 2D images into lightweight 3D-like scenes\n • Explore new camera angles without full 3D modeling\n • Repair distortions and missing geometry using Qwen Edit LoRA\n • Generate first & last frames for AI video workflows\n • Build a flexible pipeline for rapid concept visualization\n\n:bulb: Why this matters:\n • :white_check_mark: Unlimited iterations — no credits holding you back\n • :white_check_mark: No API dependency — fully local and controlled\n • :white_check_mark: Faster ideation compared to traditional 3D workflows\n • :white_check_mark: Ideal for architecture, visualization, and content creation\n\nThis isn’t about replacing 3D…\nIt’s about creating a faster bridge between 2D ideas and spatial experience.\nIf you’re exploring AI workflows in design or visualization, this approach is definitely worth trying.\n\nSpecial thanks to Matthew Hallett for making this possible.\n\nplease #follow, comment for #workflow to get the DM.",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784698674_758079_comfyui_gaussian.mp4",
+        "name": "comfyui_gaussian.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784698630.601209",
+    "date": "2026-07-22",
+    "text": "LTX HDR beta Open!, LTX-2.3-22b-IC-LoRA-HDR\n\nLtx: \"이전까지의 모든 AI 영상 모델은 8비트 SDR만 출력했습니다. 소셜 미디어용 클립으로는 괜찮았지만,\n색보정을 시도하는 순간 이 포맷은 한계에 부딪힙니다. 하이라이트는 과다 노출되고, 섀도우는 압축되어 버립니다.\nAI로 생성된 영상은 비트 심도가 더 높은 CGI와 매끄럽게 합성되지 않습니다.\n해상도는 결코 진짜 문제가 아니었습니다. 진짜 문제는 다이내믹 레인지였습니다.\"\n\nHDR in beta available via API (V2V only), ComfyUI, and as an open-source IC-LoRA on HuggingFace.\nhuggingface.co/Lightricks/LTX-2.3-22b-IC-LoRA-HDR",
+    "links": [
+      "https://huggingface.co/Lightricks/LTX-2.3-22b-IC-LoRA-HDR"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698600.021769",
+    "date": "2026-07-22",
+    "text": "blog.comfy.org/p/unlock-seedance20-real-human-video-generation",
+    "links": [
+      "https://blog.comfy.org/p/unlock-seedance20-real-human-video-generation"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698595.368599",
+    "date": "2026-07-22",
+    "text": "reddit.com/r/comfyui/…/extend_your_videos_with_ltx_2_3_outpainting_low",
+    "links": [
+      "https://www.reddit.com/r/comfyui/comments/1sot3w6/extend_your_videos_with_ltx_2_3_outpainting_low/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698530.680599",
+    "date": "2026-07-22",
+    "text": "_Created a *15-second AI music video* using Seedance 2.0 featuring a single consistent character,_\n_a girl with *pink hair, red devil horns, black leather jacket, chain details, and a choker*._\n_The whole video feels like a K-pop/cyberpunk music video with multiple scene jumps._\n\n_Here's what happens scene by scene *:*_\n• _*Scene 1* — She's leaning against a vintage grey sedan on a city street. Night/dusk vibe. Neon reflections in the background. Confident pose, one hand on the car._\n• _*Scene 2* — She's standing in an open desert with a *massive pink mech robot* behind her. The robot matches her aesthetic (same reddish horn details). Wide shot. Empowering, almost cinematic trailer energy._\n• _*Scene 3* — She's on a *NYC-style subway*, sitting on orange seats, pointing directly at the camera. Playful and confrontational. Feels like a music video bridge._\n• _*Scene 4* — Close-up on her face inside the subway, mouth slightly open, reacting or singing. Emotional intensity._\n• _*Scene 5* — Body shot on the subway — hands moving expressively near her face/neck. Movement-focused._\n_*What makes this technically impressive :*_\n_The same character — same face, same outfit, same horn details — holds up across *completely different environments* (city street → desert → subway)._\n_That's the hardest thing to pull off in AI video, and this clip does it cleanly._\n\n\n\n*Prompt:*\n\ncreate a video based on reference @ audio montage, multi-shot cinematic music video, do not use a single camera angle or single cut, cinematic lighting, photorealistic, 35mm film quality, professional color grading, sharp focus, high detail texture, film grain, depth of field mastery, ARRI ALEXA aesthetic facial character and clothing for @ img1 and audio based on references A confident female K-pop performer @ img1 with modern Korean stylish aesthetic stands as the central performer, wearing luxurious modern K-pop girl crush outfit: sharp structured cropped black leather jacket with metallic silver zippers and subtle chain embellishments, sleek fitted white crop top, high-waisted glossy black leather mini skirt with side slits, silver hardware buckles, dangling chain accents, chunky white platform combat boots, premium high-shine leather fabric with perfect tailoring, dynamic stylish K-fashion clothing details, delivering powerful rap vocals with strong charisma, expressive hand gestures, sharp choreographed dance moves, rhythmic body movement synced to the beat. Performance professional, controlled, charismatic, elegant, full of K-pop idol energy fierce yet graceful.\n\n00–03s: Modern Seoul street luxury vibe, medium-wide shot.\n@img1 leans against sleek luxury car in vibrant Korean city street at golden hour, rapping to camera. One hand on stylish accessory, other with sharp K-pop hand choreography. Subtle head nods, confident eye contact, fierce charisma. Natural daylight cool vibrant tones, subtle neon. Dynamic clothing movement.\n\n03–06s: Surreal artistic desert aesthetic, wide cinematic shot.\nCut to dreamlike desert with yellow smoke. @ img1 beside strong mecha massive large scale @ robot . Wider graceful powerful arm choreography, precise pointing, dynamic posing, light pacing. Wind moves hair and clothing. Korean elegant dynamism dramatic lighting.\n\n06–09s: Subway interior, symmetrical shot.\nClean modern Seoul subway carriage. @ img1 sits center seat, leaning forward, rapping intensely. Tight sharp K-pop gestures finger pointing palm emphasis rhythmic tapping knees. Camera pushes in, intense eye contact flawless lip sync.\n\n09–12s: Close-up performance, handheld shot.\nQuick cuts side profile low angle extreme close-up mouth. Sweat breath intensity lips sync lyrics. Hands closer lens sharp choreography depth immersion. Flawless facial Korean beauty.\n\n12–15s: Final hero performance, low angle wide shot.\nOutdoors dramatic urban. @ img1 stands tall, final bars strong elegant arm choreography open palms chest taps pointing upward hair flips powerful poses. Camera circles, star power energy dominance K-pop flair.\n\nAtmosphere confident expressive intense powerful climax modern Korean pop idol energy.\nHandheld camera raw stylish K-pop MV realism. Camera dynamic cuts handheld slow push-in low-angle hero shots smooth transitions.\nLighting high-end cinematic vibrant Korean color grading cool warm highlights neon accents dramatic rim lighting.\nEffects subtle film grain light motion blur wind smoke elegant particle effects.\nPerformance perfect lip sync professional K-pop choreography rhythmic precise body language fierce charisma.\nwith ultra high resolution 8k quality intricate fabric details realistic fabric physics dynamic wind effects on clothing perfect lip synchronization to audio\nemotional depth in performance high production value K-pop music video aesthetic seamless scene transitions masterful composition and framing.\n\n=================================================================================================================================================================================================\n\n_*Seedance 2.0을 사용하여 15초 분량의 AI 뮤직비디오를* 제작했습니다._\n_이 뮤직비디오에는 *분홍색 머리, 빨간색 악마 뿔, 검은색 가죽 재킷, 체인 장식, 초커를* 착용한 소녀라는 일관된 캐릭터가 등장합니다._\n_전체적으로 K팝/사이버펑크 뮤직비디오 같은 느낌을 주며, 장면 전환이 잦습니다._\n\n_장면별로 어떤 일이 벌어지는지 알려드리겠습니다._\n• _*장면 1* — 그녀는 도시 거리의 빈티지 회색 세단에 기대어 서 있다. 밤/해질녘 분위기. 배경에는 네온사인이 반사되어 보인다. 한 손을 차에 얹고 자신감 넘치는 포즈를 취하고 있다._\n• _*장면 2 — 그녀는 거대한 분홍색 로봇을* 배경으로 드넓은 사막 한가운데 서 있다 . 로봇은 그녀의 스타일과 잘 어울린다(붉은색 뿔 장식이 동일하다). 와이드 샷. 강렬하고, 마치 영화 예고편 같은 분위기._\n• _*장면 3* — 그녀는 *뉴욕 지하철 스타일의* 좌석에 앉아 카메라를 똑바로 가리키고 있다. 장난스러우면서도 도발적인 느낌이다. 마치 뮤직비디오의 브릿지 장면 같다._\n• _*장면 4* — 지하철 안에서 그녀의 얼굴을 클로즈업한 장면. 입은 살짝 벌어져 있고, 무언가를 느끼거나 노래를 부르고 있는 듯하다. 강렬한 감정이 느껴진다._\n• _*장면 5* — 지하철 안에서의 전신 샷 — 그녀의 얼굴/목 근처에서 손이 표현력 있게 움직인다. 움직임에 초점을 맞춘 샷._\n_이 영상 이 기술적으로 인상적인 이유는 바로 동일한 캐릭터, 즉 얼굴, 의상, 뿔의 디테일까지 모두 똑같이 재현되면서도 완전히 다른 환경 (도시 거리 → 사막 → 지하철)에서도 자연스럽게 어우러진다는 점입니다._\n_이는 AI 영상 제작에서 가장 어려운 부분인데, 이 영상은 그 어려운 점을 완벽하게 구현해냈습니다._\n\n\n\n*프롬프트 :*\n\n참고 @audio 몽타주를 기반으로 한 영상 제작, 멀티샷 시네마틱 뮤직비디오, 단일 카메라 앵글이나 단일 컷 사용 금지,\n영화적 조명, 사실적인 35mm 필름 품질, 전문적인 색 보정, 선명한 초점, 높은 디테일의 질감, ​​필름 그레인, 심도 표현, ARRI ALEXA 미학,\n@img1의 얼굴 캐릭터 및 의상, 참고 오디오를 기반으로 제작. 현대적인 한국 스타일의 미학을 지닌 자신감 넘치는 여성 K팝 가수\n@img1이 중심이 되어 고급스럽고 모던한 K팝 걸크러쉬 의상을 착용합니다. 의상은 날렵한 구조의 크롭 블랙 가죽 재킷(메탈릭 실버 지퍼와 은은한 체인 장식),\n슬림한 화이트 크롭탑, 옆트임이 있는 하이웨이스트 글로시 블랙 가죽 미니스커트(실버 버클, 드롭 체인 장식), 청키한 화이트 플랫폼 컴뱃 부츠, 완벽한 재단의 프리미엄 고광택 가죽 소재로 제작됩니다.\n역동적이고 스타일리시한 K팝 패션 디테일을 선보이며, 강렬한 카리스마를 발산하는 파워풀한 랩 보컬, 표현력 넘치는 손짓, 날카로운 안무, 리듬감 있는 몸짓으로 음악을 완성합니다.\n전문적이고 절제된 카리스마와 우아함을 겸비한, K팝 아이돌 특유의 강렬하면서도 품위 있는 에너지가 넘치는 공연.\n\n00~03초: 현대적인 서울 거리의 고급스러운 분위기를 담은 미디엄 와이드 샷.\n@img1 활기 넘치는 한국 도시 거리의 황금 시간대에 세련된 고급 승용차에 기대어 카메라를 향해 랩을 합니다. 한 손은 스타일리시한 액세서리에,\n다른 한 손은 날카로운 K-팝 안무를 선보입니다. 은은한 고갯짓, 자신감 넘치는 눈맞춤, 강렬한 카리스마가 돋보입니다.\n자연광의 시원하고 생동감 넘치는 색감과 은은한 네온 조명이 어우러집니다. 역동적인 의상 움직임이 인상적입니다.\n\n03~06초: 초현실적인 예술적 사막 풍경을 담은 와이드 시네마틱 샷.\n노란 연기가 피어오르는 몽환적인 사막으로 화면이 전환됩니다. @img1은 거대한 로봇 옆에 서 있습니다. 우아하면서도 파워풀한 팔 동작, 정확한 포인팅, 역동적인 포즈, 가벼운 움직임이 돋보입니다.\n바람에 머리카락과 옷이 흩날립니다. 한국 특유의 우아함과 역동성이 돋보이는 드라마틱한 조명이 연출됩니다.\n\n06~09초: 지하철 내부, 대칭 구도. 깔끔하고 현대적인 서울 지하철 객차.\n@img1은 중앙 좌석에 앉아 몸을 앞으로 기울이며 강렬하게 랩을 합니다. 날카롭고 강렬한 K-팝 제스처, 손가락으로 가리키는 동작, 손바닥으로 강조하는 리듬감 있는 무릎 두드리기. 카메라가 클로즈업되고, 강렬한 눈맞춤과 완벽한 립싱크가 이어집니다.\n\n09~12초: 클로즈업 퍼포먼스, 핸드헬드 촬영.\n빠른 컷, 측면 프로필, 로우 앵글, 극단적인 클로즈업, 입. 땀, 숨결, 강렬한 립싱크, 가사. 가까이 다가온 손, 선명한 렌즈, 깊이감 있는 안무, 몰입감. 흠잡을 데 없는 얼굴, 한국 미인.\n\n12~15초: 마지막 히어로 퍼포먼스, 로우 앵글 와이드 샷. 야외의 드라마틱한 도시 풍경.\n@ img1은 꼿꼿하게 서서, 마지막 바에서 강렬하고 우아한 팔 동작, 손바닥을 펴고 가슴을 두드리며 위를 가리키는 동작, 머리카락을 휘날리는 파워풀한 포즈를 선보입니다. 원을 그리며 움직이는 카메라.\n\n\n\n분위기: 자신감 있고, 표현력이 풍부하며, 강렬하고 파워풀한 클라이맥스. 현대적인 한국 K-POP 아이돌 에너지.\n\n카메라: 핸드헬드 촬영의 거칠고 스타일리시한 K-POP 뮤직비디오 리얼리즘. 역동적인 컷 편집, 핸드헬드 무브먼트, 느린 푸시인, 로우 앵글 히어로 샷, 부드러운 전환.\n\n조명: 하이엔드 시네마틱 라이팅, 생동감 있는 한국식 컬러 그레이딩, 쿨톤과 웜톤 하이라이트, 네온 포인트, 드라마틱한 림 라이트.\n\n이펙트: 은은한 필름 그레인, 가벼운 모션 블러, 바람, 연기, 우아한 파티클 효과.\n\n퍼포먼스: 완벽한 립싱크, 프로페셔널한 K-POP 안무, 리드미컬하고 정교한 바디 랭귀지, 강렬한 카리스마.\n\n초고해상도 8K 퀄리티, 섬세한 의상 디테일, 사실적인 패브릭 물리 표현, 의상에 작용하는 역동적인 바람 효과, 오디오와 완벽하게 일치하는 립싱크, 감정의 깊이가 살아있는 퍼포먼스,\n높은 제작 완성도의 K-POP 뮤직비디오 미학, 자연스럽고 매끄러운 장면 전환, 뛰어난 구도와 프레이밍.",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784698530_680599_m2-res_720p.mp4",
+        "name": "m2-res_720p.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784698344.057129",
+    "date": "2026-07-22",
+    "text": "blog.comfy.org/p/unlock-seedance20-real-human-video-generation Unlock Real Human Video Generation with Seedance 2.0 in ComfyUI",
+    "links": [
+      "https://blog.comfy.org/p/unlock-seedance20-real-human-video-generation"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698340.092949",
+    "date": "2026-07-22",
+    "text": "reddit.com/r/comfyui/…/extend_your_videos_with_ltx_2_3_outpainting_low Reddit - Extend Your Videos with LTX 2.3 Outpainting (Low Vram Workflow, RTX 3060 6GB)",
+    "links": [
+      "https://www.reddit.com/r/comfyui/comments/1sot3w6/extend_your_videos_with_ltx_2_3_outpainting_low/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698335.288549",
+    "date": "2026-07-22",
+    "text": "reddit.com/r/Seedance_AI/…/recreated_this_video_and_really_liked_how Reddit - Recreated this video and really liked how popcorns magically disappears",
+    "links": [
+      "https://www.reddit.com/r/Seedance_AI/comments/1sq32hh/recreated_this_video_and_really_liked_how/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698330.613519",
+    "date": "2026-07-22",
+    "text": "github.com/dexhunter/seedance2-skill/blob/…/SKILL.md 클로드 스킬기능의 seedance2.0 프리셋 입니다 설정 -> 기능 -> 스킬 -> 스킬만들기 -> 스킬 업로드 누르셔서 파일 불러오시면 됩니다.",
+    "links": [
+      "https://github.com/dexhunter/seedance2-skill/blob/main/SKILL.md"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698323.387709",
+    "date": "2026-07-22",
+    "text": "research.nvidia.com/labs/sil/projects/lyra2 NVIDIA - Lyra 2.0: Explorable Generative 3D Worlds",
+    "links": [
+      "https://research.nvidia.com/labs/sil/projects/lyra2/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698269.166709",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - The Lazy Way to Start Your AI Short Film With Seedance 2.0 + Higgsfield AI",
+    "links": [
+      "https://www.youtube.com/watch?v=0oee8NpjS5E"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698266.634599",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=…",
+    "links": [
+      "https://www.youtube.com/watch?v=PypS8xF5lfo"
+    ],
+    "files": [
+      {
+        "path": "files/1784698266_634599_SEEDANCE 2.0 prompts.pdf",
+        "name": "SEEDANCE 2.0 prompts.pdf",
+        "mimetype": "application/pdf"
+      }
+    ]
+  },
+  {
+    "ts": "1784698264.229169",
+    "date": "2026-07-22",
+    "text": "Using AI to expand aspect ratios of old films from 4:3 to 16:9 formats. (ltx-2.3-22b-ic-lora)",
+    "links": [],
+    "files": []
+  },
+  {
+    "ts": "1784698260.881039",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - New Era of Cinematic AI Films - Cinema Studio 3.0",
+    "links": [
+      "https://www.youtube.com/watch?v=Y59LwQNmRJY"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698257.553599",
+    "date": "2026-07-22",
+    "text": "blog.comfy.org/p/seedance-20-is-now-available-in-comfyui Seedance 2.0 is Now Available in ComfyUI",
+    "links": [
+      "https://blog.comfy.org/p/seedance-20-is-now-available-in-comfyui"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698243.286349",
+    "date": "2026-07-22",
+    "text": "github.com/smthemex/ComfyUI_OmnimatteZero",
+    "links": [
+      "https://github.com/smthemex/ComfyUI_OmnimatteZero"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698240.727679",
+    "date": "2026-07-22",
+    "text": "huggingface.co/netflix/void-model Hugging Face - netflix/void-model",
+    "links": [
+      "https://huggingface.co/netflix/void-model"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698238.300619",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Adventures Of Lunlun | Seedance 2.0 Music Video",
+    "links": [
+      "https://www.youtube.com/watch?v=HdBrEWgFV3A"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698235.729999",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=suIwxbO-_ZE YouTube - How to Use Seedance 2.0 for AI Filmmaking (Full Workflow)",
+    "links": [
+      "https://www.youtube.com/watch?v=suIwxbO-_ZE"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698232.799069",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - We Made a K-Pop Action Series Using Seedance 2.0",
+    "links": [
+      "https://www.youtube.com/watch?v=LUWMI0zy0BQ"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698228.796009",
+    "date": "2026-07-22",
+    "text": "happyhorse.cn HappyHorse - AI video creation platform (해피홀스 출시)",
+    "links": [
+      "https://www.happyhorse.cn/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698224.884949",
+    "date": "2026-07-22",
+    "text": "wavespeed.ai/blog/posts/what-is-happyhorse-1-0-ai-video-model WaveSpeedAI - What Is HappyHorse-1.0?",
+    "links": [
+      "https://wavespeed.ai/blog/posts/what-is-happyhorse-1-0-ai-video-model/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698219.885959",
+    "date": "2026-07-22",
+    "text": "ltx.io/ltx-desktop LTX 데스크탑 - Free AI Video Production Suite (로컬 실행, 오픈소스, LTX-2.3 기반)\n\nhappyhorses.io/#… HappyHorse 1.0 — Open-Source AI Video Generation Model (15B 파라미터, 영상+오디오 동시 생성, 다국어 립싱크)",
+    "links": [
+      "https://ltx.io/ltx-desktop",
+      "https://happyhorses.io/#overview"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698205.847429",
+    "date": "2026-07-22",
+    "text": "github.com/JaimeIsMe/comfystudio Comfy스튜디오",
+    "links": [
+      "https://github.com/JaimeIsMe/comfystudio"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698201.125339",
+    "date": "2026-07-22",
+    "text": "이미지 프롬프트 추출하는 사이트입니다. 하루 5장까지는 무료에요 imageprompt.org 무료 이미지에서 프롬프트 생성기 | ImagePrompt.org (Midjourney, Flux, Stable Diffusion 지원)",
+    "links": [
+      "https://imageprompt.org",
+      "http://ImagePrompt.org"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698055.344659",
+    "date": "2026-07-22",
+    "text": "aescripts.com/corridorkey-for-green-screens aescripts - CorridorKey for Green Screens (Corridor Digital의 CorridorKey 플러그인 구현)",
+    "links": [
+      "https://aescripts.com/corridorkey-for-green-screens/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698051.516189",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Dark Barbie BTS: Real Choreography Meets AI Music Video Production. Powered By SeeDance2.0",
+    "links": [
+      "https://www.youtube.com/watch?v=Y9QdF1Uoa3c"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784698047.230759",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - CODE:42 [ RIA 리아 ] \"O.O\" Official M/V",
+    "links": [
+      "https://www.youtube.com/watch?v=6K2QFZNBvEs"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697986.491259",
+    "date": "2026-07-22",
+    "text": "필터링 우회\n lumiying.com/tools/image-grid-overlay LumiYing - Seedance 2.0 Grid Overlay (얼굴 인식 우회 무료 툴)\n\nreddit.com/r/Seedance_AI/…/using_real_face_photos_in_seedance_20_3_methods Reddit - Using real face photos in Seedance 2.0 (3 methods)",
+    "links": [
+      "https://lumiying.com/tools/image-grid-overlay",
+      "https://www.reddit.com/r/Seedance_AI/comments/1rx6jrz/using_real_face_photos_in_seedance_20_3_methods/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697939.570909",
+    "date": "2026-07-22",
+    "text": "Workflow I used:\n*Midjourney* → character & scene design\n*Nano Banana Pro* → image refinement / realism\n*Seedance 2.0* → animation and cinematic motion\nGo to the *Seedance 2 Video Generator*\nWrite your full prompt or add reference images\nUpload the image you want to animate\n1. Click *Generate* and get your animated video\nThe result actually feels like a *mini animated short film*, not just AI clips stitched together. The environment detail, character motion, and lighting transitions came out way more cinematic than I expected.\nThis scene especially gave me strong *Pixar / indie animation vibes* — the little phone repair shop full of old devices is such a cool setting.\nAI animation is moving insanely fast right now.\nCurious what you guys think — are tools like *Seedance 2.0* getting close to real animated storytelling?\nTools used:\nMidjourney + Nano Banana Pro + Seedance 2.0\nShare your thoughts about these 3 AI models",
+    "links": [
+      "https://seedance2pro.video/"
+    ],
+    "files": [
+      {
+        "path": "files/1784697939_570909_Seedance 2.0 Midjourney Nano Banana Pro AI Animated Short Film That Feels Like Pixar r seedance2pro.mp4",
+        "name": "Seedance 2.0 Midjourney Nano Banana Pro AI Animated Short Film That Feels Like Pixar r seedance2pro.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784697869.081809",
+    "date": "2026-07-22",
+    "text": "sjinn.ai/blog/… SJinn - Seedance 2 가이드",
+    "links": [
+      "https://sjinn.ai/blog/Seedance2-Guide"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697865.372789",
+    "date": "2026-07-22",
+    "text": "mvsm.com ManvsMachine — Design & Direction Co.",
+    "links": [
+      "https://mvsm.com/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697862.181599",
+    "date": "2026-07-22",
+    "text": "github.com/aramadan0096/CorridorKey-Nuke-Cattery",
+    "links": [
+      "https://github.com/aramadan0096/CorridorKey-Nuke-Cattery"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697858.381119",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - \"AI Hits Different\" | Billy Boman AI Productions Reel II 2026",
+    "links": [
+      "https://youtu.be/bR-UwTU2Www"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697855.420299",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=inyYNYlngJw YouTube - Billys AI Food | Culinary Reel 2026",
+    "links": [
+      "https://www.youtube.com/watch?v=inyYNYlngJw"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697852.582089",
+    "date": "2026-07-22",
+    "text": "reddit.com/r/StableDiffusion/…/showing_real_capability_of_ltx_loras_dispatch_ltx Reddit - Showing real capability of LTX loras! Dispatch LTX 2.3 LORA with multiple characters + style",
+    "links": [
+      "https://www.reddit.com/r/StableDiffusion/comments/1rv40xc/showing_real_capability_of_ltx_loras_dispatch_ltx/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697849.638209",
+    "date": "2026-07-22",
+    "text": "reddit.com/r/AIContentAutomators/…/full_guide_why_your_seedance_2_prompts_keep Reddit - Full guide: Why your Seedance 2 prompts keep failing",
+    "links": [
+      "https://www.reddit.com/r/AIContentAutomators/comments/1rf6b78/full_guide_why_your_seedance_2_prompts_keep/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697846.109499",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - Dark Barbie (AI K-pop MV made with MidJourney, Seedance2.0, and Nano Banana)",
+    "links": [
+      "https://youtu.be/3Har7KQKs3k"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697817.798309",
+    "date": "2026-07-22",
+    "text": "reddit.com/r/StableDiffusion/…/nvidia_super_resolution_vs_seedvr2_comfy_image\nFrom the StableDiffusion community on Reddit: Nvidia super resolution vs seedvr2 (comfy image upscale)\nExplore this post and more from the StableDiffusion community\n\n##############################################\n\n 새로운 비디오 뎁스 추측 SOTA 모델\n\ndvd-project.github.io\n\n##############################################\ndvd-project.github.io\nDVD: Deterministic Video Depth Estimation\nDVD: Deterministic Video Depth Estimation with Generative Priors",
+    "links": [
+      "https://www.reddit.com/r/StableDiffusion/comments/1rrk71v/nvidia_super_resolution_vs_seedvr2_comfy_image/",
+      "https://dvd-project.github.io/",
+      "http://dvd-project.github.io"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697737.409949",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - MatAnyone 2: Scaling Video Matting via a Learned Quality Evaluator",
+    "links": [
+      "https://www.youtube.com/watch?v=tyi8CNyjOhc"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697734.432469",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Corridor Crew's PERFECT Chroma Key AI Model (CorridorKey) in Under 6GB VRAM! - Tutorial",
+    "links": [
+      "https://www.youtube.com/watch?v=6QGHgap0rgY"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697731.758329",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - ONYX Ai Matte v2.1 — NEW FEATURES UPDATE!",
+    "links": [
+      "https://youtu.be/A0F8nFo-c68"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697728.917549",
+    "date": "2026-07-22",
+    "text": "youtu.be/ijJMn_xAZH0 YouTube - 영상계의 나노바나나 출시, 씨댄스2.0 완벽 가이드",
+    "links": [
+      "https://youtu.be/ijJMn_xAZH0"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697725.484849",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - WOODNUTS | Sci-Fi Short Film (Cosmic Horror)",
+    "links": [
+      "https://youtu.be/NLAZubEa6X4"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697721.903659",
+    "date": "2026-07-22",
+    "text": "cvlab-kaist.github.io/VideoMaMa github.com/cvlab-kaist/VideoMaMa",
+    "links": [
+      "https://cvlab-kaist.github.io/VideoMaMa/",
+      "https://github.com/cvlab-kaist/VideoMaMa"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697717.933449",
+    "date": "2026-07-22",
+    "text": "stable-video-infinity.github.io/homepage SVI - long video generation model",
+    "links": [
+      "https://stable-video-infinity.github.io/homepage/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697498.395069",
+    "date": "2026-07-22",
+    "text": "The Dor Brothers 워크플로우\n1. Seedance 2.0 for core video generation\n2. Midjourney for character and scene references\n3. Adobe Premiere or DaVinci for editing\n4. Topaz for upscaling and enhancement",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784697498_395069_The Dor Brothers.mp4",
+        "name": "The Dor Brothers.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784697469.147879",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - ONYX AI Matte — AI Segmentation Plugin Demo | DaVinci Resolve, Nuke, Fusion",
+    "links": [
+      "https://www.youtube.com/watch?v=0vIHBAfHdcw"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697466.605649",
+    "date": "2026-07-22",
+    "text": "app.beeble.ai/switchx#… Beeble | VIDEO TO VFX - 그린스크린 영상을 VFX-ready 에셋으로",
+    "links": [
+      "https://app.beeble.ai/switchx#showcase"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697463.499889",
+    "date": "2026-07-22",
+    "text": "hjrphoebus.github.io/3DiMo",
+    "links": [
+      "https://hjrphoebus.github.io/3DiMo/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697460.828239",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Video Object removal with AI - ComfyUI TP OmnimatteZero - AI Clean-ups",
+    "links": [
+      "https://www.youtube.com/watch?v=TWj9MQD9-F8"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697458.004379",
+    "date": "2026-07-22",
+    "text": "github.com/yaoliliu/FreeFuse Multi-Subject LoRA Fusion",
+    "links": [
+      "https://github.com/yaoliliu/FreeFuse"
+    ],
+    "files": [
+      {
+        "path": "files/1784697458_004379_flux_res.png",
+        "name": "flux_res.png",
+        "mimetype": "image/png"
+      }
+    ]
+  },
+  {
+    "ts": "1784697456.543239",
+    "date": "2026-07-22",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784697456_543239_Decart.mp4",
+        "name": "Decart.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784697309.190189",
+    "date": "2026-07-22",
+    "text": "youtube.com/shorts/… YouTube - '사진 한 장'이면 된다는 생성형 AI 기술 근황?",
+    "links": [
+      "https://youtube.com/shorts/lUzduCJ9M-Q"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697302.761469",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Wan Move Image2Video - Full Camera Control using reference Video for motion transfer in Comfyui!",
+    "links": [
+      "https://www.youtube.com/watch?v=3Whnt7SMKMs"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697299.850599",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - 충격!! 구글 '프로젝트 지니' 직접 써본 후기. 이건 진짜 미쳤다…",
+    "links": [
+      "https://www.youtube.com/watch?v=hUONc4FRS1Q"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697296.314669",
+    "date": "2026-07-22",
+    "text": "artstation.com/artwork/98dOYq ArtStation - ComfyUI: genAI R&D Workflow for VFX (Img Editing, Concept & DMP), Antonio Neto",
+    "links": [
+      "https://www.artstation.com/artwork/98dOYq"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697289.076449",
+    "date": "2026-07-22",
+    "text": "reddit.com/r/StableDiffusion/…/im_back_finally_with_an_update_12gb_gguf… Reddit - 12GB GGUF LTX-2 WORKFLOWS FOR T2V/I2V/V2V/IA2V/TA2V!",
+    "links": [
+      "https://www.reddit.com/r/StableDiffusion/comments/1ql1fc8/im_back_finally_with_an_update_12gb_gguf_ltx2/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697282.382279",
+    "date": "2026-07-22",
+    "text": "cvlab-kaist.github.io/VideoMaMa",
+    "links": [
+      "https://cvlab-kaist.github.io/VideoMaMa/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697279.946929",
+    "date": "2026-07-22",
+    "text": "github.com/rik-python/AI-CharacterSwap-Workflow/tree/main",
+    "links": [
+      "https://github.com/rik-python/AI-CharacterSwap-Workflow/tree/main"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697276.591649",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Wan 2.2 Animate for VFX Workflow | AI Face & Character Replacement",
+    "links": [
+      "https://www.youtube.com/watch?v=ejDXkjNtS2s"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697273.046149",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Cinematic Worlds with Gen-4.5 | Runway",
+    "links": [
+      "https://www.youtube.com/watch?v=IKGRhqk7Ql0"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697269.605029",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - AI-Accelerated Cleanups | 01. Generating a clean plate with ComfyUI",
+    "links": [
+      "https://www.youtube.com/watch?v=qif2Q4JWm1M"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697264.738059",
+    "date": "2026-07-22",
+    "text": "로그 아웃풋 huggingface.co/…/Z-image-Turbo_LogC4_lora",
+    "links": [
+      "https://huggingface.co/Sumitc13/Z-image-Turbo_LogC4_lora"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697261.998379",
+    "date": "2026-07-22",
+    "text": "github.com/sumitchatterjee13/nuke-nodes-comfyui Comfy용 누크노드",
+    "links": [
+      "https://github.com/sumitchatterjee13/nuke-nodes-comfyui"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697259.489579",
+    "date": "2026-07-22",
+    "text": "fxtd.org/radiance_docs",
+    "links": [
+      "https://fxtd.org/radiance_docs/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697256.572249",
+    "date": "2026-07-22",
+    "text": "github.com/fxtdstudios/radiance 전문가용 HDR Image Processing Suite for ComfyUI",
+    "links": [
+      "https://github.com/fxtdstudios/radiance"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697237.724239",
+    "date": "2026-07-22",
+    "text": "THE PROMPT:\n\nUse this photo as a reference. Keep the person’s face fully photorealistic and natural; do not stylize, cartoonize, beautify, or smooth the skin.\nCreate ONE single composite character sheet image with EXACTLY ELEVEN (11) distinct panels.\nEach panel must show a DIFFERENT required view.\nDo NOT duplicate views.\nDo NOT replace views.\nDo NOT omit any panel.\nDo NOT add extra panels.\nAll panels must represent the SAME person with identical identity, facial structure, proportions, age, skin tone, and micro-details.\nGLOBAL REALISM RULES:\n- Ultra-photorealistic, live-action realism\n- Natural human skin with visible pores, wrinkles, fine imperfections\n- No beauty retouching, no plastic skin\n- Physically correct anatomy\n- Neutral studio background\n- Clean, consistent lighting\n- Reference-quality sharpness\nPANEL DEFINITIONS (MANDATORY):\nPANEL 1 – FACE CLOSE-UP (1:1)\n- Extreme facial close-up, straight-on\n- Maximum skin texture and micro-detail\n- Defines character identity\nPANEL 2 – EYES DETAIL (21:9)\n- Ultra-wide cinematic crop of eyes only\n- Sharp iris texture, natural reflections\n- Correct eye spacing and anatomy\nPANEL 3 – TEETH / MOUTH DETAIL (4:5)\n- Mouth slightly open\n- Teeth clearly visible\n- Natural tooth color and alignment\n- Neutral expression (no smile)\nPANEL 4 – HANDS CLOSE-UP (1:1)\n- Both hands visible\n- Natural relaxed pose\n- Visible veins, knuckles, skin texture\nPANEL 5 – FULL BODY FRONT (9:16)\n- Full body from head to feet INCLUDING SHOES\n- Neutral standing pose\n- Clear silhouette, correct proportions\nPANEL 6 – FULL BODY BACK VIEW (9:16)\n- Same full body from behind INCLUDING SHOES\n- Hair length, posture, clothing continuity visible\nPANEL 7 – SIDE PROFILE LEFT (HEAD ONLY)\n- True left-side profile (90-degree angle)\n- Nose, lips, chin, jawline clearly defined\n- No rotation toward camera\nPANEL 8 – SIDE PROFILE RIGHT (HEAD ONLY)\n- True right-side profile (90-degree angle)\n- Identical scale and framing as left profile\n- No rotation toward camera\nPANEL 9 – FACIAL EXPRESSION: NEUTRAL\n- Head-and-shoulders framing\n- Calm, relaxed expression\nPANEL 10 – FACIAL EXPRESSION: SLIGHT SMILE\n- Subtle, natural smile\n- No exaggeration\nPANEL 11 – FACIAL EXPRESSION: SERIOUS / FOCUSED\n- Concentrated, serious look\n- No anger or drama\nCOMPOSITION RULES:\n- Exactly 11 panels total\n- All panels combined into ONE single image\n- Clear visual separation between panels\n- No text, no labels, no typography\n- Professional VFX / casting reference sheet look\nSTRICTLY AVOID:\n- Duplicate faces or expressions\n- Extra hands or missing hands\n- Cropped feet or missing shoes\n- Missing side profiles\n- Stylized or beautified appearance",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784697237_724239_image (4).png",
+        "name": "image (4).png",
+        "mimetype": "image/png"
+      }
+    ]
+  },
+  {
+    "ts": "1784697228.939179",
+    "date": "2026-07-22",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784697228_939179_ComfyUI에서 WAN 2.2 Animate를 사용한 수술용 마스크_StableDiffusion.mp4",
+        "name": "ComfyUI에서 WAN 2.2 Animate를 사용한 수술용 마스크_StableDiffusion.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784697151.538849",
+    "date": "2026-07-22",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784697151_538849_Luma AI Ray3 Modify_02.mp4",
+        "name": "Luma AI Ray3 Modify_02.mp4",
+        "mimetype": "video/mp4"
+      },
+      {
+        "path": "files/1784697151_538849_Luma AI Ray3 Modify_01.mp4",
+        "name": "Luma AI Ray3 Modify_01.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784697124.210119",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Achieving silky-smooth \"camera-centric\" freedom with 3D Gaussian splashing: Qwen-Edit-2511 workflow",
+    "links": [
+      "https://www.youtube.com/watch?v=9Vyxjty9Qao"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697016.683089",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - LILY (1 Billion Followers Summit in collaboration with Google Gemini)",
+    "links": [
+      "https://youtu.be/f2d40eY7P1s"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697012.842829",
+    "date": "2026-07-22",
+    "text": "reddit.com/r/StableDiffusion/…/april_12_1987_music_video_ltx2_4070_ti_with… Reddit - April 12, 1987 Music Video (LTX-2 4070 TI with 12GB VRAM)",
+    "links": [
+      "https://www.reddit.com/r/StableDiffusion/comments/1qa7i7p/april_12_1987_music_video_ltx2_4070_ti_with_12gb/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784697008.467429",
+    "date": "2026-07-22",
+    "text": "aikive.com/list-cinema AI-Kive - AI Cinema",
+    "links": [
+      "https://aikive.com/list-cinema"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696929.303209",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - LTX2 in ComfyUI Just TKO Every Other Open-Source AI Video – Full HD Video, Local!",
+    "links": [
+      "https://www.youtube.com/watch?v=G2JBqUHUbfQ"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696917.971119",
+    "date": "2026-07-22",
+    "text": "Workflow breakdown:\n • Flux 2.0 → generating the clean plate\n • SAM3 → roto\n • WAN VACE → doing the heavy lifting",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784696917_971119_VACE cleanup_reflections on glasses.mp4",
+        "name": "VACE cleanup_reflections on glasses.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784696886.433429",
+    "date": "2026-07-22",
+    "text": "*웹을 속일 정도로 현실적인 AI UGC를 만든 방법*\n:brain: *AI가 더 이상 AI처럼 보이지 않을 때*\n 며칠 전, 저는 비전문가뿐 아니라 이 도구들을 매일 사용하는 전문가들까지 속일 정도로 현실적인 AI 생성 UGC를 공유했습니다.\n 바로 이 지점에서 이 프로젝트는 흥미로워집니다. 현실과 인공의 경계가 더 이상 명확하지 않아지는 순간이기 때문입니다.\n:handshake: *투명성*\n 이 프로젝트는 Picsart와의 협업으로 진행되었으며, Picsart는 자사 플랫폼에 대한 접근 권한을 제공했습니다.\n 이 플랫폼은 점점 더 강력해지고 있으며, 유연하고 복잡한 워크플로우에도 충분히 대응할 수 있는 수준으로 진화하고 있습니다.\n:small_blue_diamond: *Phase 1 – 모델 이전에, 인물부터*\n 저는 항상 스토리에서 시작합니다.\n 이번 프로젝트에서는 이탈리아계 미국인 18세 여성 ‘안나(Anna)’를 설정했습니다. 그녀는 이탈리아로 다시 이주했고, 일상적인 브이로그를 올립니다.\n 이러한 배경 설정이 그녀의 말투, 움직임, 그리고 ‘실존 인물 같은 느낌’을 결정했습니다.\n:small_blue_diamond: *Phase 2 – 비주얼 구축*\n 피사체는 중립적인 의상을 착용한 상태로 여러 각도에서 생성했습니다.\n 이는 이후 생성 단계에서 시각적 편향을 최소화하기 위함입니다.\n:small_blue_diamond: *Phase 3 – 감정 매핑*\n 종종 간과되는 단계입니다.\n 캐릭터가 화면 안에서 어떻게 반응할지를 미리 알기 위해, 여러 감정 상태를 사전에 생성했습니다.\n:small_blue_diamond: *Phase 4 – 환경과 ‘의도적인 저품질’*\n 피사체와 환경을 분리하지 않고 하나로 결합했습니다.\n “스마트폰 영상 스타일(smartphone video-style)”이라는 프롬프트를 사용해, 기술적 완성도보다 *지각적 리얼리즘*을 목표로 했습니다.\n:small_blue_diamond: *Phase 5 – 텍스트 기반 스토리보드*\n 영상 생성 전에 미세한 행동, 멈춤, 끼어드는 순간들을 계획했습니다.\n 안나는 전문 크리에이터가 아닙니다. 그렇기 때문에 더 설득력이 생깁니다.\n:small_blue_diamond: *Phase 6 – 불완전한 움직임*\n 즉흥적인 제스처, 거친 컷, 작은 방해 요소들.\n AI UGC에서 가장 큰 실수는 ‘완벽함’입니다. 저는 이를 의도적으로 피했습니다.\n:small_blue_diamond: *Phase 7 – 디테일*\n 낡은 후드티, 휴대폰에 묻은 지문, 거울 위의 먼지.\n 사람들이 의식적으로 보지는 않지만, 즉각적으로 ‘느끼는’ 요소들입니다.\n:test_tube: *리서치 우선*\n 젊은 세대의 실제 브이로그를 분석하며 언어, 리듬, 톤을 연구했습니다 :sweat_smile:\n 이 단계는 필수적이었습니다.\n:gear: *사용한 도구*\n :small_blue_diamond: *Nano Banana* – 강력한 피사체 일관성 확보\n :small_blue_diamond: *Veo 3.1* – 네이티브 오디오와 장면 간 자연스러운 연속성\n:brain: *개인적인 결론*\n 이 프로젝트의 목적은 AI가 사람을 속일 수 있다는 것을 증명하는 데 있지 않았습니다.\n 리얼리즘은 도구의 문제가 아니라, *방법론·관찰·의도의 문제*라는 점을 보여주고자 했습니다.\n AI는 지름길로 다룰 때가 아니라, 하나의 *언어*로 다룰 때 비로소 설득력을 갖습니다.\n\n:pushpin: 전체 워크플로우\npicsart.com/create/workflows/2242a0162bc3…",
+    "links": [
+      "https://picsart.com/create/workflows/2242a0162bc31762825a652bb297e3527d7693c0b25678ec6534420252df4759"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696856.251589",
+    "date": "2026-07-22",
+    "text": "How I created an AI UGC so realistic it fooled the web",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784696856_251589_AI_UGC.mp4",
+        "name": "AI_UGC.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784696803.928269",
+    "date": "2026-07-22",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784696803_928269_allstar.mp4",
+        "name": "allstar.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784696790.824379",
+    "date": "2026-07-22",
+    "text": "higgsfield.ai/cinema-studio Higgsfield Cinema Studio | Professional Production in Your Browser",
+    "links": [
+      "https://higgsfield.ai/cinema-studio"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696788.002169",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - ALL Camera Movement Prompts in AI Filmmaking (38 Cinematic Moves)",
+    "links": [
+      "https://youtu.be/zQI_pWw9qWo"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696784.989389",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - Higgsfield AI Workflow: How I Made FRONTIER - Space Western Trailer",
+    "links": [
+      "https://youtu.be/sCThi1E_aBg"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696783.846439",
+    "date": "2026-07-22",
+    "text": "나노 바나나 프로 / 클링(Kling) 2.5 터보",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784696783_846439_에반게리온.mp4",
+        "name": "에반게리온.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784696691.543879",
+    "date": "2026-07-22",
+    "text": "meigen-ai.github.io/LongCat-Video-Avatar LongCat-Video-Avatar - audio-driven character animation 통합 모델",
+    "links": [
+      "https://meigen-ai.github.io/LongCat-Video-Avatar/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696691.098689",
+    "date": "2026-07-22",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784696691_098689_Time-to-Move + Wan 2.2 Test.mp4",
+        "name": "Time-to-Move + Wan 2.2 Test.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784696688.780959",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - Introducing Qwen-Image-Edit-2511",
+    "links": [
+      "https://youtu.be/TK5alKYyIPg"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696650.065649",
+    "date": "2026-07-22",
+    "text": "기존의, 거의 의식처럼 굳어졌던 AI 영상제작 워크플로우는 조용히 수명을 다하고 있다. 다들 익숙한 방식이다.\n이미지를 프롬프트로 생성하고, 업스케일한 뒤, 비디오 모델에 넣어 모션을 만들고, 마지막에 립싱크를 덧붙이는 구조.\n비디오 모델이 사실상 '움직이는 엽서' 수준이던 시절에는 합리적인 접근이었다.\n\n하지만 이제는 상황이 달라졌다.\n\n비디오 모델은 이제 말을 한다. 그것도 제대로.\n씬을 컷으로 나누고, 연속성을 유지하며, 경우에 따라서는 여러 클립에 걸쳐 캐릭터 일관성까지 유지한다.\n즉, 더 이상 프랑켄슈타인식 파이프라인이 아니라, 모델 내부에서 하나의 '씬'을 구성할 수 있다. 대사, 쇼트 전환, 호흡과 템포까지 모두 포함해서 말이다. 임시방편은 필요 없다.\n\n최근 세대의 모델들을 집중적으로 테스트해 보면서 비교 영상을 하나 만들었다.\nVeo 3.1, Kling 2.6, LTX Fast와 Pro, Sora 2 Pro, 그리고 WAN 2.5와 막 공개된 2.6까지 포함했다.\n일부 모델은 아직 커스텀 캐릭터를 허용하지 않기 때문에, 테스트는 캐릭터 외형보다는 멀티클립 서사와 발화 능력에 초점을 맞췄다.\n모든 모델에 동일한 조건을 적용했다. 과연 누가 '씬을 연출'할 수 있는지를 보기 위해서다.\n\n이 실험은 내가 현재 실제로 겪고 있는 개인적인 상황에서 출발했다.\n딸아이가 곧 14살이 된다. 축하할 일이기도 하다. 아는 사람은 안다. 그 긴장감, 그 대화들, 어색한 침묵, 그리고 예고 없이 찾아오는 감정의 플롯 트위스트들.\n놀랍게도, 이건 내러티브 AI를 테스트하기에 꽤 좋은 스트레스 테스트였다.\n\n결과는 흥미롭다.\n\"모든 문제가 해결됐다\"는 의미의 흥미로움은 아니다.\n하지만 \"지형이 바뀌었다\"는 의미에서는 분명 흥미롭다.\n\n어떤 모델은 편집자처럼 느껴지고, 어떤 모델은 즉흥 배우에 가깝고, 몇몇은 명확하게 '쇼트'가 아니라 '씬' 단위로 사고하고 있다.\n\n이건 중요한 변화다.\n더 예쁜 클립을 만드는 문제가 아니라, 앞으로 내러티브 작업을 어떻게 구조화해야 하는지에 대한 문제이기 때문이다.",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784696650_065649_Nouvelle Vague.mp4",
+        "name": "Nouvelle Vague.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784696489.784669",
+    "date": "2026-07-22",
+    "text": "github.com/1038lab/ComfyUI-NodeAlign",
+    "links": [
+      "https://github.com/1038lab/ComfyUI-NodeAlign"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696487.176569",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - 69.스케일-싱글듀얼영상제작(3D Pose Control) Wan-Scail-Character Animation-ComfyUI",
+    "links": [
+      "https://www.youtube.com/watch?v=NB1wzvvG83k"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696484.248809",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - SCAIL Just Changed AI Video Animation - 3D Pose Control Works!",
+    "links": [
+      "https://youtu.be/pr6VduZbe3M"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696479.808209",
+    "date": "2026-07-22",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784696479_808209_comp using NUKE × ComfyUI.mp4",
+        "name": "comp using NUKE × ComfyUI.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784696450.433479",
+    "date": "2026-07-22",
+    "text": "video.kinetix.tech/create Kinetix video",
+    "links": [
+      "https://video.kinetix.tech/create"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696447.079549",
+    "date": "2026-07-22",
+    "text": "studiofreewillusion.com/20 (주)스튜디오프리윌루전 - MOVIE",
+    "links": [
+      "https://studiofreewillusion.com/20/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696440.293869",
+    "date": "2026-07-22",
+    "text": "1. Nano Banana Pro에서 이 3x3 프롬프트를 사용해 대화 장면에 다양한 샷 유형을 만드세요\n2. Kling AI 2.6으로 모든 것을 애니메이션화하세요. 현재 이런 현실적인 립싱크 샷에 가장 좋은 비디오 모델입니다\n\n아래 프롬프트:\n\nUse the uploaded characters as references, keeping facial structure, proportions, and identity exactly consistent with the character references and naturally integrated into the scene. They sit directly opposite each other at a table inside [LOCATION], arranged for a dialogue sequence. All panels must appear as [VISUAL STYLE] frames (e.g., live action, anime). Build a single 3x3 cinematic storyboard grid, panels clearly separated by thin borders, counted left to right, top to bottom, adhering strictly to the shot structure below: 1: The Master Shot - wide, slightly elevated establishing frame that maps the spatial relationship between characters, table and environment, revealing architectural context and background movement. 2: The Two-Shot - balanced medium-wide frame at seated eye level, holding both characters in equal visual weight across the table, preserving clean eye-line continuity. 3: Over-the-Shoulder (Character A) - camera placed just behind Character A's shoulder on the established side of the axis, using their shoulder as a soft foreground frame while focusing on Character B. 4: Over-the-Shoulder (Character B) - camera remains on the same conversational axis, positioned behind Character B's shoulder, maintaining consistent screen direction and spatial logic while framing Character A. 5: Medium Close-Up (Character A) - chest-up framing, with controlled contrast and softly diffused background detail. 6: Medium Close-Up (Character B) - chest-up framing mirroring the previous shot, maintaining visual rhythm and lighting continuity. 7: Close-Up (Character A) - tight facial framing capturing fine emotional detail, shallow depth of field isolating the subject from the environment. 8: Close-Up (Character B) - tight facial framing counterbalancing the previous close-up, matching lens behavior and lighting quality. 9: Insert Shot - extreme close-up of [PHYSICAL DETAIL]",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784696440_293869_3x3_nano.mp4",
+        "name": "3x3_nano.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784696404.794959",
+    "date": "2026-07-22",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784696404_794959_제작기.mp4",
+        "name": "제작기.mp4",
+        "mimetype": "video/mp4"
+      },
+      {
+        "path": "files/1784696404_794959_테스트영상.mp4",
+        "name": "테스트영상.mp4",
+        "mimetype": "video/mp4"
+      },
+      {
+        "path": "files/1784696404_794959_자이언트스텝 AI영상 테스트 프로젝트.txt",
+        "name": "자이언트스텝 AI영상 테스트 프로젝트.txt",
+        "mimetype": "text/plain"
+      },
+      {
+        "path": "",
+        "name": "CUCO - Love Letter To LA - Worfklow Breakdown.mp4",
+        "mimetype": "video/mp4",
+        "oversized": true,
+        "permalink": "https://ncorestudio.slack.com/files/U0BNSE01MB3/F0BJHBKNW4X/cuco_-_love_letter_to_la_-_worfklow_breakdown.mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784696305.482749",
+    "date": "2026-07-22",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784696305_482749_527276507_17918679897112832_5596102143167415575_n.jpg",
+        "name": "527276507_17918679897112832_5596102143167415575_n.jpg",
+        "mimetype": "image/jpeg"
+      }
+    ]
+  },
+  {
+    "ts": "1784696134.491729",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Le Poids de L'air / The Weight of Air",
+    "links": [
+      "https://www.youtube.com/watch?v=gfnjzMsdaY0"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696128.093109",
+    "date": "2026-07-22",
+    "text": "pq-yang.github.io/projects/… MatAnyone 2 for human video matting",
+    "links": [
+      "https://pq-yang.github.io/projects/MatAnyone2/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696125.549129",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Meet Beeble Nuke Plugin: Relight with Full PBR Passes",
+    "links": [
+      "https://www.youtube.com/watch?v=YCFhxvNDG7A"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696122.795319",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Nano Banana Nuke 스크립터 활용 - 부서진 벽면 합성",
+    "links": [
+      "https://www.youtube.com/watch?v=e-5AJtWP0nE"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696120.134699",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=…&t=46s YouTube - Nano Banana For Nuke v.0.4 업데이트 : 멀티앵글 자동생성기능 추가",
+    "links": [
+      "https://www.youtube.com/watch?v=MxwM9zTU99c&t=46s"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696117.989259",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - ComfyUI Tutorial Fusion LoRA Easy Compositing",
+    "links": [
+      "https://www.youtube.com/watch?v=bujmhPL8MJw"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696115.294569",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=…&t=660s YouTube - ComfyUI Object Removal Tutorial: Clean Plates, Roto & AI Workflow for VFX",
+    "links": [
+      "https://www.youtube.com/watch?v=tbyWtZ2jqJE&t=660s"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696112.803369",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - 누구나 할 수 있어요!! ComfyUI 2025 | 빠르게, 탄탄하게 시작하기",
+    "links": [
+      "https://youtu.be/C1FYM8VuA88"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696108.806949",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - Nano Banana PRO tips! and 50 creative Prompts You have to Try",
+    "links": [
+      "https://youtu.be/9RH94lCG73I"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696106.482329",
+    "date": "2026-07-22",
+    "text": "youtu.be/LAHdgOkQMmk YouTube - 나노바나나 프로 : 모든 기능 잠금해제, 이거 한편이면 끝",
+    "links": [
+      "https://youtu.be/LAHdgOkQMmk"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696103.888079",
+    "date": "2026-07-22",
+    "text": "YouTube - 새로운 3D AI 모델 사용 튜토리얼 | Hunyuan 3D 3.0",
+    "links": [],
+    "files": []
+  },
+  {
+    "ts": "1784696100.947909",
+    "date": "2026-07-22",
+    "text": "aikive.com/list-cinema AI-Kive - AI Cinema",
+    "links": [
+      "https://aikive.com/list-cinema"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696098.236979",
+    "date": "2026-07-22",
+    "text": "beeble.ai/research/switchlight-3-0-is-here Beeble - SwitchLight 3.0 is here (Video-to-PBR 모델)",
+    "links": [
+      "https://beeble.ai/research/switchlight-3-0-is-here"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696095.196019",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - \"더이상 AI 못 막는다\" 지금은 현실적으로 '이것부터' 하세요 (김대식 교수 풀버전)",
+    "links": [
+      "https://www.youtube.com/watch?v=v5jWMfqKcus"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696092.395889",
+    "date": "2026-07-22",
+    "text": "YouTube - 원하는 캐릭터를 영상에 적용시키는 AI #apob #apobai",
+    "links": [],
+    "files": []
+  },
+  {
+    "ts": "1784696089.504039",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - 구글 veo 3.1 업데이트. 점점 좋아집니다!!",
+    "links": [
+      "https://youtu.be/3H1EnsnjbJ0"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696086.865329",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - [VEO3.1] 한국에서 가장 빠른 사용후기 - Higgsfield와 FLOW에서 사용가능",
+    "links": [
+      "https://youtu.be/d200JuTEuq4"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696083.601489",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - 짝사랑 안 해 본 사람 없지 l AI 뮤직비디오 - [햇살처럼]",
+    "links": [
+      "https://www.youtube.com/watch?v=3ev9rw0m5QI"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696080.793599",
+    "date": "2026-07-22",
+    "text": "elevenlabs.io ElevenLabs - Free Text to Speech & AI Voice Generator",
+    "links": [
+      "https://elevenlabs.io/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696069.263939",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - 인스타그램의 시대는 끝났다? OpenAI Sora 2가 가져올 소셜 미디어의 혁명",
+    "links": [
+      "https://youtu.be/CK8iecBiNuE"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696064.033399",
+    "date": "2026-07-22",
+    "text": "github.com/WeChatCV/Wan-Alpha",
+    "links": [
+      "https://github.com/WeChatCV/Wan-Alpha"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696060.561209",
+    "date": "2026-07-22",
+    "text": "Sora 2 app introduction youtu.be/…",
+    "links": [
+      "https://youtu.be/b_WamT5sc5I"
+    ],
+    "files": [
+      {
+        "path": "files/1784696060_561209_Social_ColdOpen_V2.mp4",
+        "name": "Social_ColdOpen_V2.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784696056.612319",
+    "date": "2026-07-22",
+    "text": "youtube.com/channel/… YouTube - Fantasoner (Fantasy + Pioneer, 모든 콘텐츠 A.I. 제작)",
+    "links": [
+      "https://www.youtube.com/channel/UCW5E41hoHySJfijC6dkfhGg"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696051.403549",
+    "date": "2026-07-22",
+    "text": "영화 제작 핸드북 - Filmmaker's Handbook : A Comprehensive Guide for the Digital Age / Ascher, Steven / Pincus, Edward / Keller, Carol product.kyobobook.co.kr/detail/…",
+    "links": [
+      "https://product.kyobobook.co.kr/detail/S000001379171"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696045.090309",
+    "date": "2026-07-22",
+    "text": "영상편집에 대한 조망 - In the Blink of an Eye: A Perspective on Film Editing / Walter Murch product.kyobobook.co.kr/detail/…",
+    "links": [
+      "https://product.kyobobook.co.kr/detail/S000001310258"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696041.144299",
+    "date": "2026-07-22",
+    "text": "필름메이커의 눈 - The Filmmaker's Eye / Mercado, Gustavo product.kyobobook.co.kr/detail/…",
+    "links": [
+      "https://product.kyobobook.co.kr/detail/S000001506445"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696038.429799",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=AvcXrJjaFZo YouTube - All-in-one FLUX Control Nets with Loras",
+    "links": [
+      "https://www.youtube.com/watch?v=AvcXrJjaFZo"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696035.882189",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Flux Tools: AI Sketch and Massing to Render made Easy",
+    "links": [
+      "https://www.youtube.com/watch?v=eo-KB51UtMY"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696032.047339",
+    "date": "2026-07-22",
+    "text": "DOVE: 실제 비디오 초고해상도를 위한 효율적인 1단계 확산 모델 github.com/zhengchen1999/DOVE",
+    "links": [
+      "https://github.com/zhengchen1999/DOVE"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696028.978899",
+    "date": "2026-07-22",
+    "text": "ComfyUI를 위한 전문적인 HDR(High Dynamic Range) 처리 노드 github.com/sumitchatterjee13/Luminance-Stack-Processor",
+    "links": [
+      "https://github.com/sumitchatterjee13/Luminance-Stack-Processor"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696025.488449",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - v33 - Wan2.2Animate_목소리와모든동작까지 표현, ComfyUI, Voice & Movie, Dance",
+    "links": [
+      "https://youtu.be/YpI6sVJv72o"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696021.746419",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - 이거 진짜 미쳤습니다. VEO3 야나두 영상을, 한국어로 시켜서 만든다고? 5개 국어를?",
+    "links": [
+      "https://youtu.be/B8uk1jq1qEo"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696018.506789",
+    "date": "2026-07-22",
+    "text": "나노바나나와 비슷한 오픈소스 모델 Qwen-Image-Edit-2509 업데이트 되었습니다. youtu.be/… YouTube - Qwen-Image-Edit-2509 IS LIVE — and it's a GAME CHANGER",
+    "links": [
+      "https://youtu.be/_F1B_8DE55M"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696012.627169",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - WAN 2.2 FUN으로 댄스 영상 뚝딱!",
+    "links": [
+      "https://youtu.be/PwzURxS8UpI"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696010.121629",
+    "date": "2026-07-22",
+    "text": "github.com/Wan-Video/Wan2.2 Wan: Open and Advanced Large-Scale Video Generative Models",
+    "links": [
+      "https://github.com/Wan-Video/Wan2.2"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696007.101229",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - 왕초보를 위한, ComfyUI 정말 쉬운, 기본 조작법",
+    "links": [
+      "https://youtu.be/hGTFHyuslb8"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784696001.663369",
+    "date": "2026-07-22",
+    "text": "업스케일 hitpaw.com avclabs.com/video-enhancer-ai.html pixop.com",
+    "links": [
+      "https://www.hitpaw.com/",
+      "https://www.avclabs.com/video-enhancer-ai.html",
+      "https://www.pixop.com/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695996.379029",
+    "date": "2026-07-22",
+    "text": "github.com/zibojia/MiniMax-Remover",
+    "links": [
+      "https://github.com/zibojia/MiniMax-Remover"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695992.718089",
+    "date": "2026-07-22",
+    "text": "nju-3dv.github.io/projects/SpatialVID SpatialVID Project Page",
+    "links": [
+      "https://nju-3dv.github.io/projects/SpatialVID/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695990.154609",
+    "date": "2026-07-22",
+    "text": "jindapark.github.io/projects/atlas ATLAS: Decoupling Skeletal and Shape Parameters for Expressive Parametric Human Modeling",
+    "links": [
+      "https://jindapark.github.io/projects/atlas/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695987.704719",
+    "date": "2026-07-22",
+    "text": "rose2025-inpaint.github.io ROSE for Video Object Removal",
+    "links": [
+      "https://rose2025-inpaint.github.io/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695984.347929",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=faJkjeXF_gk YouTube - 이건 진짜 혁명이다… 구글 나노바나나 20가지 활용법 직접 보여드립니다!",
+    "links": [
+      "https://www.youtube.com/watch?v=faJkjeXF_gk"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695980.395099",
+    "date": "2026-07-22",
+    "text": "vimeo.com/1116518771 Vimeo - ML Runner for nuke (Model Runner 노드 소개)",
+    "links": [
+      "https://vimeo.com/1116518771"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695977.585359",
+    "date": "2026-07-22",
+    "text": "vimeo.com/1118524160 Vimeo - DepthCrafter & RGB2X Demo",
+    "links": [
+      "https://vimeo.com/1118524160"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695974.964109",
+    "date": "2026-07-22",
+    "text": "github.com/PicoTrex/Awesome-Nano-Banana-images/blob/…/README_en.md 나노바나나 다양한 사용법 - 케이스 스터디",
+    "links": [
+      "https://github.com/PicoTrex/Awesome-Nano-Banana-images/blob/main/README_en.md"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695972.247829",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - 핫한 AI 나노바나나가 공짜? 구글 AI STUDIO 에서 컷 만화를 만든다고!? PART.01 #소이랩의 스텝바이스텝",
+    "links": [
+      "https://www.youtube.com/watch?v=9r8lBdiU9M8"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695969.905369",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - I Tried Every Camera Angle in Nano Banana (AI Filmmaking Course)",
+    "links": [
+      "https://youtu.be/ptlxA2Pjj08"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695967.121569",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=ukACPBPriNc YouTube - 100% AI-Generated Sci-Fi Short Film | \"Pulse\" (2025)",
+    "links": [
+      "https://www.youtube.com/watch?v=ukACPBPriNc"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695963.456579",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - 인공지능이 우리 삶을 더 힘들게 만드는 진짜 이유",
+    "links": [
+      "https://www.youtube.com/watch?v=3CfJeOFIlz4"
+    ],
+    "files": [
+      {
+        "path": "files/1784695963_456579_gemini_Thingking.png",
+        "name": "gemini_Thingking.png",
+        "mimetype": "image/png"
+      },
+      {
+        "path": "files/1784695963_456579_chatGPT_Thingking.png",
+        "name": "chatGPT_Thingking.png",
+        "mimetype": "image/png"
+      },
+      {
+        "path": "files/1784695963_456579_chatGPT_Comp.png",
+        "name": "chatGPT_Comp.png",
+        "mimetype": "image/png"
+      }
+    ]
+  },
+  {
+    "ts": "1784695959.810499",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - 100% AI로 5주 만에 8천만 뷰? 대박 터진 영상 실제 프롬프트 최초공개 [세바시45]",
+    "links": [
+      "https://youtu.be/20a6qWDjMr0"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695953.039929",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - 나노바나나AI vs 미드저니비교! 캐릭터일관성 끝판왕은 누구? (구글ai스튜디오, 제미나이 2.5)",
+    "links": [
+      "https://www.youtube.com/watch?v=lCDD1QK-Kbs"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695950.495809",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - 해외에서 난리난 구글 무료 ai이미지 생성 실전 활용 사례 20가지 | 나노바나나 | 제미나이",
+    "links": [
+      "https://www.youtube.com/watch?v=2-yb3mm3goA"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695946.661179",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Use ALL Your GPUs: ComfyUI Distributed Tutorial",
+    "links": [
+      "https://www.youtube.com/watch?v=p6eE3IlAbOs"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695943.341079",
+    "date": "2026-07-22",
+    "text": "app.runwayml.com/video-tools/…/generate Runway",
+    "links": [
+      "https://app.runwayml.com/video-tools/teams/gimturtle.rgba/ai-tools/generate"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695940.350279",
+    "date": "2026-07-22",
+    "text": "humanaigc.github.io/wan-s2v-webpage Wan-S2V: Audio-Driven Cinematic Video Generation",
+    "links": [
+      "https://humanaigc.github.io/wan-s2v-webpage/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695936.783139",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - 인공지능 버블맞다",
+    "links": [
+      "https://youtu.be/b5TfjSTZY7Q"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695926.033589",
+    "date": "2026-07-22",
+    "text": "github.com/tpc2233/tunet/tree/linux\nTUNET",
+    "links": [
+      "https://github.com/tpc2233/tunet/tree/linux"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695914.674389",
+    "date": "2026-07-22",
+    "text": "문서 비밀번호 : ainspire00973",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784695914_674389_AI영상제작 하루만에 광고만들기 (배포판).pdf",
+        "name": "AI영상제작 하루만에 광고만들기 (배포판).pdf",
+        "mimetype": "application/pdf"
+      }
+    ]
+  },
+  {
+    "ts": "1784695908.914879",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Tunet models Showcase - AOVs / Relit",
+    "links": [
+      "https://www.youtube.com/watch?v=TwvN8axWJLY"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695833.210639",
+    "date": "2026-07-22",
+    "text": "AI 작품 모음 aikive.com/play",
+    "links": [
+      "https://aikive.com/play"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695830.415699",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - One-Step Video Upscaling: Complete ComfyUI SeedVR2 Guide (Free workflow included) | AInVFX",
+    "links": [
+      "https://www.youtube.com/watch?v=I0sl45GMqNg"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695827.600719",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - ComfyUI + Wan VACE to Video = Next-Level Dynamic Paintouts",
+    "links": [
+      "https://www.youtube.com/watch?v=IybDLzP05cQ"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695825.079489",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Image2video Wan 2.2 14b for ComfyUI",
+    "links": [
+      "https://www.youtube.com/watch?v=jH2pigu_suU"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695822.199829",
+    "date": "2026-07-22",
+    "text": "youtube.com/shorts/… YouTube - ComfyUI, Nuke Auto Removal Script",
+    "links": [
+      "https://youtube.com/shorts/PAiTVLLi16g"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695819.693509",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - ComfyUI to Nuke Compositing : The Ultimate All-in-One AI Gizmo",
+    "links": [
+      "https://youtu.be/YB-05dcbCZg"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695817.341369",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - FOUNDRY 신제품 웨비나 - Nuke의 멀티샷 합성 워크플로우 소개 QVREX 박수인 수석",
+    "links": [
+      "https://youtu.be/CedXS4BHxrs"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695814.255689",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - Nuke Multishot & Digital Matte Painting Workflow with Goodbye Kansas",
+    "links": [
+      "https://youtu.be/U8P29kkhNgc"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695791.589549",
+    "date": "2026-07-22",
+    "text": "medium.com/westworld-vfx 웨스트월드 테크블로그",
+    "links": [
+      "https://medium.com/westworld-vfx"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695789.247969",
+    "date": "2026-07-22",
+    "text": "youtube.com/shorts/…",
+    "links": [
+      "https://www.youtube.com/shorts/AYiZ2B3gtXU"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695786.983309",
+    "date": "2026-07-22",
+    "text": "youtube.com/playlist?list=… YouTube - ComfyUI for VFX",
+    "links": [
+      "https://www.youtube.com/playlist?list=PL76DUPzeZLKpmVVEj1YpS_FiM6EckNTmq"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695783.404309",
+    "date": "2026-07-22",
+    "text": "community.foundry.com/cattery Foundry Cattery - Nuke에서 네이티브로 실행되는 오픈소스 ML 모델(.cat) 라이브러리",
+    "links": [
+      "https://community.foundry.com/cattery"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695780.132279",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Relighting with WAN VACE and Nuke",
+    "links": [
+      "https://www.youtube.com/watch?v=I55SKQzZ9JU"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695776.686789",
+    "date": "2026-07-22",
+    "text": "youtube.com/shorts/… YouTube - 의외로 잘 모르는 스트레스 해소법",
+    "links": [
+      "https://www.youtube.com/shorts/y7hoPHy4X4U"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695772.654959",
+    "date": "2026-07-22",
+    "text": "youtube.com/live/kQC62_cFkZI YouTube - Nuke 16.0, Katana 8.0, Mari 7.1 웨비나",
+    "links": [
+      "https://www.youtube.com/live/kQC62_cFkZI"
+    ],
+    "files": [
+      {
+        "path": "files/1784695772_654959_1ce7f8f1e88d7.png",
+        "name": "1ce7f8f1e88d7.png",
+        "mimetype": "image/png"
+      }
+    ]
+  },
+  {
+    "ts": "1784695758.573049",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - WAN and Nuke: extraction",
+    "links": [
+      "https://www.youtube.com/watch?v=Q5FiBp8DaPM"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695754.743669",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - Run Hunyuan 3D 2.1 in ComfyUI – Fast, High-Fidelity Image-to-3D Workflow (Blender + Multiview)",
+    "links": [
+      "https://youtu.be/3WYknAD0msw"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695750.510969",
+    "date": "2026-07-22",
+    "text": "youtube.com/shorts/… YouTube - 파이어 토네이도 쇼츠",
+    "links": [
+      "https://www.youtube.com/shorts/p074TdM8bTU"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695746.378989",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - MiniMax-Remover: Taming Bad Noise Helps Video Object Removal",
+    "links": [
+      "https://youtu.be/KaU5yNl6CTc"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695742.668879",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - House of the Dragon S2 | VFX Breakdown",
+    "links": [
+      "https://youtu.be/MB7dmUbBs_w"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695738.259239",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Reflection Removal in Adobe Camera Raw (Tech Preview)",
+    "links": [
+      "https://www.youtube.com/watch?v=1X0gQMYxPeY"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695733.665079",
+    "date": "2026-07-22",
+    "text": "4dv.ai/en 4DV.ai - Gaussian Splatting 기반 4D 비디오 제작/편집 툴",
+    "links": [
+      "https://www.4dv.ai/en",
+      "http://4DV.ai"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695729.283139",
+    "date": "2026-07-22",
+    "text": "youtube.com/@CompositingAcademy/videos YouTube - Compositing Academy (Nuke 컴포지팅 튜토리얼 채널)",
+    "links": [
+      "https://www.youtube.com/@CompositingAcademy/videos"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695724.773129",
+    "date": "2026-07-22",
+    "text": "youtu.be/CvLQJReDhic YouTube - Composition In Storytelling",
+    "links": [
+      "https://youtu.be/CvLQJReDhic"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695720.003249",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Colour In Storytelling",
+    "links": [
+      "https://www.youtube.com/watch?v=aXgFcNUWqX0"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695711.063269",
+    "date": "2026-07-22",
+    "text": "ES_CopyCat은 Nuke의 CopyCat 노드 설정 과정을 완전히 자동화하는 강력하고 사용하기 쉬운 기즈모로, 단 몇 번의 클릭만으로 Ground Truth 및 Input Reference 시퀀스를 생성할 수 있도록 도와줍니다. CopyCat을 리터칭이나 로토 작업에 사용하든, ES_CopyCat은 노드 네트워크 자동 생성, FrameHold 동기화, 레이블이 지정된 배경으로 모든 항목 정리, 학습용 데이터 준비 등 모든 번거로운 설정 단계를 처리하여 워크플로우를 간소화합니다. drive.google.com/file/d/…/view",
+    "links": [
+      "https://drive.google.com/file/d/1XvepnH27RMQUTHHP7Yc-0buIbfh7fh5A/view"
+    ],
+    "files": [
+      {
+        "path": "files/1784695711_063269_ES_Copycat.mp4",
+        "name": "ES_Copycat.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784695692.712139",
+    "date": "2026-07-22",
+    "text": "kr.pinterest.com/pin/49398927157915483",
+    "links": [
+      "https://kr.pinterest.com/pin/49398927157915483/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695688.745789",
+    "date": "2026-07-22",
+    "text": "kr.pinterest.com/pin/18647785950256175",
+    "links": [
+      "https://kr.pinterest.com/pin/18647785950256175/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695678.610949",
+    "date": "2026-07-22",
+    "text": "instagram.com/reel/…",
+    "links": [
+      "https://www.instagram.com/reel/DIbvGsJy8Ue/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695671.651569",
+    "date": "2026-07-22",
+    "text": "youtube.com/playlist?list=… YouTube - CG Compositing Series",
+    "links": [
+      "https://youtube.com/playlist?list=PLt2Nu4KGXJ2gjJn2eaF08UZdYUFp8xfwU"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695668.571529",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - KPop Demon Hunters | Official Trailer | Netflix",
+    "links": [
+      "https://www.youtube.com/watch?v=AzCAwdp1uIQ"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695661.366859",
+    "date": "2026-07-22",
+    "text": "VFX Workflow with Gen A.I",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1784695661_366859_vfx workflow that is a great approach for pre-vis. With Gen-4 References.mp4",
+        "name": "vfx workflow that is a great approach for pre-vis. With Gen-4 References.mp4",
+        "mimetype": "video/mp4"
+      },
+      {
+        "path": "files/1784695661_366859_workflow using Runway to create crowds and set extensions.mp4",
+        "name": "workflow using Runway to create crowds and set extensions.mp4",
+        "mimetype": "video/mp4"
+      },
+      {
+        "path": "files/1784695661_366859_Using 3D assets with Gen-4 References is a simple way to bring highly detailed and specific models into your generative workflows.mp4",
+        "name": "Using 3D assets with Gen-4 References is a simple way to bring highly detailed and specific models into your generative workflows.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1784695548.101589",
+    "date": "2026-07-22",
+    "text": "kr.pinterest.com/pin/47569339809980602 Pinterest - The Silent Symphony: Crafting Harmony in the Void",
+    "links": [
+      "https://kr.pinterest.com/pin/47569339809980602/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695542.319709",
+    "date": "2026-07-22",
+    "text": "keheka.com Kenn Hedin Kalvik - Professional Compositing Tutorials",
+    "links": [
+      "https://www.keheka.com/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695534.655559",
+    "date": "2026-07-22",
+    "text": "youtu.be/…\nYouTube - LightLab: Controlling Light Sources in Images with Diffusion Models",
+    "links": [
+      "https://youtu.be/B00wKI6chkw"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695527.078679",
+    "date": "2026-07-22",
+    "text": "instagram.com/reel/…",
+    "links": [
+      "https://www.instagram.com/reel/DJ5Etoix0wS/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695519.216309",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Google AI | Car Show with VEO 3",
+    "links": [
+      "https://www.youtube.com/watch?v=OiuJfZ7LX1c"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695513.807599",
+    "date": "2026-07-22",
+    "text": "이번 구글 딥마인드 VEO 3 작업물. 영상뿐만 아니라 사운드도 같이 생성됨. 소리 키고 보는걸 추천\n x.com/HashemGhaili/status/1925332319604257203",
+    "links": [
+      "https://x.com/HashemGhaili/status/1925332319604257203"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695503.480119",
+    "date": "2026-07-22",
+    "text": "behance.net/gallery/162328253/Jordan-Reborn Behance - Jordan | Reborn (STANCE x ADMK 단편)",
+    "links": [
+      "https://www.behance.net/gallery/162328253/Jordan-Reborn"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695499.003899",
+    "date": "2026-07-22",
+    "text": "youtube.com/@pimmeijer7589/videos YouTube - Pim Meijer",
+    "links": [
+      "https://www.youtube.com/@pimmeijer7589/videos"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695492.229109",
+    "date": "2026-07-22",
+    "text": "deepmind.google/models/veo Google DeepMind - Veo",
+    "links": [
+      "https://deepmind.google/models/veo/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695487.678689",
+    "date": "2026-07-22",
+    "text": "beforesandafters.com/2025/05/20/version-zero-ai-has-a-splines-output-solution-for-ai-ml-rotoscoping befores & afters - Version Zero AI의 AI/ML 로토스코핑 스플라인 출력 솔루션",
+    "links": [
+      "https://beforesandafters.com/2025/05/20/version-zero-ai-has-a-splines-output-solution-for-ai-ml-rotoscoping/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695482.086449",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=… YouTube - Creation | 8K | HDR",
+    "links": [
+      "https://www.youtube.com/watch?v=iUoU1KPsaTk"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695472.554339",
+    "date": "2026-07-22",
+    "text": "youtube.com/watch?v=mIPvABmHOPA YouTube - 日晷 Sundial",
+    "links": [
+      "https://www.youtube.com/watch?v=mIPvABmHOPA"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695469.125559",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - Colorspace Simply Explained in Nuke",
+    "links": [
+      "https://youtu.be/IuMHvY8JM-g"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695417.500789",
+    "date": "2026-07-22",
+    "text": "github.com/bcmi/Light-A-Video\nLight-A-Video: Training-free Video Relighting via Progressive Light Fusion",
+    "links": [
+      "https://github.com/bcmi/Light-A-Video/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695362.894979",
+    "date": "2026-07-22",
+    "text": "aitorecheveste.gumroad.com/l/bsrygu Gumroad - Free Nuke CopyCat Guide",
+    "links": [
+      "https://aitorecheveste.gumroad.com/l/bsrygu"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695314.353899",
+    "date": "2026-07-22",
+    "text": "youtu.be/… YouTube - 색을 갖고 노는 능력의 비밀, 색을 다룰 줄 안다는 건 무엇일까?",
+    "links": [
+      "https://youtu.be/KpfzwP4ryXY"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695304.808829",
+    "date": "2026-07-22",
+    "text": "youtube.com/@alexvillabon/videos YouTube - Alex Villabon (컴포지팅 슈퍼바이저의 VFX 팁 채널)",
+    "links": [
+      "https://www.youtube.com/@alexvillabon/videos"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1784695248.041689",
+    "date": "2026-07-22",
+    "text": "이전 정보공유방에 있던 내용 복사를 위해 지금부터 한 시간 동안 채팅을 여러 번 올리려 합니다. 해당 채팅방 알림 잠시 꺼주시면 좋을 것 같습니다!",
+    "links": [],
+    "files": []
+  },
+  {
+    "ts": "1784685792.277589",
+    "date": "2026-07-22",
+    "text": "칼리버스 합성공유방이 조만간 못쓰게 되면서 새로 방을 팠습니다.",
+    "links": [],
+    "files": []
+  }
+]

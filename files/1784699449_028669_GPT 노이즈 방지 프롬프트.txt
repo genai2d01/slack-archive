@@ -1,0 +1,870 @@
+[ANALYSIS-BASED CLEAN REDRAW PASS — UNIVERSAL FINAL]
+
+Use the uploaded image as the strict primary reference.
+
+This is not a basic cleanup pass.
+This is an analysis-based faithful redraw / reconstruction pass.
+
+First, internally analyze what the source image is depicting.
+
+Analyze and understand:
+
+the main subject or subjects
+
+subject identity
+
+facial structure and likeness
+
+expression
+
+pose and gesture
+
+body proportions
+
+hairstyle
+
+wardrobe and accessories
+
+important objects or props
+
+environment and background structure
+
+composition and framing
+
+camera angle and perspective
+
+lighting direction and light quality
+
+tonal structure of highlights, midtones, and shadows
+
+depth and focus hierarchy
+
+optical character if photographic
+
+rendering logic if illustrated
+
+intended visual style
+
+intended graphic style
+
+emotional tone
+
+overall visual purpose of the image
+
+Then classify the source image into three categories:
+
+INTENTIONAL VISUAL STYLE
+
+INTENTIONAL GRAPHIC / TYPOGRAPHIC DESIGN
+
+UNWANTED AI SURFACE ARTIFACTS
+
+Reconstruct the same image cleanly from that analysis.
+
+Prioritize clean reconstruction over pixel-level contamination preservation.
+Preserve the image’s identity, design, composition, lighting logic, mood, color identity, and intended style.
+Do not preserve accidental source-level muddy, dirty, dotted, speckled, smeared, or contaminated surface artifacts.
+
+The goal is not to make a new version.
+The goal is to reconstruct the same image as it was intended to look, without accidental AI surface pollution.
+
+[CORE GOAL]
+
+Create a cleaner, more readable, more faithful reconstruction of the same image.
+
+Preserve what the image is trying to be.
+Do not preserve accidental AI pollution.
+
+Do not:
+
+redesign the image
+
+restyle the image
+
+modernize the image
+
+beautify the subject
+
+change the visual era
+
+turn it into a different artist’s interpretation
+
+turn it into a different photo shoot
+
+turn it into a different poster or cover design
+
+[WHAT TO PRESERVE]
+
+Preserve:
+
+subject identity
+
+facial structure and likeness
+
+expression
+
+pose
+
+body proportions
+
+hair shape and hairstyle
+
+wardrobe design
+
+accessories
+
+key props
+
+environment
+
+composition
+
+framing
+
+perspective
+
+camera angle
+
+lighting direction
+
+lighting quality
+
+original exposure logic
+
+original shadow density
+
+intended color identity
+
+intended style
+
+emotional mood
+
+focus hierarchy
+
+intended softness or sharpness
+
+original scene meaning
+
+If multiple subjects are present, preserve the same relationships, relative scale, and interaction logic.
+
+[INTENTIONAL VISUAL STYLE PRESERVATION]
+
+Preserve intentional visual elements such as:
+
+linework
+
+cel shading
+
+painterly rendering
+
+brush texture
+
+film grain
+
+paper texture
+
+print texture
+
+soft focus
+
+halation
+
+lens softness
+
+atmospheric haze
+
+direct-flash character
+
+stylized skin rendering
+
+deliberate color grading
+
+intended low-acutance softness
+
+intentional roughness if it belongs to the style
+
+intentional grunge if it belongs to the design
+
+intentional halftone if it belongs to the design
+
+intentional distress texture if it belongs to the design
+
+Do not remove intentional style elements just because they look rough, textured, imperfect, old, printed, analog, or graphic.
+
+[TEXT / LOGO / TYPOGRAPHIC DESIGN ANALYSIS]
+
+Before reconstructing the image, analyze whether any text, logo, title treatment, lettering, label, signage, packaging text, poster typography, UI text, caption box, speech balloon, or graphic text element is an intentional part of the original design.
+
+Treat logos, titles, stylized text, and graphic lettering as potentially intentional design elements, not as default cleanup targets.
+
+For each text or logo element, determine:
+
+whether it is a meaningful part of the design
+
+whether its shape, placement, hierarchy, and styling contribute to the image identity
+
+whether distress, roughness, halftone, collage edges, ink texture, print texture, imperfect registration, grunge treatment, sticker-like cutout treatment, outline, stroke, shadow, glow, or texture effects are intentional graphic styling
+
+If they are intentional, preserve them.
+
+Preserve when intentional:
+
+wording and spelling as closely as possible
+
+logo identity
+
+title composition
+
+text placement
+
+scale
+
+alignment
+
+layering
+
+typographic hierarchy
+
+font style or lettering style
+
+outline / stroke
+
+drop shadow
+
+glow
+
+distressed print texture
+
+halftone treatment
+
+collage / cutout styling
+
+graphic roughness
+
+poster-like styling
+
+package-like styling
+
+intentional aging or print imperfection
+
+Do not flatten stylized text into plain clean text.
+Do not replace a designed logo with a generic font treatment.
+Do not remove intentional texture effects from logos, title treatments, labels, or typography just because they are rough or distressed.
+Do not simplify complex typography into clean default lettering.
+
+Only remove text-area contamination if it is clearly accidental AI artifact and not part of the intended graphic treatment.
+
+If text is clearly readable in the source, preserve the wording as closely as possible.
+If exact text cannot be reconstructed perfectly, preserve the same placement, scale, layout, graphic role, and typographic style rather than simplifying it.
+
+[UNWANTED AI SURFACE ARTIFACTS]
+
+Treat the following as removable defects, not as part of the intended style:
+
+muddy surface contamination
+
+dirty texture veil
+
+cloudy gray film
+
+blotchy dirty patches
+
+vague smeared artifact buildup
+
+mushy painterly buildup
+
+random bright speckles
+
+peppered highlight noise
+
+pointillist surface contamination
+
+particle-like texture noise
+
+porous dotted texture
+
+trypophobic clustered dot patterns
+
+Magic-Eye-like micro-detail noise
+
+crosshatch-like artificial texture
+
+tiled or repeating micro-noise
+
+dirty digital residue
+
+AI slop texture
+
+random stains, grit, flecks, and non-structural debris
+
+false bright dots in shadow areas
+
+accidental dirty spots on skin
+
+accidental ashy or sooty artifact stains on skin
+
+charcoal-dust-like surface patches on skin
+
+gray muddy surface pollution that sits on top of the image
+
+Remove only the accidental artifact layer.
+Do not remove intentional design texture, graphic distress, print effects, film grain, paper texture, or stylized roughness.
+
+[SKIN TONE AND EXPOSURE LOCK]
+
+If the image contains a person or character, preserve the original skin tone, skin luminance, complexion, and exposure level as closely as possible.
+
+Do not make the subject’s skin:
+
+lighter
+
+brighter
+
+paler
+
+cleaner-looking in a beautified way
+
+smoother than intended
+
+more evenly illuminated than in the source
+
+more polished than in the source
+
+Do not interpret natural skin darkness, shadowed skin, warm or cool skin cast, underexposure, direct-flash falloff, dramatic lighting, stylized skin shading, or original complexion as dirt or contamination.
+
+Remove only surface-level artifacts that sit on top of the skin:
+
+random speckles
+
+muddy spots
+
+dirty patches
+
+ashy or sooty artifact stains
+
+AI texture noise
+
+accidental gray contamination
+
+Do not lift the base skin tone.
+Do not reduce intentional facial shadows.
+Do not brighten the face to improve readability.
+Do not smooth the skin into a lighter or more polished complexion.
+Do not beautify, idealize, whiten, or glamour-retouch the subject.
+
+Clean the artifact layer without changing the underlying skin color, value, complexion, exposure, or lighting response.
+
+The subject’s skin tone must remain the same darkness / lightness level as the source image.
+Artifact cleanup must not brighten the person.
+Preserve original skin value, shadow density, and complexion.
+
+[SHADOW MASS AND TONAL RECONSTRUCTION]
+
+Rebuild the value structure cleanly without changing the original lighting intention.
+
+Dark areas must read as coherent shadow masses.
+Do not break shadow regions with random bright dots, glitter-like particles, or noisy micro-speckling.
+
+Areas that should be dark must remain properly dark, grouped, and visually quiet.
+Areas that should be bright may contain controlled highlights only where justified by the actual lighting.
+
+Keep a clear value hierarchy:
+
+focal highlights
+
+controlled midtones
+
+stable shadow masses
+
+Do not let random dots, dirty texture, or false highlight noise compete with the main light source.
+
+Do not globally brighten the image.
+Do not lift shadows unnecessarily.
+Do not flatten contrast.
+Do not reduce dramatic shadow density if it belongs to the original lighting design.
+Do not brighten faces, clothing, or backgrounds just to make them more visible.
+
+[FORM AND EDGE CLARITY]
+
+Clarify important forms through better shape organization, clearer contours, and more readable structure.
+
+Refine selectively:
+
+facial features
+
+hands
+
+hair silhouette
+
+clothing silhouette
+
+key props
+
+architectural forms
+
+focal background elements
+
+logo silhouettes
+
+title shapes
+
+intentional text boundaries
+
+important graphic shapes
+
+Do not globally sharpen.
+Do not create harsh digital crispness.
+Do not create crunchy micro-contrast.
+Do not force all areas into equal clarity.
+
+Use clearer form definition, not fake sharpness.
+
+[FOCUS AND OPTICAL CHARACTER PRESERVATION]
+
+Preserve the original focus hierarchy and optical behavior.
+
+If the source image intentionally contains:
+
+shallow depth of field
+
+soft focus
+
+lens softness
+
+direct-flash bloom
+
+halation
+
+motion blur
+
+atmospheric haze
+
+film-like softness
+
+low-acutance softness
+
+snapshot softness
+
+analog softness
+
+preserve those qualities where they belong.
+
+Do not over-correct natural or intentional softness.
+Do not turn the image into a clinically sharp digital render.
+Keep what was originally soft naturally soft.
+Keep what was originally in focus appropriately resolved.
+
+[PHOTO-SPECIFIC RULES]
+
+If the image is photorealistic or photo-based, preserve:
+
+photographic realism
+
+natural skin response
+
+realistic lighting behavior
+
+lens-based depth
+
+real material response
+
+the feeling of a real captured image
+
+original exposure
+
+original shadow density
+
+original skin tone
+
+original color response
+
+Preserve intentional text and logo treatments on:
+
+posters
+
+signage
+
+clothing
+
+packaging
+
+labels
+
+printed matter
+
+product branding
+
+screens
+
+graphic elements
+
+Remove only unwanted AI contamination.
+
+Do not:
+
+beautify the face
+
+make the skin plasticky
+
+create waxy skin
+
+erase natural facial character
+
+add fake pores or fake detail
+
+over-smooth skin
+
+brighten skin tone
+
+whiten skin
+
+reduce intentional shadows on the face
+
+over-sharpen eyelashes, pores, fabric, and background equally
+
+turn the image into a glossy modern editorial retouch unless it already was that way
+
+[ILLUSTRATION / ANIME / COMIC / POSTER-SPECIFIC RULES]
+
+If the image is an illustration, anime image, comic image, manga page, storyboard, poster, cover, album cover, package-like design, or stylized graphic artwork, preserve:
+
+intended illustration language
+
+linework logic
+
+cel shading or painterly logic
+
+original shape design
+
+original stylization
+
+graphic composition
+
+title treatments
+
+logos
+
+poster graphics
+
+speech balloons
+
+caption boxes
+
+panel borders and gutters if present
+
+rough graphic effects if intentional
+
+cutout collage typography if intentional
+
+halftone / print-style treatment if intentional
+
+distressed texture if intentional
+
+grunge effects if intentional
+
+Redraw the image with:
+
+cleaner linework
+
+cleaner silhouettes
+
+more organized tonal masses
+
+clearer readable forms
+
+cleaner but faithful graphic structure
+
+Remove only accidental contamination, not intentional graphic styling.
+
+If speech balloons, caption boxes, or text areas are present:
+
+preserve their placement, size, and general shape
+
+clean only accidental stains or AI noise inside them
+
+preserve intentional print texture if present
+
+preserve text layout as much as possible
+
+do not invent new text
+
+do not add extra dialogue
+
+do not remove existing speech balloons or captions
+
+[SKIN / FACE / SUBJECT INTEGRITY]
+
+If the image contains a person or character, preserve:
+
+the same person or character
+
+same facial anatomy
+
+same identity
+
+same age impression
+
+same emotional expression
+
+same head angle
+
+same body logic
+
+same skin tone level
+
+same shadow pattern on the face
+
+same lighting relationship to the face and body
+
+Remove only accidental dirty surface contamination from skin, hair, and clothing.
+
+Do not:
+
+change the person’s identity
+
+idealize the face
+
+make the person younger
+
+make the person more attractive
+
+add makeup
+
+change ethnicity
+
+alter facial proportions
+
+change expression
+
+brighten the complexion
+
+smooth away intentional stylized shading
+
+replace stylized skin with realistic skin
+
+replace realistic skin with painterly plastic skin
+
+[COLOR DNA LOCK]
+
+Preserve the original color identity closely.
+
+Keep:
+
+original palette impression
+
+white balance logic
+
+shadow tonality
+
+highlight behavior
+
+skin-tone response
+
+environmental color mood
+
+intended grading
+
+intentional logo / text color styling
+
+original exposure relationship between subject and background
+
+Remove accidental muddy or dirty color casts only from surface artifact contamination.
+Do not change the subject’s underlying skin tone, exposure, shadow density, complexion, or original color response.
+
+Do not:
+
+globally brighten the image unnecessarily
+
+warm it up unnaturally
+
+cool it down unnecessarily
+
+flatten contrast
+
+lift the shadows
+
+neutralize the original cast
+
+modernize the grade
+
+polish the image into a different visual era or aesthetic
+
+make the image look newly shot or newly rendered if the original had an older, printed, rough, analog, or stylized character
+
+[TEXTURE AND FINISH]
+
+The final image should feel:
+
+cleaner
+
+less muddy
+
+less dirty
+
+less speckled
+
+less contaminated
+
+more tonally organized
+
+more readable
+
+more structurally coherent
+
+But still:
+
+faithful to the source
+
+emotionally intact
+
+stylistically intact
+
+graphically faithful
+
+naturally soft where appropriate
+
+intentionally rough where the design requires it
+
+not overprocessed
+
+not overcorrected
+
+not over-sharpened
+
+not plasticky
+
+not beautified
+
+not redesigned
+
+not modernized
+
+not brighter than the source unless the source lighting itself justifies it
+
+[DO NOT CHANGE]
+
+Do not change:
+
+identity
+
+facial structure
+
+expression
+
+pose
+
+body shape
+
+hairstyle
+
+skin tone
+
+complexion
+
+wardrobe
+
+accessories
+
+key props
+
+environment
+
+composition
+
+camera perspective
+
+lighting concept
+
+shadow density
+
+intended style
+
+color identity
+
+emotional mood
+
+focus character
+
+intentional text
+
+intentional logo design
+
+intentional lettering style
+
+intentional title treatment
+
+intentional graphic effects
+
+intentional distress texture
+
+intentional halftone
+
+intentional print texture
+
+Do not add:
+
+new props
+
+new decorations
+
+new facial details
+
+new costume details
+
+new background elements
+
+extra particles
+
+extra sparkles
+
+beauty enhancements
+
+artificial cinematic effects
+
+decorative texture noise
+
+replacement text
+
+simplified generic logos
+
+cleaner generic typography
+
+[FINAL OUTPUT]
+
+Generate a single high-resolution clean redraw / reconstruction of the uploaded image.
+
+The final result must preserve:
+
+original subject identity
+
+original skin tone and exposure
+
+composition
+
+scene meaning
+
+lighting logic
+
+shadow density
+
+intended style
+
+intended typography / logo treatment
+
+emotional mood
+
+color identity
+
+But it must not preserve unwanted AI surface contamination such as muddy texture, dirty texture veils, random bright speckles, dotted noise, smeared artifact buildup, tiled micro-noise, accidental ashy artifact stains, or particle-like contamination.
+
+Preserve structure, identity, intentional graphic design, original skin tone, and visual intention.
+Do not preserve dirty pixel-level contamination.
+Do not flatten intentional logo or text styling into plain clean replacements.
+Do not brighten the person during artifact cleanup.
+
+Do not globally sharpen.
+Do not over-clean.
+Do not redesign.
+Do not restyle.
+Do not modernize.
+Do not beautify.
