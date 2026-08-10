@@ -19,9 +19,7 @@ const TITLE_BUDGET = 60;   // 실행 1회당 유튜브 제목 조회 최대 개�
 const CONVERT_BUDGET = 20; // 실행 1회당 영상 변환 최대 개수
 
 // 검사를 통과했는데도 화면이 안 나오는 영상 — 여기에 파일명을 적으면 무조건 재인코딩함
-const FORCE_CONVERT = [
-  'Emotion_Flow.mp4',
-];
+const FORCE_CONVERT = [];
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
 
@@ -118,6 +116,7 @@ async function downloadFile(f, ts) {
 }
 
 // ---------- 영상 코덱 검사·변환 ----------
+// AV1은 Windows PC에서 재생 안 되는 경우가 많아 신뢰 목록에서 제외 → 전부 H.264로 변환
 function ffprobeInfo(p) {
   try {
     const out = execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0',
@@ -129,7 +128,7 @@ function ffprobeInfo(p) {
 
 function isWebPlayable(info) {
   if (!info) return true;
-  const okCodec = ['h264', 'vp8', 'vp9', 'av1'].includes(info.codec);
+  const okCodec = ['h264', 'vp8', 'vp9'].includes(info.codec); // av1 제외!
   const okPix = info.pix === 'yuv420p' || info.pix === 'yuvj420p';
   return okCodec && okPix;
 }
@@ -140,15 +139,14 @@ function ensureWebVideos(archive) {
     for (const f of e.files) {
       if (f.oversized) continue;
       if (!(f.mimetype || '').startsWith('video/')) continue;
-      if (!f.path || !fs.existsSync(f.path)) { f.webok = true; continue; }
-      const force = FORCE_CONVERT.includes(f.name) && !f.path.endsWith('_web2.mp4') && !f.path.endsWith('_web3.mp4');
-      if (!force && f.webok) continue;
+      if (!f.path || !fs.existsSync(f.path)) { f.playok = true; continue; }
+      const force = FORCE_CONVERT.includes(f.name) && !/_web\d?\.mp4$/.test(f.path);
+      if (!force && f.playok) continue;
       if (budget <= 0) continue;
       const info = ffprobeInfo(f.path);
-      if (!force && isWebPlayable(info)) { f.webok = true; continue; }
+      if (!force && isWebPlayable(info)) { f.playok = true; continue; }
       budget--;
-      const suffix = force ? '_web3.mp4' : '_web2.mp4';
-      const out = f.path.replace(/(_web2?)?\.[^.]+$/, '') + suffix;
+      const out = f.path.replace(/(_web\d?)?\.[^.]+$/, '') + '_web4.mp4';
       const codecInfo = info ? info.codec + '/' + info.pix : '판별불가';
       try {
         execFileSync('ffmpeg', ['-y', '-i', f.path,
@@ -157,16 +155,16 @@ function ensureWebVideos(archive) {
           '-profile:v', 'high', '-pix_fmt', 'yuv420p',
           '-c:a', 'aac', '-movflags', '+faststart', out], { stdio: 'ignore' });
         if (fs.statSync(out).size > MAX_FILE_MB * 1024 * 1024) {
-          fs.unlinkSync(out); f.webok = true;
+          fs.unlinkSync(out); f.playok = true;
           console.log('변환 결과가 너무 커서 원본 유지: ' + f.name);
           continue;
         }
         fs.unlinkSync(f.path);
-        f.path = out; f.mimetype = 'video/mp4'; f.webok = true;
+        f.path = out; f.mimetype = 'video/mp4'; f.playok = true;
         console.log((force ? '강제 ' : '') + '영상 변환 완료(' + codecInfo + ' → h264/yuv420p): ' + f.name);
       } catch {
-        f.tries = (f.tries || 0) + 1;
-        if (f.tries >= 3) { f.webok = true; console.warn('변환 3회 실패, 포기: ' + f.name); }
+        f.tries2 = (f.tries2 || 0) + 1;
+        if (f.tries2 >= 3) { f.playok = true; console.warn('변환 3회 실패, 포기: ' + f.name); }
         else console.warn('변환 실패(다음 실행 때 재시도): ' + f.name + ' (' + codecInfo + ')');
       }
     }
@@ -376,9 +374,10 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
   .chip.on { background:var(--accent); color:#0f1115; border-color:var(--accent); font-weight:700; }
   .lbl { font-size:12px; color:var(--text-mute); margin-left:2px; }
   .vgroup { display:flex; gap:6px; align-items:center; }
-  .sub-btn { background:var(--panel-2); border:1px dashed var(--line); color:var(--text-dim); padding:7px 13px;
-    border-radius:999px; font-size:12.5px; cursor:pointer; }
-  .sub-btn:hover { border-color:var(--accent); color:var(--accent); }
+  .sub-btn { background:var(--panel-2); border:1px dashed var(--text-mute); color:var(--text-dim);
+    padding:4px 10px; border-radius:999px; font-size:11px; cursor:pointer; }
+  .sub-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); }
+  .sub-btn:disabled { opacity:.3; cursor:not-allowed; }
   select { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:9px 10px; border-radius:9px; font-size:13px; }
   .count-line { color:var(--text-mute); font-size:12.5px; margin-left:auto; }
   .count-line b { color:var(--accent); }
@@ -454,8 +453,8 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
     <span class="lbl">보기</span>
     <div class="vgroup">
       <button type="button" id="viewCollapse" class="chip on">접기식</button>
-      <button type="button" id="btnCloseAll" class="sub-btn">모두 접기</button>
-      <button type="button" id="btnOpenAll" class="sub-btn">모두 펼치기</button>
+      <button type="button" id="btnCloseAll" class="sub-btn">└ 모두 접기</button>
+      <button type="button" id="btnOpenAll" class="sub-btn">└ 모두 펼치기</button>
       <button type="button" id="viewFixed" class="chip">균일 크기</button>
     </div>
     <select id="sortSel">
@@ -541,12 +540,10 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
     root.classList.add('view-' + mode);
     viewCollapse.classList.toggle('on', mode === 'collapse');
     viewFixed.classList.toggle('on', mode === 'fixed');
-    var showSub = mode === 'collapse' ? '' : 'none';
-    btnCloseAll.style.display = showSub;
-    btnOpenAll.style.display = showSub;
-    if (mode !== 'collapse') {
-      entries.forEach(function (el) { el.classList.remove('closed'); });
-    }
+    var dis = mode !== 'collapse';
+    btnCloseAll.disabled = dis;
+    btnOpenAll.disabled = dis;
+    if (dis) entries.forEach(function (el) { el.classList.remove('closed'); });
   }
   q.addEventListener('input', apply);
   monthSel.addEventListener('change', apply);
