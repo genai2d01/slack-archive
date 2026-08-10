@@ -24,9 +24,10 @@
   .chip.on { background:var(--accent); color:#0f1115; border-color:var(--accent); font-weight:700; }
   .lbl { font-size:12px; color:var(--text-mute); margin-left:2px; }
   .vgroup { display:flex; gap:6px; align-items:center; }
-  .sub-btn { background:var(--panel-2); border:1px dashed var(--line); color:var(--text-dim); padding:7px 13px;
-    border-radius:999px; font-size:12.5px; cursor:pointer; }
-  .sub-btn:hover { border-color:var(--accent); color:var(--accent); }
+  .sub-btn { background:var(--panel-2); border:1px dashed var(--text-mute); color:var(--text-dim);
+    padding:4px 10px; border-radius:999px; font-size:11px; cursor:pointer; }
+  .sub-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); }
+  .sub-btn:disabled { opacity:.3; cursor:not-allowed; }
   select { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:9px 10px; border-radius:9px; font-size:13px; }
   .count-line { color:var(--text-mute); font-size:12.5px; margin-left:auto; }
   .count-line b { color:var(--accent); }
@@ -95,15 +96,15 @@
   <header>
     <div class="eyebrow">Slack Auto Archive</div>
     <h1>#genai-2d_정보-공유 채널</h1>
-    <p class="sub">슬랙 아카이브 · 총 280건 · 마지막 갱신 2026-08-10 15:15 (KST)</p>
+    <p class="sub">슬랙 아카이브 · 총 280건 · 마지막 갱신 2026-08-10 15:26 (KST)</p>
   </header>
   <div class="controls">
     <input id="q" type="search" placeholder="검색 — 제목·링크·파일명 (띄어쓰기 무관)">
     <span class="lbl">보기</span>
     <div class="vgroup">
       <button type="button" id="viewCollapse" class="chip on">접기식</button>
-      <button type="button" id="btnCloseAll" class="sub-btn">모두 접기</button>
-      <button type="button" id="btnOpenAll" class="sub-btn">모두 펼치기</button>
+      <button type="button" id="btnCloseAll" class="sub-btn">└ 모두 접기</button>
+      <button type="button" id="btnOpenAll" class="sub-btn">└ 모두 펼치기</button>
       <button type="button" id="viewFixed" class="chip">균일 크기</button>
     </div>
     <select id="sortSel">
@@ -3284,12 +3285,10 @@ Light-A-Video: Training-free Video Relighting via Progressive Light Fusion</p>
     root.classList.add('view-' + mode);
     viewCollapse.classList.toggle('on', mode === 'collapse');
     viewFixed.classList.toggle('on', mode === 'fixed');
-    var showSub = mode === 'collapse' ? '' : 'none';
-    btnCloseAll.style.display = showSub;
-    btnOpenAll.style.display = showSub;
-    if (mode !== 'collapse') {
-      entries.forEach(function (el) { el.classList.remove('closed'); });
-    }
+    var dis = mode !== 'collapse';
+    btnCloseAll.disabled = dis;
+    btnOpenAll.disabled = dis;
+    if (dis) entries.forEach(function (el) { el.classList.remove('closed'); });
   }
   q.addEventListener('input', apply);
   monthSel.addEventListener('change', apply);
