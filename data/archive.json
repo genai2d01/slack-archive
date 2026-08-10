@@ -99,7 +99,7 @@
         "web": true,
         "webok": true,
         "playok": true,
-        "vtries": 1
+        "vtries": 2
       }
     ]
   },
@@ -1772,12 +1772,13 @@
     "links": [],
     "files": [
       {
-        "path": "files/1784696479_808209_comp using NUKE × ComfyUI.mp4",
+        "path": "files/1784696479_808209_comp using NUKE × ComfyUI_web4.mp4",
         "name": "comp using NUKE × ComfyUI.mp4",
         "mimetype": "video/mp4",
         "web": true,
         "webok": true,
-        "playok": true
+        "playok": true,
+        "vok": true
       }
     ]
   },
@@ -1806,12 +1807,13 @@
     "links": [],
     "files": [
       {
-        "path": "files/1784696440_293869_3x3_nano.mp4",
+        "path": "files/1784696440_293869_3x3_nano_web4.mp4",
         "name": "3x3_nano.mp4",
         "mimetype": "video/mp4",
         "web": true,
         "webok": true,
-        "playok": true
+        "playok": true,
+        "vok": true
       }
     ]
   },
@@ -1827,7 +1829,8 @@
         "mimetype": "video/mp4",
         "web": true,
         "webok": true,
-        "playok": true
+        "playok": true,
+        "vok": true
       },
       {
         "path": "files/1784696404_794959_테스트영상.mp4",
@@ -1835,7 +1838,8 @@
         "mimetype": "video/mp4",
         "web": true,
         "webok": true,
-        "playok": true
+        "playok": true,
+        "vok": true
       },
       {
         "path": "files/1784696404_794959_자이언트스텝 AI영상 테스트 프로젝트.txt",
@@ -2063,7 +2067,8 @@
         "mimetype": "video/mp4",
         "web": true,
         "webok": true,
-        "playok": true
+        "playok": true,
+        "vok": true
       }
     ]
   },
@@ -2668,7 +2673,8 @@
         "mimetype": "video/mp4",
         "web": true,
         "webok": true,
-        "playok": true
+        "playok": true,
+        "vok": true
       }
     ]
   },
@@ -2724,28 +2730,31 @@
     "links": [],
     "files": [
       {
-        "path": "files/1784695661_366859_vfx workflow that is a great approach for pre-vis. With Gen-4 References.mp4",
+        "path": "files/1784695661_366859_vfx workflow that is a great approach for pre-vis. With Gen-4 References_web4.mp4",
         "name": "vfx workflow that is a great approach for pre-vis. With Gen-4 References.mp4",
         "mimetype": "video/mp4",
         "web": true,
         "webok": true,
-        "playok": true
+        "playok": true,
+        "vok": true
       },
       {
-        "path": "files/1784695661_366859_workflow using Runway to create crowds and set extensions.mp4",
+        "path": "files/1784695661_366859_workflow using Runway to create crowds and set extensions_web4.mp4",
         "name": "workflow using Runway to create crowds and set extensions.mp4",
         "mimetype": "video/mp4",
         "web": true,
         "webok": true,
-        "playok": true
+        "playok": true,
+        "vok": true
       },
       {
-        "path": "files/1784695661_366859_Using 3D assets with Gen-4 References is a simple way to bring highly detailed and specific models into your generative workflows.mp4",
+        "path": "files/1784695661_366859_Using 3D assets with Gen-4 References is a simple way to bring highly detailed and specific models into your generative workflows_web4.mp4",
         "name": "Using 3D assets with Gen-4 References is a simple way to bring highly detailed and specific models into your generative workflows.mp4",
         "mimetype": "video/mp4",
         "web": true,
         "webok": true,
-        "playok": true
+        "playok": true,
+        "vok": true
       }
     ]
   },
