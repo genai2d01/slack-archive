@@ -1,5 +1,183 @@
 [
   {
+    "ts": "1787318499.757319",
+    "date": "2026-08-21",
+    "text": "youtube.com/watch?v=…",
+    "links": [
+      "https://www.youtube.com/watch?v=YhIl3IROP14"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1787318497.000139",
+    "date": "2026-08-21",
+    "text": "youtube.com/watch?v=-RbvF6r_XUU",
+    "links": [
+      "https://www.youtube.com/watch?v=-RbvF6r_XUU"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1787277170.818429",
+    "date": "2026-08-21",
+    "text": "중국 Ai 숏폼 제작방식\nthreads.com/share/BAkcSNwpjq",
+    "links": [
+      "https://www.threads.com/share/BAkcSNwpjq/"
+    ],
+    "files": [
+      {
+        "path": "files/1787277170_818429_threads_com-share-BAkcSNwpjq.pdf",
+        "name": "threads_com-share-BAkcSNwpjq.pdf",
+        "mimetype": "application/pdf"
+      }
+    ]
+  },
+  {
+    "ts": "1787193972.526999",
+    "date": "2026-08-20",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1787193972_526999_지구는 둥글다.그럼 한 번 펼쳐볼까Behind the Scenes Of VFX토스뱅크 광고에 VFX로 참여했습니다~VFX For Toss Commercial모두 고생많으셨습.mp4",
+        "name": "지구는 둥글다.그럼 한 번 펼쳐볼까Behind the Scenes Of VFX토스뱅크 광고에 VFX로 참여했습니다~VFX For Toss Commercial모두 고생많으셨습.mp4",
+        "mimetype": "video/mp4",
+        "vok": true
+      },
+      {
+        "path": "files/1787193972_526999_《夏天卡利HIGH》新光三越-（此專案使用AI生成）非常感謝 @davys_lab 的邀請跟交流嘗試使用3D輔助來控制AI的動態表演很慶幸自己會做動畫，傳統做法的介入有很大的幫助.mp4",
+        "name": "《夏天卡利HIGH》新光三越-（此專案使用AI生成）非常感謝 @davys_lab 的邀請跟交流嘗試使用3D輔助來控制AI的動態表演很慶幸自己會做動畫，傳統做法的介入有很大的幫助.mp4",
+        "mimetype": "video/mp4",
+        "vok": true
+      },
+      {
+        "path": "files/1787193972_526999_Seedance 2.5 +Blender 2.5 clearly understands more. More of what you give it actually lands on s.mp4",
+        "name": "Seedance 2.5 +Blender 2.5 clearly understands more. More of what you give it actually lands on s.mp4",
+        "mimetype": "video/mp4",
+        "vok": true
+      }
+    ]
+  },
+  {
+    "ts": "1787149139.843249",
+    "date": "2026-08-19",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1787149139_843249_rough_privis_2_video.mp4",
+        "name": "rough_privis_2_video.mp4",
+        "mimetype": "video/mp4"
+      }
+    ]
+  },
+  {
+    "ts": "1787121957.407529",
+    "date": "2026-08-19",
+    "text": "https://www.instagram.com/reel/Dbz8oyWJFy2/?igsh=MXNiaDI4NnJpbGlheA==",
+    "links": [
+      "https://www.instagram.com/reel/Dbz8oyWJFy2/?igsh=MXNiaDI4NnJpbGlheA=="
+    ],
+    "files": []
+  },
+  {
+    "ts": "1787017707.159049",
+    "date": "2026-08-18",
+    "text": "*Seedance 2.5 comes apart into layers, inside After Effects.*\n\nFossa Animation's Tether separates the generated shot. The character lifts off as its own layer, the background gets rebuilt underneath it, and both land in the timeline as footage you can move, mask, retime, regenerate with, and grade.\nThat is the part that has been missing. Generated video shows up as one flat frame, so the moment you want to change a single thing, you regenerate the whole shot and hope.\nDecompose is in private beta, not in the public build yet.",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1787017707_159049_Decompose_web4.mp4",
+        "name": "Decompose.mp4",
+        "mimetype": "video/mp4",
+        "vok": true
+      }
+    ]
+  },
+  {
+    "ts": "1787017509.441239",
+    "date": "2026-08-18",
+    "text": "*InSpatio-World*\n\nThe first 4D world model conditioned on reference videos-\ntransforming any video into a dynamic world you can freely\nexplore, navigate, and revisit.",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1787017509_441239_world-demo.webm",
+        "name": "world-demo.webm",
+        "mimetype": "video/webm",
+        "vok": true
+      }
+    ]
+  },
+  {
+    "ts": "1787017393.335189",
+    "date": "2026-08-18",
+    "text": "Built a screen replacement pipeline in ComfyUI. You can track a screen in any video, drop in new content,\nget it back tracked, warped, depth-aware blur and reflection, and color-matched to the shot. Took way more debugging than expected.\nNo After Effects, no Mocha, just custom ComfyUI nodes built from scratch.",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1787017393_335189_screen_replacement_web4.mp4",
+        "name": "screen_replacement.mp4",
+        "mimetype": "video/mp4",
+        "vok": true
+      }
+    ]
+  },
+  {
+    "ts": "1786669631.724169",
+    "date": "2026-08-14",
+    "text": "yufu-wang.github.io/duomo\nDuoMo: Dual Motion Diffusion for World-Space Human Reconstruction\n\n\n mikeqzy.github.io/MoRo\nMasked Modeling for Human Motion Recovery Under Occlusions\n\n\nfanegg.github.io/Human3R\nHuman3R: Everyone Everywhere All at Once",
+    "links": [
+      "https://yufu-wang.github.io/duomo/",
+      "https://mikeqzy.github.io/MoRo/",
+      "https://fanegg.github.io/Human3R/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1786522845.560349",
+    "date": "2026-08-12",
+    "text": "syntec-research.github.io/SHELLS",
+    "links": [
+      "https://syntec-research.github.io/SHELLS/"
+    ],
+    "files": [
+      {
+        "path": "files/1786522845_560349_head_motion_web4.mp4",
+        "name": "head_motion.mp4",
+        "mimetype": "video/mp4",
+        "vok": true
+      }
+    ]
+  },
+  {
+    "ts": "1786512375.398499",
+    "date": "2026-08-12",
+    "text": "github.com/NVlabs/GENMO?…\n\ngithub.com/fanegg/Human3R",
+    "links": [
+      "https://github.com/NVlabs/GENMO?utm_source=chatgpt.com",
+      "https://github.com/fanegg/Human3R"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1786413067.483799",
+    "date": "2026-08-11",
+    "text": "youtube.com/watch?v=LomMGF7kcBU",
+    "links": [
+      "https://www.youtube.com/watch?v=LomMGF7kcBU"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1786361367.078899",
+    "date": "2026-08-10",
+    "text": "higgsfield.ai/blog/ai-vs-vfx?invite_code=erikchallenge-higgsf…",
+    "links": [
+      "https://higgsfield.ai/blog/ai-vs-vfx?utm_source=yt&utm_medium=video&utm_category=prd&utm_campaign=ErikChallenge&utm_creator=higgsfieldai&utm_content_type=de&utm_post=oNgHlP&invite_code=erikchallenge-higgsfieldai-oNgHlP"
+    ],
+    "files": []
+  },
+  {
     "ts": "1786327879.865299",
     "date": "2026-08-10",
     "text": "youtube.com/watch?v=weXc-JGwewo\n\n유튜브 기본 자막의 품질이 좋지 않아, 아래 폴더에 클로드를 활용해 한글 자막을 추가해두었습니다.\n영상이 다소 길지만 내용이 좋은 세미나 영상이니, 시간 되실 때 천천히 전체 시청해보시면 좋을 것 같습니다.\n\n=========================================\n\nP:\\graphic\\library\\영상\\Tutorial\\AI\\seminar\n\n=========================================",
@@ -99,7 +277,8 @@
         "web": true,
         "webok": true,
         "playok": true,
-        "vtries": 2
+        "vtries": 3,
+        "vok": true
       }
     ]
   },
