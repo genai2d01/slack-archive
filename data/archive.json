@@ -1,5 +1,86 @@
 [
   {
+    "ts": "1787728623.263429",
+    "date": "2026-08-26",
+    "text": "reddit.com/r/comfyui/s/5CHzyeltQj",
+    "links": [
+      "https://www.reddit.com/r/comfyui/s/5CHzyeltQj"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1787728551.900949",
+    "date": "2026-08-26",
+    "text": "reddit.com/r/Seedance_AI/s/RQMlioMsJP",
+    "links": [
+      "https://www.reddit.com/r/Seedance_AI/s/RQMlioMsJP"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1787709713.833549",
+    "date": "2026-08-26",
+    "text": "youtube.com/watch?v=eJuYBNrD8HI",
+    "links": [
+      "https://www.youtube.com/watch?v=eJuYBNrD8HI"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1787635805.380759",
+    "date": "2026-08-25",
+    "text": "framethrower.ai",
+    "links": [
+      "https://framethrower.ai/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1787635229.081819",
+    "date": "2026-08-25",
+    "text": "reddit.com/r/GaussianSplatting/…/gaussiancrowds_relightable_realtime_4dgs_at_scale?share_id=…",
+    "links": [
+      "https://www.reddit.com/r/GaussianSplatting/comments/1vpe7va/gaussiancrowds_relightable_realtime_4dgs_at_scale/?share_id=yP4HvJoGX9H_fBILY6QuY&utm_content=1&utm_medium=ios_app&utm_name=iossmf&utm_source=share&utm_term=2"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1787635208.233029",
+    "date": "2026-08-25",
+    "text": "4danyone.github.io",
+    "links": [
+      "https://4danyone.github.io/"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1787634351.391099",
+    "date": "2026-08-25",
+    "text": "youtube.com/watch?v=OJkNlT5B-5M",
+    "links": [
+      "https://www.youtube.com/watch?v=OJkNlT5B-5M"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1787569637.121909",
+    "date": "2026-08-24",
+    "text": "reddit.com/r/vfx/s/aPXIsKxVy8",
+    "links": [
+      "https://www.reddit.com/r/vfx/s/aPXIsKxVy8"
+    ],
+    "files": []
+  },
+  {
+    "ts": "1787537981.882539",
+    "date": "2026-08-24",
+    "text": "reddit.com/r/comfyui/s/BgwgpG68lb",
+    "links": [
+      "https://www.reddit.com/r/comfyui/s/BgwgpG68lb"
+    ],
+    "files": []
+  },
+  {
     "ts": "1787318499.757319",
     "date": "2026-08-21",
     "text": "youtube.com/watch?v=…",
@@ -211,9 +292,7 @@
     "ts": "1786325027.145679",
     "date": "2026-08-10",
     "text": "youtu.be/UiFmGrQ_X6E",
-    "links": [
-      "https://youtu.be/UiFmGrQ_X6E"
-    ],
+    "links": [],
     "files": []
   },
   {
@@ -1118,9 +1197,7 @@
     "ts": "1784698266.634599",
     "date": "2026-07-22",
     "text": "youtube.com/watch?v=…",
-    "links": [
-      "https://www.youtube.com/watch?v=PypS8xF5lfo"
-    ],
+    "links": [],
     "files": [
       {
         "path": "files/1784698266_634599_SEEDANCE 2.0 prompts.pdf",
@@ -1843,9 +1920,7 @@
     "ts": "1784696784.989389",
     "date": "2026-07-22",
     "text": "youtu.be/… YouTube - Higgsfield AI Workflow: How I Made FRONTIER - Space Western Trailer",
-    "links": [
-      "https://youtu.be/sCThi1E_aBg"
-    ],
+    "links": [],
     "files": []
   },
   {
@@ -2482,9 +2557,7 @@
     "ts": "1784695967.121569",
     "date": "2026-07-22",
     "text": "youtube.com/watch?v=ukACPBPriNc YouTube - 100% AI-Generated Sci-Fi Short Film | \"Pulse\" (2025)",
-    "links": [
-      "https://www.youtube.com/watch?v=ukACPBPriNc"
-    ],
+    "links": [],
     "files": []
   },
   {
@@ -2570,9 +2643,7 @@
     "ts": "1784695936.783139",
     "date": "2026-07-22",
     "text": "youtu.be/… YouTube - 인공지능 버블맞다",
-    "links": [
-      "https://youtu.be/b5TfjSTZY7Q"
-    ],
+    "links": [],
     "files": []
   },
   {
@@ -2691,9 +2762,7 @@
     "ts": "1784695789.247969",
     "date": "2026-07-22",
     "text": "youtube.com/shorts/…",
-    "links": [
-      "https://www.youtube.com/shorts/AYiZ2B3gtXU"
-    ],
+    "links": [],
     "files": []
   },
   {
@@ -2736,9 +2805,7 @@
     "ts": "1784695772.654959",
     "date": "2026-07-22",
     "text": "youtube.com/live/kQC62_cFkZI YouTube - Nuke 16.0, Katana 8.0, Mari 7.1 웨비나",
-    "links": [
-      "https://www.youtube.com/live/kQC62_cFkZI"
-    ],
+    "links": [],
     "files": [
       {
         "path": "files/1784695772_654959_1ce7f8f1e88d7.png",
@@ -2769,9 +2836,7 @@
     "ts": "1784695750.510969",
     "date": "2026-07-22",
     "text": "youtube.com/shorts/… YouTube - 파이어 토네이도 쇼츠",
-    "links": [
-      "https://www.youtube.com/shorts/p074TdM8bTU"
-    ],
+    "links": [],
     "files": []
   },
   {
