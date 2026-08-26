@@ -1,9 +1,11 @@
-// 슬랙 자료방을 읽어 archive.html을 갱신하는 스크립트 (GitHub Actions가 격주 금요일 실행)
+// 슬랙 자료방을 읽어 archive.html을 갱신하는 스크립트
+// RUN_MODE=full: 전체 수집 (격주 금요일·수동 실행) / RUN_MODE=linkcheck: 유튜브 링크 점검만 (매일)
 const fs = require('fs');
 const crypto = require('crypto');
 const { execFileSync } = require('child_process');
 
 const TOKEN = process.env.SLACK_BOT_TOKEN;
+const MODE = process.env.RUN_MODE === 'linkcheck' ? 'linkcheck' : 'full';
 const CHANNEL_ID = 'C0BJU8K7LSH';          // 자료방 채널 고유번호
 const CHANNEL_NAME = 'genai-2d_정보-공유';  // 화면 표시용 이름
 const DATA_FILE = 'data/archive.json';
@@ -15,7 +17,6 @@ const THUMBS_DIR = 'files/thumbs';
 const HTML_FILE = 'archive.html';
 const MAX_FILE_MB = 95;
 const THUMB_BUDGET = 40;
-const TITLE_BUDGET = 60;   // 실행 1회당 유튜브 제목 조회 최대 개수
 const CONVERT_BUDGET = 20; // 실행 1회당 영상 변환 최대 개수
 
 // 검사를 통과했는데도 화면이 안 나오는 영상 — 여기에 파일명을 적으면 무조건 재인코딩함
@@ -180,7 +181,7 @@ function ensureWebVideos(archive) {
   }
 }
 
-// ---------- 링크 썸네일·유튜브 제목 ----------
+// ---------- 링크 썸네일·유튜브 검사 ----------
 async function fetchWithTimeout(url, opts = {}, ms = 8000) {
   const c = new AbortController();
   const t = setTimeout(() => c.abort(), ms);
@@ -235,20 +236,42 @@ async function collectThumbs(archive, thumbs) {
   }
 }
 
-async function collectTitles(archive, titles) {
-  let budget = TITLE_BUDGET;
+// 유튜브 링크 전수 검사: 제목 갱신 + 재생 불가(삭제·비공개·잘못된 링크) 자동 제거
+async function checkYoutubeLinks(archive, titles, thumbs) {
+  const dead = new Set();
+  const checked = new Set();
   for (const e of archive) {
     for (const u of e.links) {
-      if (!youtubeId(u) || u in titles || budget <= 0) continue;
-      budget--;
+      if (!youtubeId(u) || checked.has(u)) continue;
+      checked.add(u);
       try {
         const res = await fetchWithTimeout('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent(u),
           { headers: { 'User-Agent': UA } });
-        titles[u] = res.ok ? ((await res.json()).title || null) : null;
-      } catch { titles[u] = null; }
-      console.log('유튜브 제목 ' + (titles[u] ? 'OK' : '없음') + ': ' + u.slice(0, 60));
+        if (res.ok) {
+          const t = (await res.json()).title || null;
+          if (t) titles[u] = t;
+        } else if ([400, 401, 403, 404].includes(res.status)) {
+          dead.add(u);
+          console.log('재생 불가 유튜브 제거: ' + u + ' (HTTP ' + res.status + ')');
+        }
+        // 그 외 상태코드(서버 오류 등)는 일시적일 수 있으니 유지
+      } catch { /* 네트워크 오류는 유지 */ }
     }
   }
+  if (!dead.size) { console.log('유튜브 검사 완료: 제거 대상 없음 (' + checked.size + '개 확인)'); return; }
+  for (const e of archive) e.links = e.links.filter(u => !dead.has(u));
+  let removedCards = 0;
+  for (let i = archive.length - 1; i >= 0; i--) {
+    const e = archive[i];
+    if (!e.text && !e.links.length && !e.files.length) { archive.splice(i, 1); removedCards++; }
+  }
+  for (const u of dead) {
+    const th = thumbs[u];
+    if (th && !String(th).startsWith('http')) { try { fs.unlinkSync(th); } catch {} }
+    delete thumbs[u];
+    delete titles[u];
+  }
+  console.log('유튜브 검사 완료: 링크 ' + dead.size + '개 제거, 빈 카드 ' + removedCards + '개 삭제');
 }
 
 // ---------- HTML 생성 ----------
@@ -483,7 +506,7 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
   <main id="archiveRoot" class="view-collapse">
   ${sections}
   </main>
-  <footer>격주 금요일 자동 수집 · 최신순 정렬</footer>
+  <footer>매일 링크 점검 · 격주 금요일 전체 수집 · 최신순 정렬</footer>
 </div>
 <button id="toTop" title="맨 위로">↑</button>
 <script>
@@ -602,7 +625,6 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
 
 // ---------- 메인 ----------
 (async () => {
-  if (!TOKEN) { console.error('SLACK_BOT_TOKEN이 설정되지 않았습니다.'); process.exit(1); }
   fs.mkdirSync('data', { recursive: true });
   fs.mkdirSync(FILES_DIR, { recursive: true });
   fs.mkdirSync(THUMBS_DIR, { recursive: true });
@@ -611,39 +633,45 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
   const archive = fs.existsSync(DATA_FILE) ? JSON.parse(fs.readFileSync(DATA_FILE, 'utf8')) : [];
   const thumbs = fs.existsSync(THUMBS_FILE) ? JSON.parse(fs.readFileSync(THUMBS_FILE, 'utf8')) : {};
   const titles = fs.existsSync(TITLES_FILE) ? JSON.parse(fs.readFileSync(TITLES_FILE, 'utf8')) : {};
-  const seen = new Set(archive.map(e => e.ts));
-
-  const messages = await fetchNewMessages(CHANNEL_ID, state.lastTs);
-  console.log('새 메시지 ' + messages.length + '건');
 
   let lastTs = state.lastTs || '0';
-  for (const m of messages.sort((a, b) => parseFloat(a.ts) - parseFloat(b.ts))) {
-    if (parseFloat(m.ts) > parseFloat(lastTs)) lastTs = m.ts;
-    if (seen.has(m.ts)) continue;
-    const entry = { ts: m.ts, date: fmtDate(m.ts), text: cleanText(m.text), links: extractLinks(m.text), files: [] };
-    for (const f of m.files || []) {
-      try {
-        const rel = await downloadFile(f, m.ts);
-        if (rel) {
-          entry.files.push({ path: rel, name: f.name || 'file', mimetype: f.mimetype || '' });
-        } else {
-          entry.files.push({ path: '', name: f.name || 'file', mimetype: f.mimetype || '', oversized: true, permalink: f.permalink || '' });
-          console.log('용량 초과로 링크만 기록: ' + (f.name || ''));
-        }
-      } catch (e) { console.warn('파일 다운로드 실패: ' + (f.name || '') + ' — ' + e.message); }
+
+  if (MODE === 'full') {
+    if (!TOKEN) { console.error('SLACK_BOT_TOKEN이 설정되지 않았습니다.'); process.exit(1); }
+    const seen = new Set(archive.map(e => e.ts));
+    const messages = await fetchNewMessages(CHANNEL_ID, state.lastTs);
+    console.log('새 메시지 ' + messages.length + '건');
+
+    for (const m of messages.sort((a, b) => parseFloat(a.ts) - parseFloat(b.ts))) {
+      if (parseFloat(m.ts) > parseFloat(lastTs)) lastTs = m.ts;
+      if (seen.has(m.ts)) continue;
+      const entry = { ts: m.ts, date: fmtDate(m.ts), text: cleanText(m.text), links: extractLinks(m.text), files: [] };
+      for (const f of m.files || []) {
+        try {
+          const rel = await downloadFile(f, m.ts);
+          if (rel) {
+            entry.files.push({ path: rel, name: f.name || 'file', mimetype: f.mimetype || '' });
+          } else {
+            entry.files.push({ path: '', name: f.name || 'file', mimetype: f.mimetype || '', oversized: true, permalink: f.permalink || '' });
+            console.log('용량 초과로 링크만 기록: ' + (f.name || ''));
+          }
+        } catch (e) { console.warn('파일 다운로드 실패: ' + (f.name || '') + ' — ' + e.message); }
+      }
+      if (entry.text || entry.links.length || entry.files.length) archive.push(entry);
     }
-    if (entry.text || entry.links.length || entry.files.length) archive.push(entry);
+  } else {
+    console.log('일일 점검 모드: 슬랙 수집 생략, 유튜브 링크 검사만 수행');
   }
 
   archive.sort((a, b) => parseFloat(b.ts) - parseFloat(a.ts));
-  ensureWebVideos(archive);
-  await collectThumbs(archive, thumbs);
-  await collectTitles(archive, titles);
+  if (MODE === 'full') ensureWebVideos(archive);
+  await checkYoutubeLinks(archive, titles, thumbs);
+  if (MODE === 'full') await collectThumbs(archive, thumbs);
 
   fs.writeFileSync(DATA_FILE, JSON.stringify(archive, null, 2));
   fs.writeFileSync(STATE_FILE, JSON.stringify({ lastTs }));
   fs.writeFileSync(THUMBS_FILE, JSON.stringify(thumbs, null, 2));
   fs.writeFileSync(TITLES_FILE, JSON.stringify(titles, null, 2));
   fs.writeFileSync(HTML_FILE, renderHtml(archive, thumbs, titles));
-  console.log('완료: 총 ' + archive.length + '건, archive.html 갱신됨');
+  console.log('완료(' + MODE + '): 총 ' + archive.length + '건, archive.html 갱신됨');
 })().catch(e => { console.error(e.message || e); process.exit(1); });
