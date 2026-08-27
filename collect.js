@@ -48,32 +48,34 @@ const BRAND = {
 const PRETENDARD = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">';
 const FONT_STACK = "'Pretendard',system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif";
 
-// 테마 정의 (다크/라이트 두 파일 생성)
+// 테마 정의 (다크/라이트 두 파일 생성) — 포털 컬러 기준
 const THEMES = {
   dark: {
+    name: 'dark',
     file: 'archive.html',
-    vars: { bg: '#0b0e15', panel: '#12161f', panel2: '#181d29', line: '#232936', lineSoft: '#1c212c',
-      text: '#e2e6ef', textDim: '#98a0b3', textMute: '#646d80', accent: '#4c68ff' },
+    vars: { bg: '#0c0e14', panel: '#14161f', panel2: '#1d212e', line: '#262b38', lineSoft: '#1e222d',
+      text: '#e4e7ee', textDim: '#9aa2b1', textMute: '#6a7280', accent: '#4353ff' },
     onAccent: '#ffffff',
-    ctrlBg: 'rgba(11,14,21,.97)',
-    months: ['#5c78ff', '#43b0b8', '#8d7bde', '#c2a05e', '#c37c98', '#5fae7f'],
+    ctrlBg: 'rgba(12,14,20,.97)',
+    months: ['#6b76ff'],   // 월별 컬러 통일 (블루 계열 하나)
     fontLink: PRETENDARD,
     fontFamily: FONT_STACK,
     cardShadow: 'none',
-    tintCard: 5, tintHead: 12,
+    tintCard: 4, tintHead: 11,
     hoverCss: '.entry:hover { border-color:var(--accent); }',
   },
   light: {
+    name: 'light',
     file: 'archive_light.html',
-    vars: { bg: '#f7f8fa', panel: '#ffffff', panel2: '#f2f4f7', line: '#e4e8ee', lineSoft: '#eceff3',
+    vars: { bg: '#f7f8fa', panel: '#ffffff', panel2: '#eef0f5', line: '#e2e6ee', lineSoft: '#e9edf2',
       text: '#1a2233', textDim: '#5b6472', textMute: '#98a1ad', accent: '#4353ff' },
     onAccent: '#ffffff',
     ctrlBg: 'rgba(247,248,250,.97)',
-    months: ['#4a63e7', '#2e9099', '#7a63d8', '#b08430', '#c25f86', '#3f9e63'],
+    months: ['#4353ff'],   // 월별 컬러 통일 (블루 계열 하나)
     fontLink: PRETENDARD,
     fontFamily: FONT_STACK,
     cardShadow: '0 1px 3px rgba(16,24,40,.07)',
-    tintCard: 4, tintHead: 9,
+    tintCard: 3, tintHead: 8,
     hoverCss: '.entry:hover { background:#e9ecf5; }',
   },
 };
@@ -563,6 +565,10 @@ ${entries.map(e => renderEntry(e, thumbs, titles, T)).join('\n')}
   const topicOptions = ['<option value="all">주제: 전체</option>']
     .concat(TOPICS.map(t => `<option value="${esc(t.name)}">${esc(t.name)}</option>`), ['<option value="기타">기타</option>'])
     .join('');
+  const themeSwitch = `<div class="theme-sw">
+    <a href="archive.html" class="tsw${T.name === 'dark' ? ' on' : ''}">다크</a>
+    <a href="archive_light.html" class="tsw${T.name === 'light' ? ' on' : ''}">라이트</a>
+  </div>`;
   const now = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Seoul', dateStyle: 'short', timeStyle: 'short' }).format(new Date());
   return `<!DOCTYPE html>
 <html lang="ko">
@@ -577,41 +583,46 @@ ${T.fontLink}
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:var(--bg); color:var(--text); font-family:${T.fontFamily}; line-height:1.55; padding:0 0 5rem; }
   .wrap { width:100%; max-width:none; margin:0 auto; padding:0 18px; }
-  header { padding:22px 0 10px; }
+  header { padding:22px 0 10px; position:relative; }
   .eyebrow { font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin-bottom:5px; font-family:monospace; }
   h1 { font-size:22px; letter-spacing:-.02em; margin-bottom:3px; }
   .sub { color:var(--text-dim); font-size:12.5px; }
+  .theme-sw { position:absolute; top:20px; right:0; display:flex; gap:3px; background:var(--panel-2);
+    border:1px solid var(--line); border-radius:10px; padding:3px; }
+  .tsw { padding:5px 14px; border-radius:8px; font-size:12px; color:var(--text-dim); text-decoration:none; font-weight:500; }
+  .tsw:hover { color:var(--text); }
+  .tsw.on { background:var(--accent); color:var(--on-accent); font-weight:700; }
   .controls { position:sticky; top:0; z-index:20; background:${T.ctrlBg}; backdrop-filter:blur(4px);
     padding:10px 0; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:12px 14px; align-items:center; }
   #q { flex:0 1 520px; min-width:240px; margin-right:auto; background:var(--panel); border:1px solid var(--line); color:var(--text);
     padding:9px 13px; border-radius:9px; font-size:13.5px; outline:none; box-shadow:${T.cardShadow}; }
   #q:focus { border-color:var(--accent); }
-  .chip { background:var(--panel); border:1px solid var(--line); color:var(--text-dim); padding:7px 14px;
-    border-radius:999px; font-size:12.5px; cursor:pointer; box-shadow:${T.cardShadow}; }
+  .chip { background:var(--panel-2); border:1px solid var(--line); color:var(--text-dim); padding:7px 14px;
+    border-radius:9px; font-size:12.5px; cursor:pointer; box-shadow:${T.cardShadow}; font-weight:500; }
   .chip:hover { border-color:var(--accent); }
   .chip.on { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:700; }
   .lbl { font-size:11.5px; color:var(--text-mute); }
   .vgroup { display:flex; gap:6px; align-items:center; }
   .sub-btn { background:var(--panel-2); border:1px dashed var(--text-mute); color:var(--text-dim);
-    padding:4px 10px; border-radius:999px; font-size:11px; cursor:pointer; }
+    padding:4px 10px; border-radius:8px; font-size:11px; cursor:pointer; }
   .sub-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); }
   .sub-btn:disabled { opacity:.3; cursor:not-allowed; }
-  select { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:8px 9px; border-radius:9px; font-size:12.5px; box-shadow:${T.cardShadow}; }
-  .slider-box { display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--line);
-    border-radius:999px; padding:6px 14px; box-shadow:${T.cardShadow}; }
+  select { background:var(--panel-2); border:1px solid var(--line); color:var(--text); padding:8px 9px; border-radius:9px; font-size:12.5px; box-shadow:${T.cardShadow}; }
+  .slider-box { display:flex; align-items:center; gap:8px; background:var(--panel-2); border:1px solid var(--line);
+    border-radius:9px; padding:6px 14px; box-shadow:${T.cardShadow}; }
   .slider-box input[type=range] { width:100px; accent-color:var(--accent); cursor:pointer; }
   .slider-box b { font-family:monospace; font-size:12px; color:var(--accent); min-width:10px; text-align:center; }
   .count-line { color:var(--text-mute); font-size:12px; }
   .count-line b { color:var(--accent); }
   .month { padding-top:28px; }
-  .month-head { display:flex; align-items:center; gap:12px; padding:10px 15px; margin-bottom:14px; border-radius:11px;
+  .month-head { display:flex; align-items:center; gap:12px; padding:10px 15px; margin-bottom:14px; border-radius:10px;
     background:color-mix(in srgb, var(--maccent) ${T.tintHead}%, var(--bg));
-    border:1px solid color-mix(in srgb, var(--maccent) 36%, var(--line)); }
+    border:1px solid color-mix(in srgb, var(--maccent) 32%, var(--line)); }
   .month-head h2 { font-size:19px; color:var(--maccent); }
   .month-head .count { font-family:monospace; font-size:12.5px; color:var(--text-dim); }
-  .m-tgl { margin-left:auto; background:none; border:1px solid color-mix(in srgb, var(--maccent) 45%, var(--line));
+  .m-tgl { margin-left:auto; background:none; border:1px solid color-mix(in srgb, var(--maccent) 42%, var(--line));
     color:var(--maccent); padding:5px 13px; border-radius:8px; cursor:pointer; font-size:12px; font-weight:700; }
-  .m-tgl:hover { background:color-mix(in srgb, var(--maccent) 16%, var(--bg)); }
+  .m-tgl:hover { background:color-mix(in srgb, var(--maccent) 15%, var(--bg)); }
   .month.closed .m-body { display:none !important; }
   .m-body { columns:var(--cols, 4); column-gap:14px; }
   #archiveRoot.view-fixed .m-body { display:grid; grid-template-columns:repeat(var(--cols, 4), 1fr); gap:14px; columns:auto; }
@@ -621,9 +632,9 @@ ${T.fontLink}
     #archiveRoot.view-fixed .m-body { grid-template-columns:1fr !important; }
   }
   .entry { background:var(--panel); background:color-mix(in srgb, var(--maccent) ${T.tintCard}%, var(--panel));
-    border:1px solid color-mix(in srgb, var(--maccent) 20%, var(--line));
+    border:1px solid color-mix(in srgb, var(--maccent) 18%, var(--line));
     border-left:4px solid var(--maccent);
-    border-radius:12px; padding:14px 16px; margin:0 0 14px; break-inside:avoid; box-shadow:${T.cardShadow};
+    border-radius:10px; padding:14px 16px; margin:0 0 14px; break-inside:avoid; box-shadow:${T.cardShadow};
     transition:border-color .15s, background .15s; }
   ${T.hoverCss}
   .e-head { display:flex; align-items:center; gap:10px; margin-bottom:7px; }
@@ -645,7 +656,7 @@ ${T.fontLink}
   .btn:hover { opacity:.82; }
   .btn-slack { background:#4A154B; color:#fff; }
   .thumb-grid { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
-  .thumb { position:relative; display:block; width:100%; max-width:340px; border-radius:10px; overflow:hidden;
+  .thumb { position:relative; display:block; width:100%; max-width:340px; border-radius:9px; overflow:hidden;
     border:1px solid var(--line); background:var(--panel-2); }
   .thumb img { width:100%; display:block; }
   .thumb .th-title { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
@@ -654,12 +665,12 @@ ${T.fontLink}
     font-weight:700; padding:3px 8px; border-radius:5px; opacity:.94; }
   .thumb:hover img { opacity:.85; }
   .attach { display:flex; flex-wrap:wrap; gap:12px; align-items:flex-start; }
-  .a-img { max-width:100%; max-height:260px; border-radius:10px; border:1px solid var(--line); display:block; }
+  .a-img { max-width:100%; max-height:260px; border-radius:9px; border:1px solid var(--line); display:block; }
   .v-wrap { margin:0; width:100%; }
-  .v-wrap video { width:100%; border-radius:10px; border:1px solid var(--line); display:block; background:#000; }
+  .v-wrap video { width:100%; border-radius:9px; border:1px solid var(--line); display:block; background:#000; }
   .v-wrap figcaption { font-size:11.5px; color:var(--text-mute); margin-top:5px; word-break:break-all; }
   .file-link { display:inline-flex; align-items:center; gap:6px; background:var(--panel-2); border:1px solid var(--line);
-    color:var(--text); padding:8px 12px; border-radius:9px; text-decoration:none; font-size:12.5px; word-break:break-all; }
+    color:var(--text); padding:8px 12px; border-radius:8px; text-decoration:none; font-size:12.5px; word-break:break-all; }
   .file-link:hover { border-color:var(--accent); }
   .cmt { margin-top:11px; border-top:1px dashed var(--line); padding-top:7px; }
   .cmt-tgl { background:none; border:none; color:var(--text-dim); font-size:12px; font-weight:700; cursor:pointer; padding:2px 0; }
@@ -684,6 +695,7 @@ ${T.fontLink}
     <div class="eyebrow">Slack Auto Archive</div>
     <h1>#${esc(CHANNEL_NAME)} 채널</h1>
     <p class="sub">슬랙 아카이브 · 총 ${archive.length}건 · 마지막 갱신 ${now} (KST)</p>
+    ${themeSwitch}
   </header>
   <div class="controls">
     <input id="q" type="search" placeholder="검색 — 제목·링크·파일명·댓글 (띄어쓰기 무관)">
