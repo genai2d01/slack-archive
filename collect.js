@@ -17,7 +17,8 @@ const THUMBS_DIR = 'files/thumbs';
 const HTML_FILE = 'archive.html';
 const MAX_FILE_MB = 95;
 const THUMB_BUDGET = 40;
-const CONVERT_BUDGET = 20; // 실행 1회당 영상 변환 최대 개수
+const CONVERT_BUDGET = 20;  // 실행 1회당 영상 변환 최대 개수
+const COMMENT_BUDGET = 30;  // 실행 1회당 댓글 갱신 최대 카드 수
 
 // 검사를 통과했는데도 화면이 안 나오는 영상 — 여기에 파일명을 적으면 무조건 재인코딩함
 const FORCE_CONVERT = [];
@@ -45,8 +46,8 @@ const BRAND = {
   'lumalabs.ai': ['#B36AE2', '#fff'],
 };
 
-// 월별 톤온톤 포인트 컬러 (월 숫자 기준 고정)
-const MONTH_COLORS = ['#7dd3c0', '#8fb8de', '#b3a1e0', '#d9c08a', '#d99aa8', '#93c99a'];
+// 월별 톤온톤 포인트 컬러 (차분한 쿨톤 계열, 월 숫자 기준 고정)
+const MONTH_COLORS = ['#8ab4dd', '#7fc4c9', '#a89fd9', '#cbb58e', '#c898ab', '#8fc4a2'];
 
 // 주제 자동 분류 규칙 (여러 주제에 동시 포함 가능)
 const TOPICS = [
@@ -116,8 +117,37 @@ async function downloadFile(f, ts) {
   return rel;
 }
 
-// ---------- 영상 코덱 검사·변환 ----------
-// AV1은 Windows PC에서 재생 안 되는 경우가 많아 신뢰 목록에서 제외 → 전부 H.264로 변환
+// ---------- 댓글(스레드 답글) 수집 ----------
+async function syncComments(archive) {
+  const parents = new Map(); // ts → 댓글 수
+  let cursor;
+  do {
+    const r = await slack('conversations.history', {
+      channel: CHANNEL_ID, limit: 200, ...(cursor ? { cursor } : {}),
+    });
+    for (const m of r.messages) if (m.reply_count) parents.set(m.ts, m.reply_count);
+    cursor = r.has_more && r.response_metadata ? r.response_metadata.next_cursor : null;
+  } while (cursor);
+
+  let budget = COMMENT_BUDGET;
+  for (const e of archive) {
+    const rc = parents.get(e.ts) || 0;
+    const cur = (e.comments || []).length;
+    if (rc === 0) { if (cur) e.comments = []; continue; }
+    if (rc === cur) continue;
+    if (budget-- <= 0) continue;
+    try {
+      const r = await slack('conversations.replies', { channel: CHANNEL_ID, ts: e.ts, limit: 200 });
+      e.comments = (r.messages || [])
+        .filter(m => m.ts !== e.ts)
+        .map(m => ({ date: fmtDate(m.ts), text: cleanText(m.text) }))
+        .filter(c => c.text);
+      console.log('댓글 갱신: ' + e.date + ' 카드 — ' + e.comments.length + '개');
+    } catch (err) { console.warn('댓글 조회 실패: ' + err.message); }
+  }
+}
+
+// ---------- 영상 코덱 검사·변환·손상 복구 ----------
 function ffmpegAvailable() {
   try { execFileSync('ffprobe', ['-version'], { stdio: 'ignore' }); return true; }
   catch { return false; }
@@ -127,6 +157,7 @@ function ffprobeInfo(p) {
   try {
     const out = execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0',
       '-show_entries', 'stream=codec_name,pix_fmt', '-of', 'csv=p=0', p]).toString().trim();
+    if (!out) return null;
     const [codec, pix] = out.split(',');
     return { codec: (codec || '').trim(), pix: (pix || '').trim() };
   } catch { return null; }
@@ -138,7 +169,22 @@ function isWebPlayable(info) {
   return okCodec && okPix;
 }
 
-function ensureWebVideos(archive) {
+// 손상된 파일을 슬랙에서 다시 다운로드
+async function refetchFromSlack(e, f) {
+  const r = await slack('conversations.replies', { channel: CHANNEL_ID, ts: e.ts, limit: 1 });
+  const m = (r.messages || [])[0];
+  const sf = ((m && m.files) || []).find(x => (x.name || '') === f.name);
+  if (!sf) return false;
+  f.permalink = sf.permalink || f.permalink || '';
+  const res = await fetch(sf.url_private_download || sf.url_private, {
+    headers: { Authorization: 'Bearer ' + TOKEN },
+  });
+  if (!res.ok) return false;
+  fs.writeFileSync(f.path, Buffer.from(await res.arrayBuffer()));
+  return true;
+}
+
+async function ensureWebVideos(archive) {
   if (!ffmpegAvailable()) {
     console.warn('⚠ ffmpeg/ffprobe가 실행 환경에 없어 영상 변환을 전부 건너뜁니다. archive.yml의 "ffmpeg 설치" 단계를 확인하세요.');
     return;
@@ -152,8 +198,23 @@ function ensureWebVideos(archive) {
       const force = FORCE_CONVERT.includes(f.name) && !/_web\d?\.mp4$/.test(f.path);
       if (!force && f.vok) continue;
       if (budget <= 0) continue;
-      const info = ffprobeInfo(f.path);
-      if (!info) { console.warn('코덱 판별 불가(다음 실행 때 재시도): ' + f.name); continue; }
+      let info = ffprobeInfo(f.path);
+      if (!info) {
+        // 파일 손상 의심 → 슬랙에서 1회 재다운로드 시도
+        if (!f.redl) {
+          f.redl = true;
+          console.log('파일 손상 의심, 슬랙에서 재다운로드 시도: ' + f.name);
+          const ok = await refetchFromSlack(e, f).catch(() => false);
+          if (ok) info = ffprobeInfo(f.path);
+        }
+        if (!info) {
+          f.broken = true; f.vok = true;
+          console.warn('파일 손상 확정 — "슬랙에서 열기"로 표시: ' + f.name);
+          continue;
+        }
+        f.broken = false;
+        console.log('재다운로드로 복구됨: ' + f.name);
+      }
       if (!force && isWebPlayable(info)) { f.vok = true; continue; }
       budget--;
       const out = f.path.replace(/(_web\d?)?\.[^.]+$/, '') + '_web4.mp4';
@@ -254,7 +315,6 @@ async function checkYoutubeLinks(archive, titles, thumbs) {
           dead.add(u);
           console.log('재생 불가 유튜브 제거: ' + u + ' (HTTP ' + res.status + ')');
         }
-        // 그 외 상태코드(서버 오류 등)는 일시적일 수 있으니 유지
       } catch { /* 네트워크 오류는 유지 */ }
     }
   }
@@ -279,6 +339,10 @@ function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+function linkify(escaped) {
+  return escaped.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+}
+
 function domainOf(u) {
   try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return '링크'; }
 }
@@ -287,7 +351,7 @@ function brandFor(host) {
   for (const [k, v] of Object.entries(BRAND)) {
     if (host === k || host.endsWith('.' + k)) return v;
   }
-  return ['#7dd3c0', '#0f1115'];
+  return ['#8ab4dd', '#0e131b'];
 }
 
 function entryTypes(e) {
@@ -312,7 +376,8 @@ function entryTopics(e) {
 
 function searchKey(e, titles) {
   const ytTitles = e.links.map(u => titles[u] || '');
-  return [e.text, ...e.links, ...ytTitles, ...e.files.map(f => f.name)].join(' ').toLowerCase().replace(/\s+/g, '');
+  const cmts = (e.comments || []).map(c => c.text);
+  return [e.text, ...e.links, ...ytTitles, ...cmts, ...e.files.map(f => f.name)].join(' ').toLowerCase().replace(/\s+/g, '');
 }
 
 function renderEntry(e, thumbs, titles) {
@@ -340,10 +405,21 @@ function renderEntry(e, thumbs, titles) {
     if (mt.startsWith('image/')) {
       attach += `<a href="${src}" target="_blank"><img class="a-img" src="${src}" alt="${esc(f.name)}" loading="lazy"></a>`;
     } else if (mt.startsWith('video/')) {
-      attach += `<figure class="v-wrap"><video src="${src}" controls preload="metadata"></video><figcaption>🎬 ${esc(f.name)}</figcaption></figure>`;
+      if (f.broken) {
+        attach += `<a class="btn btn-slack" href="${esc(f.permalink || '#')}" target="_blank" rel="noopener">⚠ ${esc(f.name)} — 파일 손상, 슬랙에서 열기</a>`;
+      } else {
+        attach += `<figure class="v-wrap"><video src="${src}" controls preload="metadata"></video><figcaption>🎬 ${esc(f.name)}</figcaption></figure>`;
+      }
     } else {
       attach += `<a class="file-link" href="${src}" download>📎 ${esc(f.name)}</a>`;
     }
+  }
+  const cmts = e.comments || [];
+  let cmtHtml = '';
+  if (cmts.length) {
+    const items = cmts.map(c =>
+      `<div class="cmt-item"><span class="cmt-date">${esc(c.date.slice(5))}</span><span class="cmt-text">${linkify(esc(c.text))}</span></div>`).join('');
+    cmtHtml = `<div class="cmt"><button type="button" class="cmt-tgl">💬 댓글 ${cmts.length} <span class="arr">▲</span></button><div class="cmt-body">${items}</div></div>`;
   }
   const title = (e.text || e.links.map(u => titles[u] || domainOf(u)).join(', ') || (e.files[0] && e.files[0].name) || '').slice(0, 60);
   return `<article class="entry" data-ts="${e.ts}" data-month="${e.date.slice(0, 7)}" data-types="${entryTypes(e)}" data-topics="${esc(entryTopics(e))}" data-search="${esc(searchKey(e, titles))}">
@@ -353,6 +429,7 @@ ${e.text ? `<p class="e-text">${esc(e.text)}</p>` : ''}
 ${btns ? `<div class="e-btns">${btns}</div>` : ''}
 ${thumbCards.length ? `<div class="thumb-grid">${thumbCards.join('')}</div>` : ''}
 ${attach ? `<div class="attach">${attach}</div>` : ''}
+${cmtHtml}
 </div>
 </article>`;
 }
@@ -387,65 +464,66 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>#${esc(CHANNEL_NAME)} — 슬랙 아카이브</title>
 <style>
-  :root { --bg:#0f1115; --panel:#161a21; --panel-2:#1c212a; --line:#262c37; --line-soft:#1f242e;
-    --text:#e6e9ef; --text-dim:#9aa4b2; --text-mute:#6b7482; --accent:#7dd3c0; }
+  :root { --bg:#0e131b; --panel:#151c27; --panel-2:#1b2431; --line:#242f3f; --line-soft:#1e2733;
+    --text:#dfe6f0; --text-dim:#9aa7ba; --text-mute:#6d798c; --accent:#8ab4dd; }
   * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--bg); color:var(--text); font-family:system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif; line-height:1.55; padding:0 0 6rem; }
-  .wrap { max-width:1720px; margin:0 auto; padding:0 28px; }
-  header { padding:44px 0 20px; }
-  .eyebrow { font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; font-family:monospace; }
-  h1 { font-size:30px; letter-spacing:-.02em; margin-bottom:6px; }
-  .sub { color:var(--text-dim); font-size:14px; }
-  .controls { position:sticky; top:0; z-index:20; background:rgba(15,17,21,.97); backdrop-filter:blur(4px);
-    padding:14px 0; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  body { background:var(--bg); color:var(--text); font-family:system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif; line-height:1.55; padding:0 0 5rem; }
+  .wrap { width:100%; max-width:none; margin:0 auto; padding:0 18px; }
+  header { padding:22px 0 10px; }
+  .eyebrow { font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin-bottom:5px; font-family:monospace; }
+  h1 { font-size:22px; letter-spacing:-.02em; margin-bottom:3px; }
+  .sub { color:var(--text-dim); font-size:12.5px; }
+  .controls { position:sticky; top:0; z-index:20; background:rgba(14,19,27,.97); backdrop-filter:blur(4px);
+    padding:10px 0; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
   #q { flex:1 1 220px; min-width:170px; background:var(--panel); border:1px solid var(--line); color:var(--text);
-    padding:10px 14px; border-radius:9px; font-size:14px; outline:none; }
+    padding:9px 13px; border-radius:9px; font-size:13.5px; outline:none; }
   #q:focus { border-color:var(--accent); }
-  .chip { background:var(--panel); border:1px solid var(--line); color:var(--text-dim); padding:8px 15px;
-    border-radius:999px; font-size:13px; cursor:pointer; }
-  .chip.on { background:var(--accent); color:#0f1115; border-color:var(--accent); font-weight:700; }
-  .lbl { font-size:12px; color:var(--text-mute); margin-left:2px; }
+  .chip { background:var(--panel); border:1px solid var(--line); color:var(--text-dim); padding:7px 14px;
+    border-radius:999px; font-size:12.5px; cursor:pointer; }
+  .chip.on { background:var(--accent); color:#0e131b; border-color:var(--accent); font-weight:700; }
+  .lbl { font-size:11.5px; color:var(--text-mute); margin-left:2px; }
   .vgroup { display:flex; gap:6px; align-items:center; }
   .sub-btn { background:var(--panel-2); border:1px dashed var(--text-mute); color:var(--text-dim);
     padding:4px 10px; border-radius:999px; font-size:11px; cursor:pointer; }
   .sub-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); }
   .sub-btn:disabled { opacity:.3; cursor:not-allowed; }
-  select { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:9px 10px; border-radius:9px; font-size:13px; }
-  .count-line { color:var(--text-mute); font-size:12.5px; margin-left:auto; }
+  select { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:8px 9px; border-radius:9px; font-size:12.5px; }
+  .count-line { color:var(--text-mute); font-size:12px; margin-left:auto; }
   .count-line b { color:var(--accent); }
-  .month { padding-top:34px; }
-  .month-head { display:flex; align-items:center; gap:12px; padding:11px 16px; margin-bottom:16px; border-radius:11px;
-    background:color-mix(in srgb, var(--maccent) 15%, var(--bg));
-    border:1px solid color-mix(in srgb, var(--maccent) 40%, var(--line)); }
-  .month-head h2 { font-size:22px; color:var(--maccent); }
-  .month-head .count { font-family:monospace; font-size:13px; color:var(--text-dim); }
+  .month { padding-top:28px; }
+  .month-head { display:flex; align-items:center; gap:12px; padding:10px 15px; margin-bottom:14px; border-radius:11px;
+    background:color-mix(in srgb, var(--maccent) 13%, var(--bg));
+    border:1px solid color-mix(in srgb, var(--maccent) 36%, var(--line)); }
+  .month-head h2 { font-size:19px; color:var(--maccent); }
+  .month-head .count { font-family:monospace; font-size:12.5px; color:var(--text-dim); }
   .m-tgl { margin-left:auto; background:none; border:1px solid color-mix(in srgb, var(--maccent) 45%, var(--line));
-    color:var(--maccent); padding:6px 14px; border-radius:8px; cursor:pointer; font-size:12.5px; font-weight:700; }
-  .m-tgl:hover { background:color-mix(in srgb, var(--maccent) 18%, var(--bg)); }
+    color:var(--maccent); padding:5px 13px; border-radius:8px; cursor:pointer; font-size:12px; font-weight:700; }
+  .m-tgl:hover { background:color-mix(in srgb, var(--maccent) 16%, var(--bg)); }
   .month.closed .m-body { display:none !important; }
-  .m-body { columns:4; column-gap:16px; }
+  .m-body { columns:4; column-gap:14px; }
+  @media (min-width:1900px) { .m-body { columns:5; } #archiveRoot.view-fixed .m-body { grid-template-columns:repeat(5,1fr); } }
   @media (max-width:1500px) { .m-body { columns:3; } #archiveRoot.view-fixed .m-body { grid-template-columns:repeat(3,1fr); } }
   @media (max-width:1050px) { .m-body { columns:2; } #archiveRoot.view-fixed .m-body { grid-template-columns:repeat(2,1fr); } }
   @media (max-width:680px)  { .m-body { columns:1; } #archiveRoot.view-fixed .m-body { grid-template-columns:1fr; } }
-  #archiveRoot.view-fixed .m-body { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; columns:auto; }
+  #archiveRoot.view-fixed .m-body { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; columns:auto; }
   #archiveRoot.view-fixed .entry { height:360px; overflow-y:auto; margin:0; }
-  .entry { background:var(--panel); background:color-mix(in srgb, var(--maccent) 7%, var(--panel));
-    border:1px solid color-mix(in srgb, var(--maccent) 22%, var(--line));
+  .entry { background:var(--panel); background:color-mix(in srgb, var(--maccent) 6%, var(--panel));
+    border:1px solid color-mix(in srgb, var(--maccent) 20%, var(--line));
     border-left:4px solid var(--maccent);
-    border-radius:12px; padding:15px 17px; margin:0 0 16px; break-inside:avoid; }
+    border-radius:12px; padding:14px 16px; margin:0 0 14px; break-inside:avoid; }
   .e-head { display:flex; align-items:center; gap:10px; margin-bottom:7px; }
-  .e-date { font-family:monospace; font-size:16px; font-weight:800; color:var(--maccent); letter-spacing:.02em; white-space:nowrap; }
-  .e-title { display:none; font-size:13px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; }
+  .e-date { font-family:monospace; font-size:15.5px; font-weight:800; color:var(--maccent); letter-spacing:.02em; white-space:nowrap; }
+  .e-title { display:none; font-size:12.5px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; }
   .e-tgl { display:none; margin-left:auto; background:none; border:none; color:var(--maccent); font-size:15px; cursor:pointer; }
   #archiveRoot.view-collapse .e-tgl { display:inline-block; }
   #archiveRoot.view-collapse .e-head { cursor:pointer; }
   #archiveRoot.view-collapse .entry.closed .e-title { display:block; }
   .entry.closed .e-body { display:none; }
-  .entry.closed { padding-bottom:12px; }
-  .e-text { white-space:pre-wrap; word-break:break-word; font-size:14px; line-height:1.65; margin-bottom:10px; }
+  .entry.closed { padding-bottom:11px; }
+  .e-text { white-space:pre-wrap; word-break:break-word; font-size:13.5px; line-height:1.65; margin-bottom:10px; }
   .e-btns { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
-  .btn { display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:12.5px;
-    padding:7px 13px; border-radius:8px; text-decoration:none; }
+  .btn { display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:12px;
+    padding:6px 12px; border-radius:8px; text-decoration:none; }
   .btn:hover { opacity:.82; }
   .btn-slack { background:#4A154B; color:#fff; }
   .thumb-grid { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
@@ -453,24 +531,33 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
     border:1px solid var(--line); background:var(--panel-2); }
   .thumb img { width:100%; display:block; }
   .thumb .th-title { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
-    font-size:12px; line-height:1.45; color:var(--text); padding:7px 10px; border-bottom:1px solid var(--line); }
-  .thumb .th-tag { position:absolute; left:8px; bottom:8px; font-family:monospace; font-size:10.5px;
+    font-size:11.5px; line-height:1.45; color:var(--text); padding:7px 10px; border-bottom:1px solid var(--line); }
+  .thumb .th-tag { position:absolute; left:8px; bottom:8px; font-family:monospace; font-size:10px;
     font-weight:700; padding:3px 8px; border-radius:5px; opacity:.94; }
   .thumb:hover img { opacity:.85; }
   .attach { display:flex; flex-wrap:wrap; gap:12px; align-items:flex-start; }
   .a-img { max-width:100%; max-height:260px; border-radius:10px; border:1px solid var(--line); display:block; }
   .v-wrap { margin:0; width:100%; }
   .v-wrap video { width:100%; border-radius:10px; border:1px solid var(--line); display:block; background:#000; }
-  .v-wrap figcaption { font-size:12px; color:var(--text-mute); margin-top:5px; word-break:break-all; }
+  .v-wrap figcaption { font-size:11.5px; color:var(--text-mute); margin-top:5px; word-break:break-all; }
   .file-link { display:inline-flex; align-items:center; gap:6px; background:var(--panel-2); border:1px solid var(--line);
-    color:var(--text); padding:9px 13px; border-radius:9px; text-decoration:none; font-size:13px; word-break:break-all; }
+    color:var(--text); padding:8px 12px; border-radius:9px; text-decoration:none; font-size:12.5px; word-break:break-all; }
   .file-link:hover { border-color:var(--accent); }
-  #toTop { position:fixed; right:26px; bottom:26px; z-index:30; width:48px; height:48px; border-radius:50%;
-    border:none; background:var(--accent); color:#0f1115; font-size:20px; font-weight:800; cursor:pointer;
+  .cmt { margin-top:11px; border-top:1px dashed var(--line); padding-top:7px; }
+  .cmt-tgl { background:none; border:none; color:var(--text-dim); font-size:12px; font-weight:700; cursor:pointer; padding:2px 0; }
+  .cmt-tgl:hover { color:var(--accent); }
+  .cmt-tgl .arr { font-size:10px; color:var(--text-mute); }
+  .cmt.closed .cmt-body { display:none; }
+  .cmt-item { display:flex; gap:8px; padding-top:7px; font-size:12.5px; }
+  .cmt-date { font-family:monospace; font-size:10.5px; color:var(--text-mute); white-space:nowrap; padding-top:2px; }
+  .cmt-text { white-space:pre-wrap; word-break:break-word; color:var(--text-dim); line-height:1.55; }
+  .cmt-text a { color:var(--accent); }
+  #toTop { position:fixed; right:22px; bottom:22px; z-index:30; width:46px; height:46px; border-radius:50%;
+    border:none; background:var(--accent); color:#0e131b; font-size:19px; font-weight:800; cursor:pointer;
     box-shadow:0 4px 14px rgba(0,0,0,.45); opacity:0; pointer-events:none; transition:opacity .25s; }
   #toTop.show { opacity:1; pointer-events:auto; }
   #toTop:hover { opacity:.85; }
-  footer { margin-top:48px; padding-top:18px; border-top:1px solid var(--line); color:var(--text-mute); font-size:12px; font-family:monospace; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--line); color:var(--text-mute); font-size:11.5px; font-family:monospace; }
 </style>
 </head>
 <body>
@@ -481,7 +568,7 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
     <p class="sub">슬랙 아카이브 · 총 ${archive.length}건 · 마지막 갱신 ${now} (KST)</p>
   </header>
   <div class="controls">
-    <input id="q" type="search" placeholder="검색 — 제목·링크·파일명 (띄어쓰기 무관)">
+    <input id="q" type="search" placeholder="검색 — 제목·링크·파일명·댓글 (띄어쓰기 무관)">
     <span class="lbl">보기</span>
     <div class="vgroup">
       <button type="button" id="viewCollapse" class="chip on">접기식</button>
@@ -603,6 +690,15 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
       b.textContent = sec.classList.contains('closed') ? '▸ 펼치기' : '▾ 접기';
     });
   });
+  document.querySelectorAll('.cmt-tgl').forEach(function (b) {
+    b.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      var c = b.parentElement;
+      c.classList.toggle('closed');
+      var arr = b.querySelector('.arr');
+      if (arr) arr.textContent = c.classList.contains('closed') ? '▼' : '▲';
+    });
+  });
   chips.forEach(function (c) {
     c.addEventListener('click', function () {
       chips.forEach(function (x) { x.classList.remove('on'); });
@@ -645,12 +741,12 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
     for (const m of messages.sort((a, b) => parseFloat(a.ts) - parseFloat(b.ts))) {
       if (parseFloat(m.ts) > parseFloat(lastTs)) lastTs = m.ts;
       if (seen.has(m.ts)) continue;
-      const entry = { ts: m.ts, date: fmtDate(m.ts), text: cleanText(m.text), links: extractLinks(m.text), files: [] };
+      const entry = { ts: m.ts, date: fmtDate(m.ts), text: cleanText(m.text), links: extractLinks(m.text), files: [], comments: [] };
       for (const f of m.files || []) {
         try {
           const rel = await downloadFile(f, m.ts);
           if (rel) {
-            entry.files.push({ path: rel, name: f.name || 'file', mimetype: f.mimetype || '' });
+            entry.files.push({ path: rel, name: f.name || 'file', mimetype: f.mimetype || '', permalink: f.permalink || '' });
           } else {
             entry.files.push({ path: '', name: f.name || 'file', mimetype: f.mimetype || '', oversized: true, permalink: f.permalink || '' });
             console.log('용량 초과로 링크만 기록: ' + (f.name || ''));
@@ -664,7 +760,10 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
   }
 
   archive.sort((a, b) => parseFloat(b.ts) - parseFloat(a.ts));
-  if (MODE === 'full') ensureWebVideos(archive);
+  if (MODE === 'full') {
+    await syncComments(archive);
+    await ensureWebVideos(archive);
+  }
   await checkYoutubeLinks(archive, titles, thumbs);
   if (MODE === 'full') await collectThumbs(archive, thumbs);
 
