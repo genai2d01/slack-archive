@@ -1,5 +1,20 @@
 [
   {
+    "ts": "1787729892.091859",
+    "date": "2026-08-26",
+    "text": "reddit.com/r/Seedance_AI/…/make_money_with_ai_video_content_creators_should",
+    "links": [
+      "https://www.reddit.com/r/Seedance_AI/comments/1vxorfc/make_money_with_ai_video_content_creators_should/"
+    ],
+    "files": [],
+    "comments": [
+      {
+        "date": "2026-08-26",
+        "text": "Convert the original 16:9 horizontal video @(TAG THE VIDEO) into a native 9:16 vertical video.\n\nDo NOT simply crop the original video. Intelligently reframe and extend/reconstruct the scene so the vertical composition feels like it was originally created in 9:16.\n\nPreserve all important visual information, characters, actions, objects, background details, and story beats from the original horizontal video. Reposition elements naturally within the vertical frame when necessary so nothing important is cut off.\n\nKeep the exact same characters, animation, actions, timing, camera movement, environment, lighting, colors, saturation, and visual style as the original video.\n\nMaintain correct anatomy, object geometry, perspective, spatial relationships, and continuity. Newly generated areas outside the original frame must seamlessly match the existing environment.\n\nFinal result: 9:16 vertical, full-frame, naturally composed, no black bars, no stretched image, no important details cropped, and visually consistent with the original 16:9 video."
+      }
+    ]
+  },
+  {
     "ts": "1787728623.263429",
     "date": "2026-08-26",
     "text": "reddit.com/r/comfyui/s/5CHzyeltQj",
@@ -148,7 +163,11 @@
       {
         "path": "files/1787149139_843249_rough_privis_2_video.mp4",
         "name": "rough_privis_2_video.mp4",
-        "mimetype": "video/mp4"
+        "mimetype": "video/mp4",
+        "redl": true,
+        "permalink": "https://ncorestudio.slack.com/files/U0BNSE01MB3/F0BR9MBK1LJ/rough_privis_2_video.mp4",
+        "broken": true,
+        "vok": true
       }
     ]
   },
@@ -1878,6 +1897,12 @@
         "webok": true,
         "playok": true,
         "vok": true
+      }
+    ],
+    "comments": [
+      {
+        "date": "2026-07-22",
+        "text": "ComfyUI 버젼 초기세팅 작업 진행 중"
       }
     ]
   },
