@@ -6,8 +6,8 @@
 <title>#genai-2d_정보-공유 — 슬랙 아카이브</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
-  :root { --bg:#0c0e14; --panel:#14161f; --panel-2:#1d212e; --line:#262b38; --line-soft:#1e222d;
-    --text:#e4e7ee; --text-dim:#9aa2b1; --text-mute:#6a7280; --accent:#4353ff; --on-accent:#ffffff; }
+  :root { --bg:#0c0f1e; --panel:#1c2237; --panel-2:#262c45; --line:#2e3654; --line-soft:#232a44;
+    --text:#f1f5f9; --text-dim:#98a3b7; --text-mute:#404c65; --accent:#385cf5; --on-accent:#ffffff; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:var(--bg); color:var(--text); font-family:'Pretendard',system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif; line-height:1.55; padding:0 0 5rem; }
   .wrap { width:100%; max-width:none; margin:0 auto; padding:0 18px; }
@@ -20,7 +20,7 @@
   .tsw { padding:5px 14px; border-radius:8px; font-size:12px; color:var(--text-dim); text-decoration:none; font-weight:500; }
   .tsw:hover { color:var(--text); }
   .tsw.on { background:var(--accent); color:var(--on-accent); font-weight:700; }
-  .controls { position:sticky; top:0; z-index:20; background:rgba(12,14,20,.97); backdrop-filter:blur(4px);
+  .controls { position:sticky; top:0; z-index:20; background:rgba(12,15,30,.97); backdrop-filter:blur(4px);
     padding:10px 0; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:12px 14px; align-items:center; }
   #q { flex:0 1 520px; min-width:240px; margin-right:auto; background:var(--panel); border:1px solid var(--line); color:var(--text);
     padding:9px 13px; border-radius:9px; font-size:13.5px; outline:none; box-shadow:none; }
@@ -44,8 +44,8 @@
   .count-line b { color:var(--accent); }
   .month { padding-top:28px; }
   .month-head { display:flex; align-items:center; gap:12px; padding:10px 15px; margin-bottom:14px; border-radius:10px;
-    background:color-mix(in srgb, var(--maccent) 11%, var(--bg));
-    border:1px solid color-mix(in srgb, var(--maccent) 32%, var(--line)); }
+    background:#182240;
+    border:1px solid color-mix(in srgb, var(--maccent) 28%, var(--line)); }
   .month-head h2 { font-size:19px; color:var(--maccent); }
   .month-head .count { font-family:monospace; font-size:12.5px; color:var(--text-dim); }
   .m-tgl { margin-left:auto; background:none; border:1px solid color-mix(in srgb, var(--maccent) 42%, var(--line));
@@ -59,8 +59,8 @@
     .m-body { columns:1 !important; }
     #archiveRoot.view-fixed .m-body { grid-template-columns:1fr !important; }
   }
-  .entry { background:var(--panel); background:color-mix(in srgb, var(--maccent) 4%, var(--panel));
-    border:1px solid color-mix(in srgb, var(--maccent) 18%, var(--line));
+  .entry { background:var(--panel);
+    border:1px solid var(--line);
     border-left:4px solid var(--maccent);
     border-radius:10px; padding:14px 16px; margin:0 0 14px; break-inside:avoid; box-shadow:none;
     transition:border-color .15s, background .15s; }
@@ -122,7 +122,7 @@
   <header>
     <div class="eyebrow">Slack Auto Archive</div>
     <h1>#genai-2d_정보-공유 채널</h1>
-    <p class="sub">슬랙 아카이브 · 총 304건 · 마지막 갱신 2026-08-27 14:41 (KST)</p>
+    <p class="sub">슬랙 아카이브 · 총 304건 · 마지막 갱신 2026-08-27 15:03 (KST)</p>
     <div class="theme-sw">
     <a href="archive.html" class="tsw on">다크</a>
     <a href="archive_light.html" class="tsw">라이트</a>
@@ -153,7 +153,7 @@
     <span class="count-line">총 304건 중 <b id="resultCount">304</b>건 표시</span>
   </div>
   <main id="archiveRoot" class="view-collapse">
-  <section class="month" data-key="2026-08" style="--maccent:#6b76ff"><div class="month-head"><h2>2026년 8월</h2><span class="count">43건</span><button type="button" class="m-tgl">▾ 접기</button></div>
+  <section class="month" data-key="2026-08" style="--maccent:#5d7bff"><div class="month-head"><h2>2026년 8월</h2><span class="count">43건</span><button type="button" class="m-tgl">▾ 접기</button></div>
 <div class="m-body">
 <article class="entry" data-ts="1787798397.168319" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=mwb07_hrmpm&amp;t=1shttps://www.youtube.com/watch?v=mwb07_hrmpm&amp;t=1sfinally,ai-generateddepthpassthatactuallywork|comfyui">
 <div class="e-head"><span class="e-date">08-27</span><span class="e-title">youtube.com/watch?v=mwb07_HrmpM&amp;t=1s</span><button type="button" class="e-tgl">▾</button></div>
@@ -219,8 +219,8 @@ Final result: 9:16 vertical, full-frame, naturally composed, no black bars, no s
 <div class="e-head"><span class="e-date">08-25</span><span class="e-title">framethrower.ai</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">framethrower.ai</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://framethrower.ai/" target="_blank" rel="noopener">framethrower.ai ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://framethrower.ai/" target="_blank" rel="noopener"><span class="th-title">FrameThrower — the reference app for the future creative</span><img src="files/thumbs/5e116ebbb82c84fb.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">framethrower.ai</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://framethrower.ai/" target="_blank" rel="noopener">framethrower.ai ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://framethrower.ai/" target="_blank" rel="noopener"><span class="th-title">FrameThrower — the reference app for the future creative</span><img src="files/thumbs/5e116ebbb82c84fb.png" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">framethrower.ai</span></a></div>
 
 
 </div>
@@ -239,8 +239,8 @@ Final result: 9:16 vertical, full-frame, naturally composed, no black bars, no s
 <div class="e-head"><span class="e-date">08-25</span><span class="e-title">4danyone.github.io</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">4danyone.github.io</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://4danyone.github.io/" target="_blank" rel="noopener">4danyone.github.io ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://4danyone.github.io/" target="_blank" rel="noopener"><span class="th-title">4DAnyone: Create Anyone in 4D from a Casual Monocular Video</span><img src="files/thumbs/ac44222659fa1597.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">4danyone.github.io</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://4danyone.github.io/" target="_blank" rel="noopener">4danyone.github.io ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://4danyone.github.io/" target="_blank" rel="noopener"><span class="th-title">4DAnyone: Create Anyone in 4D from a Casual Monocular Video</span><img src="files/thumbs/ac44222659fa1597.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">4danyone.github.io</span></a></div>
 
 
 </div>
@@ -301,7 +301,7 @@ threads.com/share/BAkcSNwpjq</span><button type="button" class="e-tgl">▾</butt
 <div class="e-body">
 <p class="e-text">중국 Ai 숏폼 제작방식
 threads.com/share/BAkcSNwpjq</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.threads.com/share/BAkcSNwpjq/" target="_blank" rel="noopener">threads.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://www.threads.com/share/BAkcSNwpjq/" target="_blank" rel="noopener">threads.com ↗</a></div>
 
 <div class="attach"><a class="file-link" href="files/1787277170_818429_threads_com-share-BAkcSNwpjq.pdf" download>📎 threads_com-share-BAkcSNwpjq.pdf</a></div>
 
@@ -391,8 +391,8 @@ Masked Modeling for Human Motion Recovery Under Occlusions
 
 fanegg.github.io/Human3R
 Human3R: Everyone Everywhere All at Once</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://yufu-wang.github.io/duomo/" target="_blank" rel="noopener">yufu-wang.github.io ↗</a><a class="btn" style="background:#4353ff;color:#ffffff" href="https://mikeqzy.github.io/MoRo/" target="_blank" rel="noopener">mikeqzy.github.io ↗</a><a class="btn" style="background:#4353ff;color:#ffffff" href="https://fanegg.github.io/Human3R/" target="_blank" rel="noopener">fanegg.github.io ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://fanegg.github.io/Human3R/" target="_blank" rel="noopener"><span class="th-title">Human3R: Everyone Everywhere All at Once</span><img src="files/thumbs/65370e2041e8a991.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">fanegg.github.io</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://yufu-wang.github.io/duomo/" target="_blank" rel="noopener">yufu-wang.github.io ↗</a><a class="btn" style="background:#385cf5;color:#ffffff" href="https://mikeqzy.github.io/MoRo/" target="_blank" rel="noopener">mikeqzy.github.io ↗</a><a class="btn" style="background:#385cf5;color:#ffffff" href="https://fanegg.github.io/Human3R/" target="_blank" rel="noopener">fanegg.github.io ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://fanegg.github.io/Human3R/" target="_blank" rel="noopener"><span class="th-title">Human3R: Everyone Everywhere All at Once</span><img src="files/thumbs/65370e2041e8a991.png" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">fanegg.github.io</span></a></div>
 
 
 </div>
@@ -401,7 +401,7 @@ Human3R: Everyone Everywhere All at Once</p>
 <div class="e-head"><span class="e-date">08-12</span><span class="e-title">syntec-research.github.io/SHELLS</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">syntec-research.github.io/SHELLS</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://syntec-research.github.io/SHELLS/" target="_blank" rel="noopener">syntec-research.github.io ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://syntec-research.github.io/SHELLS/" target="_blank" rel="noopener">syntec-research.github.io ↗</a></div>
 
 <div class="attach"><figure class="v-wrap"><video src="files/1786522845_560349_head_motion_web4.mp4" controls preload="metadata"></video><figcaption>🎬 head_motion.mp4</figcaption></figure></div>
 
@@ -435,8 +435,8 @@ github.com/fanegg/Human3R</p>
 <div class="e-head"><span class="e-date">08-10</span><span class="e-title">higgsfield.ai/blog/ai-vs-vfx?invite_code=erikchallenge-higgs</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">higgsfield.ai/blog/ai-vs-vfx?invite_code=erikchallenge-higgsf…</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://higgsfield.ai/blog/ai-vs-vfx?utm_source=yt&amp;utm_medium=video&amp;utm_category=prd&amp;utm_campaign=ErikChallenge&amp;utm_creator=higgsfieldai&amp;utm_content_type=de&amp;utm_post=oNgHlP&amp;invite_code=erikchallenge-higgsfieldai-oNgHlP" target="_blank" rel="noopener">higgsfield.ai ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://higgsfield.ai/blog/ai-vs-vfx?utm_source=yt&amp;utm_medium=video&amp;utm_category=prd&amp;utm_campaign=ErikChallenge&amp;utm_creator=higgsfieldai&amp;utm_content_type=de&amp;utm_post=oNgHlP&amp;invite_code=erikchallenge-higgsfieldai-oNgHlP" target="_blank" rel="noopener"><span class="th-title">AI vs VFX: Can Seedance 2.5 Beat VFX?</span><img src="files/thumbs/3b6f6c0caf334be5.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">higgsfield.ai</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://higgsfield.ai/blog/ai-vs-vfx?utm_source=yt&amp;utm_medium=video&amp;utm_category=prd&amp;utm_campaign=ErikChallenge&amp;utm_creator=higgsfieldai&amp;utm_content_type=de&amp;utm_post=oNgHlP&amp;invite_code=erikchallenge-higgsfieldai-oNgHlP" target="_blank" rel="noopener">higgsfield.ai ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://higgsfield.ai/blog/ai-vs-vfx?utm_source=yt&amp;utm_medium=video&amp;utm_category=prd&amp;utm_campaign=ErikChallenge&amp;utm_creator=higgsfieldai&amp;utm_content_type=de&amp;utm_post=oNgHlP&amp;invite_code=erikchallenge-higgsfieldai-oNgHlP" target="_blank" rel="noopener"><span class="th-title">AI vs VFX: Can Seedance 2.5 Beat VFX?</span><img src="files/thumbs/3b6f6c0caf334be5.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">higgsfield.ai</span></a></div>
 
 
 </div>
@@ -479,8 +479,8 @@ github.com/smixs/visual-skills
 3. 하나의 모델 파일 — `seedance.md`또는 `kling.md`: `veo.md`정확한 구문, 멀티샷 마커, 대화 프로토콜, 참조 태그, 수정 사항이 포함된 오류 모드.
 4. 필요에 따라 작업 모듈 제공 - 스토리보드 및 역할 모드, 애니매틱 키프레임, 속도 및 진행 문법, 장르 패턴, 프롬프트 수정 골격, 카메라 및 조명 용어.
 5. 출력 전 두 가지 필수 검사가 있습니다 . 6가지 핵심 사항에 대한 극적 구성 검사와 모든 장면에 대한 3가지 세부 사항 검토입니다. 이 중 하나라도 통과하지 못한 프롬프트는 출하되지 않습니다.</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://claudeskills.info/skills/OSideMedia/higgsfield-ai-prompt-skill/higgsfield-seedance-vfx/" target="_blank" rel="noopener">claudeskills.info ↗</a><a class="btn" style="background:#4353ff;color:#ffffff" href="https://skillsllm.com/skill/ai-video-generator-claude" target="_blank" rel="noopener">skillsllm.com ↗</a><a class="btn" style="background:#24292F;color:#fff" href="https://github.com/smixs/creative-director-skill" target="_blank" rel="noopener">github.com ↗</a><a class="btn" style="background:#24292F;color:#fff" href="https://github.com/smixs/visual-skills" target="_blank" rel="noopener">github.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://claudeskills.info/skills/OSideMedia/higgsfield-ai-prompt-skill/higgsfield-seedance-vfx/" target="_blank" rel="noopener"><span class="th-title">higgsfield-seedance-vfx Skill by OSideMedia</span><img src="files/thumbs/89430de3cf6ed507.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">claudeskills.info</span></a><a class="thumb" href="https://skillsllm.com/skill/ai-video-generator-claude" target="_blank" rel="noopener"><span class="th-title">ai-video-generator-claude - IDE Extensions on GitHub | SkillsLLM</span><img src="files/thumbs/1c6cae3df60d8541.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">skillsllm.com</span></a><a class="thumb" href="https://github.com/smixs/creative-director-skill" target="_blank" rel="noopener"><span class="th-title">GitHub - smixs/creative-director-skill: World-class creative director in a skill. Methodology-driven ideation (SIT, TRIZ</span><img src="files/thumbs/a6a227b40964ce54.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a><a class="thumb" href="https://github.com/smixs/visual-skills" target="_blank" rel="noopener"><span class="th-title">GitHub - smixs/visual-skills: AI film director skills for agents: cinematic dramaturgy (Murch, blocking, montage) + exac</span><img src="files/thumbs/8f29c7fbaf8c3341.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://claudeskills.info/skills/OSideMedia/higgsfield-ai-prompt-skill/higgsfield-seedance-vfx/" target="_blank" rel="noopener">claudeskills.info ↗</a><a class="btn" style="background:#385cf5;color:#ffffff" href="https://skillsllm.com/skill/ai-video-generator-claude" target="_blank" rel="noopener">skillsllm.com ↗</a><a class="btn" style="background:#24292F;color:#fff" href="https://github.com/smixs/creative-director-skill" target="_blank" rel="noopener">github.com ↗</a><a class="btn" style="background:#24292F;color:#fff" href="https://github.com/smixs/visual-skills" target="_blank" rel="noopener">github.com ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://claudeskills.info/skills/OSideMedia/higgsfield-ai-prompt-skill/higgsfield-seedance-vfx/" target="_blank" rel="noopener"><span class="th-title">higgsfield-seedance-vfx Skill by OSideMedia</span><img src="files/thumbs/89430de3cf6ed507.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">claudeskills.info</span></a><a class="thumb" href="https://skillsllm.com/skill/ai-video-generator-claude" target="_blank" rel="noopener"><span class="th-title">ai-video-generator-claude - IDE Extensions on GitHub | SkillsLLM</span><img src="files/thumbs/1c6cae3df60d8541.png" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">skillsllm.com</span></a><a class="thumb" href="https://github.com/smixs/creative-director-skill" target="_blank" rel="noopener"><span class="th-title">GitHub - smixs/creative-director-skill: World-class creative director in a skill. Methodology-driven ideation (SIT, TRIZ</span><img src="files/thumbs/a6a227b40964ce54.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a><a class="thumb" href="https://github.com/smixs/visual-skills" target="_blank" rel="noopener"><span class="th-title">GitHub - smixs/visual-skills: AI film director skills for agents: cinematic dramaturgy (Murch, blocking, montage) + exac</span><img src="files/thumbs/8f29c7fbaf8c3341.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
 
 
 </div>
@@ -677,7 +677,7 @@ github.com/zju3dv/GVHMR</p>
 </div>
 </article>
 </div></section>
-<section class="month" data-key="2026-07" style="--maccent:#6b76ff"><div class="month-head"><h2>2026년 7월</h2><span class="count">261건</span><button type="button" class="m-tgl">▾ 접기</button></div>
+<section class="month" data-key="2026-07" style="--maccent:#5d7bff"><div class="month-head"><h2>2026년 7월</h2><span class="count">261건</span><button type="button" class="m-tgl">▾ 접기</button></div>
 <div class="m-body">
 <article class="entry" data-ts="1785490257.330169" data-month="2026-07" data-types="link" data-topics="기타" data-search="시댄스2.5활용예시bytedance.larkoffice.com/wiki/…?from=from_copylinkhttps://bytedance.larkoffice.com/wiki/o3mxwsfm5i48ijkjxdnchsqdnfd?from=from_copylink">
 <div class="e-head"><span class="e-date">07-31</span><span class="e-title">시댄스 2.5 활용예시
@@ -685,7 +685,7 @@ github.com/zju3dv/GVHMR</p>
 <div class="e-body">
 <p class="e-text">시댄스 2.5 활용예시
  bytedance.larkoffice.com/wiki/…?from=from_copylink</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://bytedance.larkoffice.com/wiki/O3mXwSFm5i48IJkjXdNcHsqDnfd?from=from_copylink" target="_blank" rel="noopener">bytedance.larkoffice.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://bytedance.larkoffice.com/wiki/O3mXwSFm5i48IJkjXdNcHsqDnfd?from=from_copylink" target="_blank" rel="noopener">bytedance.larkoffice.com ↗</a></div>
 
 
 
@@ -695,8 +695,8 @@ github.com/zju3dv/GVHMR</p>
 <div class="e-head"><span class="e-date">07-30</span><span class="e-title">provideocoalition.com/is-this-the-future-of-filmmaking</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">provideocoalition.com/is-this-the-future-of-filmmaking</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.provideocoalition.com/is-this-the-future-of-filmmaking/" target="_blank" rel="noopener">provideocoalition.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.provideocoalition.com/is-this-the-future-of-filmmaking/" target="_blank" rel="noopener"><span class="th-title">Is this the future of filmmaking? by Damian Allen - ProVideo Coalition</span><img src="files/thumbs/67e141499bcd1167.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">provideocoalition.com</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://www.provideocoalition.com/is-this-the-future-of-filmmaking/" target="_blank" rel="noopener">provideocoalition.com ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.provideocoalition.com/is-this-the-future-of-filmmaking/" target="_blank" rel="noopener"><span class="th-title">Is this the future of filmmaking? by Damian Allen - ProVideo Coalition</span><img src="files/thumbs/67e141499bcd1167.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">provideocoalition.com</span></a></div>
 
 
 </div>
@@ -705,8 +705,8 @@ github.com/zju3dv/GVHMR</p>
 <div class="e-head"><span class="e-date">07-30</span><span class="e-title">docs.beeble.ai/beeble/switchx</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">docs.beeble.ai/beeble/switchx</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://docs.beeble.ai/beeble/switchx" target="_blank" rel="noopener">docs.beeble.ai ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://docs.beeble.ai/beeble/switchx" target="_blank" rel="noopener"><span class="th-title">SwitchX - Beeble Documentation</span><img src="files/thumbs/654e93f357323740.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">docs.beeble.ai</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://docs.beeble.ai/beeble/switchx" target="_blank" rel="noopener">docs.beeble.ai ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://docs.beeble.ai/beeble/switchx" target="_blank" rel="noopener"><span class="th-title">SwitchX - Beeble Documentation</span><img src="files/thumbs/654e93f357323740.png" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">docs.beeble.ai</span></a></div>
 
 
 </div>
@@ -776,7 +776,7 @@ AI 영화 제작 과정과 관련된 팁과 함께 저의 개인적인 의견도
 기존에 알고 있던 내용도 있지만 새롭게 알게 된 유용한 팁도 있어 공유드립니다.
 
 figma.com/design/…?node-id=1212-167&amp;t=…</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.figma.com/design/556a5RPhPRgg6ds3A23VJD/%EC%9D%B4%EC%98%81%ED%98%84-%EA%B0%9C%EC%9D%B8%EA%B3%B5%EA%B0%84?node-id=1212-167&amp;t=7DoUNgQfdDmly9AR-1" target="_blank" rel="noopener">figma.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://www.figma.com/design/556a5RPhPRgg6ds3A23VJD/%EC%9D%B4%EC%98%81%ED%98%84-%EA%B0%9C%EC%9D%B8%EA%B3%B5%EA%B0%84?node-id=1212-167&amp;t=7DoUNgQfdDmly9AR-1" target="_blank" rel="noopener">figma.com ↗</a></div>
 
 
 
@@ -894,7 +894,7 @@ youtube.com/watch?v=…</p>
 나노바나나 대체제 시드림 5.0 프로 소개
 
 오늘 안에 인하우스 툴에 업데이트 될 예정입니다</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://bytedance.larkoffice.com/wiki/HQ8HwXpNFiy6umkP8jNcBwF3nab" target="_blank" rel="noopener">bytedance.larkoffice.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://bytedance.larkoffice.com/wiki/HQ8HwXpNFiy6umkP8jNcBwF3nab" target="_blank" rel="noopener">bytedance.larkoffice.com ↗</a></div>
 
 
 
@@ -904,7 +904,7 @@ youtube.com/watch?v=…</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">bytedance.larkoffice.com/docx/…</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">bytedance.larkoffice.com/docx/…</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://bytedance.larkoffice.com/docx/IKvPdzG6Uo2JEXxJ6XNcJgi9ndg" target="_blank" rel="noopener">bytedance.larkoffice.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://bytedance.larkoffice.com/docx/IKvPdzG6Uo2JEXxJ6XNcJgi9ndg" target="_blank" rel="noopener">bytedance.larkoffice.com ↗</a></div>
 
 
 
@@ -996,7 +996,7 @@ MAI-Image-2.5는 MAI의 가장 강력한 이미지 모델로, Arena 이미지 �
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">playground.microsoft.ai/chat?model=mai-image-2-5 MAI Playgro</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">playground.microsoft.ai/chat?model=mai-image-2-5 MAI Playground | Microsoft AI</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://playground.microsoft.ai/chat?model=mai-image-2-5" target="_blank" rel="noopener">playground.microsoft.ai ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://playground.microsoft.ai/chat?model=mai-image-2-5" target="_blank" rel="noopener">playground.microsoft.ai ↗</a></div>
 
 
 
@@ -1141,8 +1141,8 @@ superspl.at/scene/1420f92d
 
       Use Image 1 as the starting frame for a single, continuous shot in freeze time. Apply camera motion from Video 1 to the scene in Image 1. The camera dramatically weaves through the completely frozen scene.
       Wide-angle rectilinear lens, straight lines preserved, no fisheye, no barrel distortion, no spherical warping. No lens flares. Sharp focus, no motion blur, no bokeh</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://superspl.at/scene/1420f92d" target="_blank" rel="noopener">superspl.at ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://superspl.at/scene/1420f92d" target="_blank" rel="noopener"><span class="th-title">Seedance 2.0: video-to-splat experiment - SuperSplat</span><img src="files/thumbs/9ca5957bad7649f9.webp" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">superspl.at</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://superspl.at/scene/1420f92d" target="_blank" rel="noopener">superspl.at ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://superspl.at/scene/1420f92d" target="_blank" rel="noopener"><span class="th-title">Seedance 2.0: video-to-splat experiment - SuperSplat</span><img src="files/thumbs/9ca5957bad7649f9.webp" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">superspl.at</span></a></div>
 <div class="attach"><figure class="v-wrap"><video src="files/1784699189_236529_gaussian_web4.mp4" controls preload="metadata"></video><figcaption>🎬 gaussian.mp4</figcaption></figure></div>
 
 </div>
@@ -1171,8 +1171,8 @@ superspl.at/scene/1420f92d
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">wireflow.ai/flow/cmoxjixl6000ejx04pxhaqmnj Wireflow - AI-Pow</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">wireflow.ai/flow/cmoxjixl6000ejx04pxhaqmnj Wireflow - AI-Powered Creative Platform</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.wireflow.ai/flow/cmoxjixl6000ejx04pxhaqmnj" target="_blank" rel="noopener">wireflow.ai ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.wireflow.ai/flow/cmoxjixl6000ejx04pxhaqmnj" target="_blank" rel="noopener"><span class="th-title">Cooking pixar GPT2 Seedance2 · Wireflow</span><img src="files/thumbs/f1af2b47f875917f.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">wireflow.ai</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://www.wireflow.ai/flow/cmoxjixl6000ejx04pxhaqmnj" target="_blank" rel="noopener">wireflow.ai ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.wireflow.ai/flow/cmoxjixl6000ejx04pxhaqmnj" target="_blank" rel="noopener"><span class="th-title">Cooking pixar GPT2 Seedance2 · Wireflow</span><img src="files/thumbs/f1af2b47f875917f.png" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">wireflow.ai</span></a></div>
 
 
 </div>
@@ -1191,7 +1191,7 @@ superspl.at/scene/1420f92d
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">jzr99.github.io/Syn4D Syn4D: A Multiview Synthetic 4D Datase</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">jzr99.github.io/Syn4D Syn4D: A Multiview Synthetic 4D Dataset</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://jzr99.github.io/Syn4D/" target="_blank" rel="noopener">jzr99.github.io ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://jzr99.github.io/Syn4D/" target="_blank" rel="noopener">jzr99.github.io ↗</a></div>
 
 
 
@@ -1321,8 +1321,8 @@ SEEDANCE 2.0:
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">magiceraser.org/remove-watermark-from-video MagicEraser - Be</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">magiceraser.org/remove-watermark-from-video MagicEraser - Best AI Video Watermark Remover Online (무료, 4K 품질)</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://magiceraser.org/remove-watermark-from-video/" target="_blank" rel="noopener">magiceraser.org ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://magiceraser.org/remove-watermark-from-video/" target="_blank" rel="noopener"><span class="th-title">Best AI Video Watermark Remover Online – Free &amp; 4K Quality</span><img src="files/thumbs/a7ae51b38364feef.webp" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">magiceraser.org</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://magiceraser.org/remove-watermark-from-video/" target="_blank" rel="noopener">magiceraser.org ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://magiceraser.org/remove-watermark-from-video/" target="_blank" rel="noopener"><span class="th-title">Best AI Video Watermark Remover Online – Free &amp; 4K Quality</span><img src="files/thumbs/a7ae51b38364feef.webp" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">magiceraser.org</span></a></div>
 
 
 </div>
@@ -1397,8 +1397,8 @@ Qwen Edit (Splat LoRA)</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">eyeline-labs.github.io/Vista4D</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">eyeline-labs.github.io/Vista4D</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://eyeline-labs.github.io/Vista4D/" target="_blank" rel="noopener">eyeline-labs.github.io ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://eyeline-labs.github.io/Vista4D/" target="_blank" rel="noopener"><span class="th-title">Vista4D: Video Reshooting with 4D Point Clouds</span><img src="files/thumbs/e97bbcf9daa56efc.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">eyeline-labs.github.io</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://eyeline-labs.github.io/Vista4D/" target="_blank" rel="noopener">eyeline-labs.github.io ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://eyeline-labs.github.io/Vista4D/" target="_blank" rel="noopener"><span class="th-title">Vista4D: Video Reshooting with 4D Point Clouds</span><img src="files/thumbs/e97bbcf9daa56efc.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">eyeline-labs.github.io</span></a></div>
 
 
 </div>
@@ -1465,8 +1465,8 @@ huggingface.co/Lightricks/LTX-2.3-22b-IC-LoRA-HDR</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">blog.comfy.org/p/unlock-seedance20-real-human-video-generati</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">blog.comfy.org/p/unlock-seedance20-real-human-video-generation</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://blog.comfy.org/p/unlock-seedance20-real-human-video-generation" target="_blank" rel="noopener">blog.comfy.org ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://blog.comfy.org/p/unlock-seedance20-real-human-video-generation" target="_blank" rel="noopener"><span class="th-title">Unlock Real Human Video Generation with Seedance 2.0 in ComfyUI</span><img src="files/thumbs/3dbda773be0f2da3.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">blog.comfy.org</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://blog.comfy.org/p/unlock-seedance20-real-human-video-generation" target="_blank" rel="noopener">blog.comfy.org ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://blog.comfy.org/p/unlock-seedance20-real-human-video-generation" target="_blank" rel="noopener"><span class="th-title">Unlock Real Human Video Generation with Seedance 2.0 in ComfyUI</span><img src="files/thumbs/3dbda773be0f2da3.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">blog.comfy.org</span></a></div>
 
 
 </div>
@@ -1590,8 +1590,8 @@ _이는 AI 영상 제작에서 가장 어려운 부분인데, 이 영상은 그 
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">blog.comfy.org/p/unlock-seedance20-real-human-video-generati</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">blog.comfy.org/p/unlock-seedance20-real-human-video-generation Unlock Real Human Video Generation with Seedance 2.0 in ComfyUI</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://blog.comfy.org/p/unlock-seedance20-real-human-video-generation" target="_blank" rel="noopener">blog.comfy.org ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://blog.comfy.org/p/unlock-seedance20-real-human-video-generation" target="_blank" rel="noopener"><span class="th-title">Unlock Real Human Video Generation with Seedance 2.0 in ComfyUI</span><img src="files/thumbs/3dbda773be0f2da3.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">blog.comfy.org</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://blog.comfy.org/p/unlock-seedance20-real-human-video-generation" target="_blank" rel="noopener">blog.comfy.org ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://blog.comfy.org/p/unlock-seedance20-real-human-video-generation" target="_blank" rel="noopener"><span class="th-title">Unlock Real Human Video Generation with Seedance 2.0 in ComfyUI</span><img src="files/thumbs/3dbda773be0f2da3.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">blog.comfy.org</span></a></div>
 
 
 </div>
@@ -1630,7 +1630,7 @@ _이는 AI 영상 제작에서 가장 어려운 부분인데, 이 영상은 그 
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">research.nvidia.com/labs/sil/projects/lyra2 NVIDIA - Lyra 2.</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">research.nvidia.com/labs/sil/projects/lyra2 NVIDIA - Lyra 2.0: Explorable Generative 3D Worlds</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://research.nvidia.com/labs/sil/projects/lyra2/" target="_blank" rel="noopener">research.nvidia.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://research.nvidia.com/labs/sil/projects/lyra2/" target="_blank" rel="noopener">research.nvidia.com ↗</a></div>
 
 
 
@@ -1680,8 +1680,8 @@ _이는 AI 영상 제작에서 가장 어려운 부분인데, 이 영상은 그 
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">blog.comfy.org/p/seedance-20-is-now-available-in-comfyui See</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">blog.comfy.org/p/seedance-20-is-now-available-in-comfyui Seedance 2.0 is Now Available in ComfyUI</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://blog.comfy.org/p/seedance-20-is-now-available-in-comfyui" target="_blank" rel="noopener">blog.comfy.org ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://blog.comfy.org/p/seedance-20-is-now-available-in-comfyui" target="_blank" rel="noopener"><span class="th-title">Seedance 2.0 is Now Available in ComfyUI</span><img src="files/thumbs/8b4d3bca849e52b8.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">blog.comfy.org</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://blog.comfy.org/p/seedance-20-is-now-available-in-comfyui" target="_blank" rel="noopener">blog.comfy.org ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://blog.comfy.org/p/seedance-20-is-now-available-in-comfyui" target="_blank" rel="noopener"><span class="th-title">Seedance 2.0 is Now Available in ComfyUI</span><img src="files/thumbs/8b4d3bca849e52b8.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">blog.comfy.org</span></a></div>
 
 
 </div>
@@ -1740,8 +1740,8 @@ _이는 AI 영상 제작에서 가장 어려운 부분인데, 이 영상은 그 
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">happyhorse.cn HappyHorse - AI video creation platform (해피홀스 </span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">happyhorse.cn HappyHorse - AI video creation platform (해피홀스 출시)</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.happyhorse.cn/" target="_blank" rel="noopener">happyhorse.cn ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.happyhorse.cn/" target="_blank" rel="noopener"><span class="th-title">快乐小马AI视频生成平台｜AI生成视频与智能创作工具</span><img src="files/thumbs/4bb493931bae1578.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">happyhorse.cn</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://www.happyhorse.cn/" target="_blank" rel="noopener">happyhorse.cn ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.happyhorse.cn/" target="_blank" rel="noopener"><span class="th-title">快乐小马AI视频生成平台｜AI生成视频与智能创作工具</span><img src="files/thumbs/4bb493931bae1578.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">happyhorse.cn</span></a></div>
 
 
 </div>
@@ -1750,8 +1750,8 @@ _이는 AI 영상 제작에서 가장 어려운 부분인데, 이 영상은 그 
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">wavespeed.ai/blog/posts/what-is-happyhorse-1-0-ai-video-mode</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">wavespeed.ai/blog/posts/what-is-happyhorse-1-0-ai-video-model WaveSpeedAI - What Is HappyHorse-1.0?</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://wavespeed.ai/blog/posts/what-is-happyhorse-1-0-ai-video-model/" target="_blank" rel="noopener">wavespeed.ai ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://wavespeed.ai/blog/posts/what-is-happyhorse-1-0-ai-video-model/" target="_blank" rel="noopener"><span class="th-title">What Is HappyHorse-1.0? The Mystery #1 AI Video Model - WaveSpeed Blog</span><img src="files/thumbs/33057601b8f9a8bd.webp" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">wavespeed.ai</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://wavespeed.ai/blog/posts/what-is-happyhorse-1-0-ai-video-model/" target="_blank" rel="noopener">wavespeed.ai ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://wavespeed.ai/blog/posts/what-is-happyhorse-1-0-ai-video-model/" target="_blank" rel="noopener"><span class="th-title">What Is HappyHorse-1.0? The Mystery #1 AI Video Model - WaveSpeed Blog</span><img src="files/thumbs/33057601b8f9a8bd.webp" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">wavespeed.ai</span></a></div>
 
 
 </div>
@@ -1762,7 +1762,7 @@ _이는 AI 영상 제작에서 가장 어려운 부분인데, 이 영상은 그 
 <p class="e-text">ltx.io/ltx-desktop LTX 데스크탑 - Free AI Video Production Suite (로컬 실행, 오픈소스, LTX-2.3 기반)
 
 happyhorses.io/#… HappyHorse 1.0 — Open-Source AI Video Generation Model (15B 파라미터, 영상+오디오 동시 생성, 다국어 립싱크)</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://ltx.io/ltx-desktop" target="_blank" rel="noopener">ltx.io ↗</a><a class="btn" style="background:#4353ff;color:#ffffff" href="https://happyhorses.io/#overview" target="_blank" rel="noopener">happyhorses.io ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://ltx.io/ltx-desktop" target="_blank" rel="noopener">ltx.io ↗</a><a class="btn" style="background:#385cf5;color:#ffffff" href="https://happyhorses.io/#overview" target="_blank" rel="noopener">happyhorses.io ↗</a></div>
 
 
 
@@ -1782,7 +1782,7 @@ happyhorses.io/#… HappyHorse 1.0 — Open-Source AI Video Generation Model (15
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">이미지 프롬프트 추출하는 사이트입니다. 하루 5장까지는 무료에요 imageprompt.org 무료 이미지에서</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">이미지 프롬프트 추출하는 사이트입니다. 하루 5장까지는 무료에요 imageprompt.org 무료 이미지에서 프롬프트 생성기 | ImagePrompt.org (Midjourney, Flux, Stable Diffusion 지원)</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://imageprompt.org" target="_blank" rel="noopener">imageprompt.org ↗</a><a class="btn" style="background:#4353ff;color:#ffffff" href="http://ImagePrompt.org" target="_blank" rel="noopener">imageprompt.org ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://imageprompt.org" target="_blank" rel="noopener">imageprompt.org ↗</a><a class="btn" style="background:#385cf5;color:#ffffff" href="http://ImagePrompt.org" target="_blank" rel="noopener">imageprompt.org ↗</a></div>
 
 
 
@@ -1792,7 +1792,7 @@ happyhorses.io/#… HappyHorse 1.0 — Open-Source AI Video Generation Model (15
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">aescripts.com/corridorkey-for-green-screens aescripts - Corr</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">aescripts.com/corridorkey-for-green-screens aescripts - CorridorKey for Green Screens (Corridor Digital의 CorridorKey 플러그인 구현)</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://aescripts.com/corridorkey-for-green-screens/" target="_blank" rel="noopener">aescripts.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://aescripts.com/corridorkey-for-green-screens/" target="_blank" rel="noopener">aescripts.com ↗</a></div>
 
 
 
@@ -1826,8 +1826,8 @@ happyhorses.io/#… HappyHorse 1.0 — Open-Source AI Video Generation Model (15
  lumiying.com/tools/image-grid-overlay LumiYing - Seedance 2.0 Grid Overlay (얼굴 인식 우회 무료 툴)
 
 reddit.com/r/Seedance_AI/…/using_real_face_photos_in_seedance_20_3_methods Reddit - Using real face photos in Seedance 2.0 (3 methods)</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://lumiying.com/tools/image-grid-overlay" target="_blank" rel="noopener">lumiying.com ↗</a><a class="btn" style="background:#FF4500;color:#fff" href="https://www.reddit.com/r/Seedance_AI/comments/1rx6jrz/using_real_face_photos_in_seedance_20_3_methods/" target="_blank" rel="noopener">reddit.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://lumiying.com/tools/image-grid-overlay" target="_blank" rel="noopener"><span class="th-title">Seedance 2.0 그리드 오버레이 — 얼굴 감지 우회 무료</span><img src="files/thumbs/b16453b8e7456a9d.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">lumiying.com</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://lumiying.com/tools/image-grid-overlay" target="_blank" rel="noopener">lumiying.com ↗</a><a class="btn" style="background:#FF4500;color:#fff" href="https://www.reddit.com/r/Seedance_AI/comments/1rx6jrz/using_real_face_photos_in_seedance_20_3_methods/" target="_blank" rel="noopener">reddit.com ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://lumiying.com/tools/image-grid-overlay" target="_blank" rel="noopener"><span class="th-title">Seedance 2.0 그리드 오버레이 — 얼굴 감지 우회 무료</span><img src="files/thumbs/b16453b8e7456a9d.png" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">lumiying.com</span></a></div>
 
 
 </div>
@@ -1852,8 +1852,8 @@ Curious what you guys think — are tools like *Seedance 2.0* getting close to r
 Tools used:
 Midjourney + Nano Banana Pro + Seedance 2.0
 Share your thoughts about these 3 AI models</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://seedance2pro.video/" target="_blank" rel="noopener">seedance2pro.video ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://seedance2pro.video/" target="_blank" rel="noopener"><span class="th-title">Seedance 2 Pro - AI Video and Image Generation</span><img src="files/thumbs/ba179d991c7cf6ff.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">seedance2pro.video</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://seedance2pro.video/" target="_blank" rel="noopener">seedance2pro.video ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://seedance2pro.video/" target="_blank" rel="noopener"><span class="th-title">Seedance 2 Pro - AI Video and Image Generation</span><img src="files/thumbs/ba179d991c7cf6ff.png" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">seedance2pro.video</span></a></div>
 <div class="attach"><figure class="v-wrap"><video src="files/1784697939_570909_Seedance%202.0%20Midjourney%20Nano%20Banana%20Pro%20AI%20Animated%20Short%20Film%20That%20Feels%20Like%20Pixar%20r%20seedance2pro.mp4" controls preload="metadata"></video><figcaption>🎬 Seedance 2.0 Midjourney Nano Banana Pro AI Animated Short Film That Feels Like Pixar r seedance2pro.mp4</figcaption></figure></div>
 
 </div>
@@ -1862,7 +1862,7 @@ Share your thoughts about these 3 AI models</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">sjinn.ai/blog/… SJinn - Seedance 2 가이드</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">sjinn.ai/blog/… SJinn - Seedance 2 가이드</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://sjinn.ai/blog/Seedance2-Guide" target="_blank" rel="noopener">sjinn.ai ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://sjinn.ai/blog/Seedance2-Guide" target="_blank" rel="noopener">sjinn.ai ↗</a></div>
 
 
 
@@ -1872,8 +1872,8 @@ Share your thoughts about these 3 AI models</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">mvsm.com ManvsMachine — Design &amp; Direction Co.</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">mvsm.com ManvsMachine — Design &amp; Direction Co.</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://mvsm.com/" target="_blank" rel="noopener">mvsm.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://mvsm.com/" target="_blank" rel="noopener"><span class="th-title">ManvsMachine</span><img src="files/thumbs/f5510f94906fc6a7.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">mvsm.com</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://mvsm.com/" target="_blank" rel="noopener">mvsm.com ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://mvsm.com/" target="_blank" rel="noopener"><span class="th-title">ManvsMachine</span><img src="files/thumbs/f5510f94906fc6a7.png" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">mvsm.com</span></a></div>
 
 
 </div>
@@ -1955,7 +1955,7 @@ dvd-project.github.io
 dvd-project.github.io
 DVD: Deterministic Video Depth Estimation
 DVD: Deterministic Video Depth Estimation with Generative Priors</p>
-<div class="e-btns"><a class="btn" style="background:#FF4500;color:#fff" href="https://www.reddit.com/r/StableDiffusion/comments/1rrk71v/nvidia_super_resolution_vs_seedvr2_comfy_image/" target="_blank" rel="noopener">reddit.com ↗</a><a class="btn" style="background:#4353ff;color:#ffffff" href="https://dvd-project.github.io/" target="_blank" rel="noopener">dvd-project.github.io ↗</a><a class="btn" style="background:#4353ff;color:#ffffff" href="http://dvd-project.github.io" target="_blank" rel="noopener">dvd-project.github.io ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#FF4500;color:#fff" href="https://www.reddit.com/r/StableDiffusion/comments/1rrk71v/nvidia_super_resolution_vs_seedvr2_comfy_image/" target="_blank" rel="noopener">reddit.com ↗</a><a class="btn" style="background:#385cf5;color:#ffffff" href="https://dvd-project.github.io/" target="_blank" rel="noopener">dvd-project.github.io ↗</a><a class="btn" style="background:#385cf5;color:#ffffff" href="http://dvd-project.github.io" target="_blank" rel="noopener">dvd-project.github.io ↗</a></div>
 
 
 
@@ -2015,7 +2015,7 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">cvlab-kaist.github.io/VideoMaMa github.com/cvlab-kaist/Video</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">cvlab-kaist.github.io/VideoMaMa github.com/cvlab-kaist/VideoMaMa</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://cvlab-kaist.github.io/VideoMaMa/" target="_blank" rel="noopener">cvlab-kaist.github.io ↗</a><a class="btn" style="background:#24292F;color:#fff" href="https://github.com/cvlab-kaist/VideoMaMa" target="_blank" rel="noopener">github.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://cvlab-kaist.github.io/VideoMaMa/" target="_blank" rel="noopener">cvlab-kaist.github.io ↗</a><a class="btn" style="background:#24292F;color:#fff" href="https://github.com/cvlab-kaist/VideoMaMa" target="_blank" rel="noopener">github.com ↗</a></div>
 <div class="thumb-grid"><a class="thumb" href="https://github.com/cvlab-kaist/VideoMaMa" target="_blank" rel="noopener"><span class="th-title">GitHub - cvlab-kaist/VideoMaMa: Official implementation of &quot;VideoMaMa: Mask-Guided Video Matting via Generative Prior&quot;, </span><img src="files/thumbs/e9fc5da6ed8841cd.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
 
 
@@ -2025,7 +2025,7 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">stable-video-infinity.github.io/homepage SVI - long video ge</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">stable-video-infinity.github.io/homepage SVI - long video generation model</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://stable-video-infinity.github.io/homepage/" target="_blank" rel="noopener">stable-video-infinity.github.io ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://stable-video-infinity.github.io/homepage/" target="_blank" rel="noopener">stable-video-infinity.github.io ↗</a></div>
 
 
 
@@ -2060,8 +2060,8 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">app.beeble.ai/switchx#… Beeble | VIDEO TO VFX - 그린스크린 영상을 VF</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">app.beeble.ai/switchx#… Beeble | VIDEO TO VFX - 그린스크린 영상을 VFX-ready 에셋으로</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://app.beeble.ai/switchx#showcase" target="_blank" rel="noopener">app.beeble.ai ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://app.beeble.ai/switchx#showcase" target="_blank" rel="noopener"><span class="th-title">Beeble | SwitchX</span><img src="files/thumbs/715479dfbd4c3844.webp" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">app.beeble.ai</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://app.beeble.ai/switchx#showcase" target="_blank" rel="noopener">app.beeble.ai ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://app.beeble.ai/switchx#showcase" target="_blank" rel="noopener"><span class="th-title">Beeble | SwitchX</span><img src="files/thumbs/715479dfbd4c3844.webp" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">app.beeble.ai</span></a></div>
 
 
 </div>
@@ -2070,7 +2070,7 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">hjrphoebus.github.io/3DiMo</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">hjrphoebus.github.io/3DiMo</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://hjrphoebus.github.io/3DiMo/" target="_blank" rel="noopener">hjrphoebus.github.io ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://hjrphoebus.github.io/3DiMo/" target="_blank" rel="noopener">hjrphoebus.github.io ↗</a></div>
 
 
 
@@ -2140,7 +2140,7 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">artstation.com/artwork/98dOYq ArtStation - ComfyUI: genAI R&amp;</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">artstation.com/artwork/98dOYq ArtStation - ComfyUI: genAI R&amp;D Workflow for VFX (Img Editing, Concept &amp; DMP), Antonio Neto</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.artstation.com/artwork/98dOYq" target="_blank" rel="noopener">artstation.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://www.artstation.com/artwork/98dOYq" target="_blank" rel="noopener">artstation.com ↗</a></div>
 
 
 
@@ -2160,7 +2160,7 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">cvlab-kaist.github.io/VideoMaMa</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">cvlab-kaist.github.io/VideoMaMa</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://cvlab-kaist.github.io/VideoMaMa/" target="_blank" rel="noopener">cvlab-kaist.github.io ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://cvlab-kaist.github.io/VideoMaMa/" target="_blank" rel="noopener">cvlab-kaist.github.io ↗</a></div>
 
 
 
@@ -2230,7 +2230,7 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">fxtd.org/radiance_docs</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">fxtd.org/radiance_docs</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://fxtd.org/radiance_docs/" target="_blank" rel="noopener">fxtd.org ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://fxtd.org/radiance_docs/" target="_blank" rel="noopener">fxtd.org ↗</a></div>
 
 
 
@@ -2383,7 +2383,7 @@ STRICTLY AVOID:
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">aikive.com/list-cinema AI-Kive - AI Cinema</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">aikive.com/list-cinema AI-Kive - AI Cinema</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://aikive.com/list-cinema" target="_blank" rel="noopener">aikive.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://aikive.com/list-cinema" target="_blank" rel="noopener">aikive.com ↗</a></div>
 
 
 
@@ -2459,7 +2459,7 @@ STRICTLY AVOID:
 
 :pushpin: 전체 워크플로우
 picsart.com/create/workflows/2242a0162bc3…</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://picsart.com/create/workflows/2242a0162bc31762825a652bb297e3527d7693c0b25678ec6534420252df4759" target="_blank" rel="noopener">picsart.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://picsart.com/create/workflows/2242a0162bc31762825a652bb297e3527d7693c0b25678ec6534420252df4759" target="_blank" rel="noopener">picsart.com ↗</a></div>
 
 
 
@@ -2489,7 +2489,7 @@ picsart.com/create/workflows/2242a0162bc3…</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">higgsfield.ai/cinema-studio Higgsfield Cinema Studio | Profe</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">higgsfield.ai/cinema-studio Higgsfield Cinema Studio | Professional Production in Your Browser</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://higgsfield.ai/cinema-studio" target="_blank" rel="noopener">higgsfield.ai ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://higgsfield.ai/cinema-studio" target="_blank" rel="noopener">higgsfield.ai ↗</a></div>
 
 
 
@@ -2529,7 +2529,7 @@ picsart.com/create/workflows/2242a0162bc3…</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">meigen-ai.github.io/LongCat-Video-Avatar LongCat-Video-Avata</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">meigen-ai.github.io/LongCat-Video-Avatar LongCat-Video-Avatar - audio-driven character animation 통합 모델</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://meigen-ai.github.io/LongCat-Video-Avatar/" target="_blank" rel="noopener">meigen-ai.github.io ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://meigen-ai.github.io/LongCat-Video-Avatar/" target="_blank" rel="noopener">meigen-ai.github.io ↗</a></div>
 
 
 
@@ -2635,7 +2635,7 @@ Veo 3.1, Kling 2.6, LTX Fast와 Pro, Sora 2 Pro, 그리고 WAN 2.5와 막 공개
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">video.kinetix.tech/create Kinetix video</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">video.kinetix.tech/create Kinetix video</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://video.kinetix.tech/create" target="_blank" rel="noopener">video.kinetix.tech ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://video.kinetix.tech/create" target="_blank" rel="noopener">video.kinetix.tech ↗</a></div>
 
 
 
@@ -2645,8 +2645,8 @@ Veo 3.1, Kling 2.6, LTX Fast와 Pro, Sora 2 Pro, 그리고 WAN 2.5와 막 공개
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">studiofreewillusion.com/20 (주)스튜디오프리윌루전 - MOVIE</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">studiofreewillusion.com/20 (주)스튜디오프리윌루전 - MOVIE</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://studiofreewillusion.com/20/" target="_blank" rel="noopener">studiofreewillusion.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://studiofreewillusion.com/20/" target="_blank" rel="noopener"><span class="th-title">MOVIE</span><img src="files/thumbs/2f208ae407e8ed93.webp" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">studiofreewillusion.com</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://studiofreewillusion.com/20/" target="_blank" rel="noopener">studiofreewillusion.com ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://studiofreewillusion.com/20/" target="_blank" rel="noopener"><span class="th-title">MOVIE</span><img src="files/thumbs/2f208ae407e8ed93.webp" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">studiofreewillusion.com</span></a></div>
 
 
 </div>
@@ -2701,7 +2701,7 @@ Use the uploaded characters as references, keeping facial structure, proportions
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">pq-yang.github.io/projects/… MatAnyone 2 for human video mat</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">pq-yang.github.io/projects/… MatAnyone 2 for human video matting</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://pq-yang.github.io/projects/MatAnyone2/" target="_blank" rel="noopener">pq-yang.github.io ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://pq-yang.github.io/projects/MatAnyone2/" target="_blank" rel="noopener">pq-yang.github.io ↗</a></div>
 
 
 
@@ -2801,7 +2801,7 @@ Use the uploaded characters as references, keeping facial structure, proportions
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">aikive.com/list-cinema AI-Kive - AI Cinema</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">aikive.com/list-cinema AI-Kive - AI Cinema</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://aikive.com/list-cinema" target="_blank" rel="noopener">aikive.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://aikive.com/list-cinema" target="_blank" rel="noopener">aikive.com ↗</a></div>
 
 
 
@@ -2811,8 +2811,8 @@ Use the uploaded characters as references, keeping facial structure, proportions
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">beeble.ai/research/switchlight-3-0-is-here Beeble - SwitchLi</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">beeble.ai/research/switchlight-3-0-is-here Beeble - SwitchLight 3.0 is here (Video-to-PBR 모델)</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://beeble.ai/research/switchlight-3-0-is-here" target="_blank" rel="noopener">beeble.ai ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://beeble.ai/research/switchlight-3-0-is-here" target="_blank" rel="noopener"><span class="th-title">SwitchLight 3.0 is here | Beeble</span><img src="files/thumbs/96ad05e72b32be46.webp" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">beeble.ai</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://beeble.ai/research/switchlight-3-0-is-here" target="_blank" rel="noopener">beeble.ai ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://beeble.ai/research/switchlight-3-0-is-here" target="_blank" rel="noopener"><span class="th-title">SwitchLight 3.0 is here | Beeble</span><img src="files/thumbs/96ad05e72b32be46.webp" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">beeble.ai</span></a></div>
 
 
 </div>
@@ -2871,8 +2871,8 @@ Use the uploaded characters as references, keeping facial structure, proportions
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">elevenlabs.io ElevenLabs - Free Text to Speech &amp; AI Voice Ge</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">elevenlabs.io ElevenLabs - Free Text to Speech &amp; AI Voice Generator</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://elevenlabs.io/" target="_blank" rel="noopener">elevenlabs.io ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://elevenlabs.io/" target="_blank" rel="noopener"><span class="th-title">Free AI Voice Generator &amp; Voice Agents Platform | ElevenLabs</span><img src="files/thumbs/aba38cecc0694878.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">elevenlabs.io</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://elevenlabs.io/" target="_blank" rel="noopener">elevenlabs.io ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://elevenlabs.io/" target="_blank" rel="noopener"><span class="th-title">Free AI Voice Generator &amp; Voice Agents Platform | ElevenLabs</span><img src="files/thumbs/aba38cecc0694878.png" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">elevenlabs.io</span></a></div>
 
 
 </div>
@@ -2921,7 +2921,7 @@ Use the uploaded characters as references, keeping facial structure, proportions
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">영화 제작 핸드북 - Filmmaker's Handbook : A Comprehensive Guide for</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">영화 제작 핸드북 - Filmmaker's Handbook : A Comprehensive Guide for the Digital Age / Ascher, Steven / Pincus, Edward / Keller, Carol product.kyobobook.co.kr/detail/…</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://product.kyobobook.co.kr/detail/S000001379171" target="_blank" rel="noopener">product.kyobobook.co.kr ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://product.kyobobook.co.kr/detail/S000001379171" target="_blank" rel="noopener">product.kyobobook.co.kr ↗</a></div>
 
 
 
@@ -2931,7 +2931,7 @@ Use the uploaded characters as references, keeping facial structure, proportions
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">영상편집에 대한 조망 - In the Blink of an Eye: A Perspective on Film </span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">영상편집에 대한 조망 - In the Blink of an Eye: A Perspective on Film Editing / Walter Murch product.kyobobook.co.kr/detail/…</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://product.kyobobook.co.kr/detail/S000001310258" target="_blank" rel="noopener">product.kyobobook.co.kr ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://product.kyobobook.co.kr/detail/S000001310258" target="_blank" rel="noopener">product.kyobobook.co.kr ↗</a></div>
 
 
 
@@ -2941,7 +2941,7 @@ Use the uploaded characters as references, keeping facial structure, proportions
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">필름메이커의 눈 - The Filmmaker's Eye / Mercado, Gustavo product.ky</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">필름메이커의 눈 - The Filmmaker's Eye / Mercado, Gustavo product.kyobobook.co.kr/detail/…</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://product.kyobobook.co.kr/detail/S000001506445" target="_blank" rel="noopener">product.kyobobook.co.kr ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://product.kyobobook.co.kr/detail/S000001506445" target="_blank" rel="noopener">product.kyobobook.co.kr ↗</a></div>
 
 
 
@@ -3051,8 +3051,8 @@ Use the uploaded characters as references, keeping facial structure, proportions
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">업스케일 hitpaw.com avclabs.com/video-enhancer-ai.html pixop.com</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">업스케일 hitpaw.com avclabs.com/video-enhancer-ai.html pixop.com</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.hitpaw.com/" target="_blank" rel="noopener">hitpaw.com ↗</a><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.avclabs.com/video-enhancer-ai.html" target="_blank" rel="noopener">avclabs.com ↗</a><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.pixop.com/" target="_blank" rel="noopener">pixop.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.hitpaw.com/" target="_blank" rel="noopener"><span class="th-title">[OFFICIAL] HitPaw – AI Video, Photo &amp; Audio Enhancer Solutions</span><img src="files/thumbs/242679f1d7c9e3ca.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">hitpaw.com</span></a><a class="thumb" href="https://www.pixop.com/" target="_blank" rel="noopener"><span class="th-title">Pixop</span><img src="files/thumbs/3b49ce9e3340e5d7.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">pixop.com</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://www.hitpaw.com/" target="_blank" rel="noopener">hitpaw.com ↗</a><a class="btn" style="background:#385cf5;color:#ffffff" href="https://www.avclabs.com/video-enhancer-ai.html" target="_blank" rel="noopener">avclabs.com ↗</a><a class="btn" style="background:#385cf5;color:#ffffff" href="https://www.pixop.com/" target="_blank" rel="noopener">pixop.com ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.hitpaw.com/" target="_blank" rel="noopener"><span class="th-title">[OFFICIAL] HitPaw – AI Video, Photo &amp; Audio Enhancer Solutions</span><img src="files/thumbs/242679f1d7c9e3ca.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">hitpaw.com</span></a><a class="thumb" href="https://www.pixop.com/" target="_blank" rel="noopener"><span class="th-title">Pixop</span><img src="files/thumbs/3b49ce9e3340e5d7.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">pixop.com</span></a></div>
 
 
 </div>
@@ -3071,7 +3071,7 @@ Use the uploaded characters as references, keeping facial structure, proportions
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">nju-3dv.github.io/projects/SpatialVID SpatialVID Project Pag</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">nju-3dv.github.io/projects/SpatialVID SpatialVID Project Page</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://nju-3dv.github.io/projects/SpatialVID/" target="_blank" rel="noopener">nju-3dv.github.io ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://nju-3dv.github.io/projects/SpatialVID/" target="_blank" rel="noopener">nju-3dv.github.io ↗</a></div>
 
 
 
@@ -3081,8 +3081,8 @@ Use the uploaded characters as references, keeping facial structure, proportions
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">jindapark.github.io/projects/atlas ATLAS: Decoupling Skeleta</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">jindapark.github.io/projects/atlas ATLAS: Decoupling Skeletal and Shape Parameters for Expressive Parametric Human Modeling</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://jindapark.github.io/projects/atlas/" target="_blank" rel="noopener">jindapark.github.io ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://jindapark.github.io/projects/atlas/" target="_blank" rel="noopener"><span class="th-title">ATLAS: Decoupling Skeletal and Shape Parameters for Expressive Parametric Human Modeling</span><img src="files/thumbs/feb92dfdc1ca6ae0.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">jindapark.github.io</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://jindapark.github.io/projects/atlas/" target="_blank" rel="noopener">jindapark.github.io ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://jindapark.github.io/projects/atlas/" target="_blank" rel="noopener"><span class="th-title">ATLAS: Decoupling Skeletal and Shape Parameters for Expressive Parametric Human Modeling</span><img src="files/thumbs/feb92dfdc1ca6ae0.png" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">jindapark.github.io</span></a></div>
 
 
 </div>
@@ -3091,7 +3091,7 @@ Use the uploaded characters as references, keeping facial structure, proportions
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">rose2025-inpaint.github.io ROSE for Video Object Removal</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">rose2025-inpaint.github.io ROSE for Video Object Removal</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://rose2025-inpaint.github.io/" target="_blank" rel="noopener">rose2025-inpaint.github.io ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://rose2025-inpaint.github.io/" target="_blank" rel="noopener">rose2025-inpaint.github.io ↗</a></div>
 
 
 
@@ -3221,7 +3221,7 @@ Use the uploaded characters as references, keeping facial structure, proportions
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">app.runwayml.com/video-tools/…/generate Runway</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">app.runwayml.com/video-tools/…/generate Runway</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://app.runwayml.com/video-tools/teams/gimturtle.rgba/ai-tools/generate" target="_blank" rel="noopener">app.runwayml.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://app.runwayml.com/video-tools/teams/gimturtle.rgba/ai-tools/generate" target="_blank" rel="noopener">app.runwayml.com ↗</a></div>
 
 
 
@@ -3231,8 +3231,8 @@ Use the uploaded characters as references, keeping facial structure, proportions
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">humanaigc.github.io/wan-s2v-webpage Wan-S2V: Audio-Driven Ci</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">humanaigc.github.io/wan-s2v-webpage Wan-S2V: Audio-Driven Cinematic Video Generation</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://humanaigc.github.io/wan-s2v-webpage/" target="_blank" rel="noopener">humanaigc.github.io ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://humanaigc.github.io/wan-s2v-webpage/" target="_blank" rel="noopener"><span class="th-title">Wan-S2V</span><img src="files/thumbs/91539c79d2b9479c.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">humanaigc.github.io</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://humanaigc.github.io/wan-s2v-webpage/" target="_blank" rel="noopener">humanaigc.github.io ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://humanaigc.github.io/wan-s2v-webpage/" target="_blank" rel="noopener"><span class="th-title">Wan-S2V</span><img src="files/thumbs/91539c79d2b9479c.png" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">humanaigc.github.io</span></a></div>
 
 
 </div>
@@ -3283,8 +3283,8 @@ TUNET</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">AI 작품 모음 aikive.com/play</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">AI 작품 모음 aikive.com/play</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://aikive.com/play" target="_blank" rel="noopener">aikive.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://aikive.com/play" target="_blank" rel="noopener"><span class="th-title">AI-Kive - AI 영상 콘텐츠 플랫폼</span><img src="files/thumbs/4582deac832f253e.webp" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">aikive.com</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://aikive.com/play" target="_blank" rel="noopener">aikive.com ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://aikive.com/play" target="_blank" rel="noopener"><span class="th-title">AI-Kive - AI 영상 콘텐츠 플랫폼</span><img src="files/thumbs/4582deac832f253e.webp" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">aikive.com</span></a></div>
 
 
 </div>
@@ -3393,7 +3393,7 @@ TUNET</p>
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">community.foundry.com/cattery Foundry Cattery - Nuke에서 네이티브로</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">community.foundry.com/cattery Foundry Cattery - Nuke에서 네이티브로 실행되는 오픈소스 ML 모델(.cat) 라이브러리</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://community.foundry.com/cattery" target="_blank" rel="noopener">community.foundry.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://community.foundry.com/cattery" target="_blank" rel="noopener">community.foundry.com ↗</a></div>
 
 
 
@@ -3489,12 +3489,12 @@ TUNET</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784695733.665079" data-month="2026-07" data-types="link" data-topics="3D·CG" data-search="4dv.ai/en4dv.ai-gaussiansplatting기반4d비디오제작/편집툴https://www.4dv.ai/enhttp://4dv.ai">
+<article class="entry" data-ts="1784695733.665079" data-month="2026-07" data-types="link" data-topics="3D·CG" data-search="4dv.ai/en4dv.ai-gaussiansplatting기반4d비디오제작/편집툴https://www.4dv.ai/enhttp://4dv.ai4dv.ai-buildingthefutureofvisualmedia4dv.ai-buildingthefutureofvisualmedia">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">4dv.ai/en 4DV.ai - Gaussian Splatting 기반 4D 비디오 제작/편집 툴</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">4dv.ai/en 4DV.ai - Gaussian Splatting 기반 4D 비디오 제작/편집 툴</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.4dv.ai/en" target="_blank" rel="noopener">4dv.ai ↗</a><a class="btn" style="background:#4353ff;color:#ffffff" href="http://4DV.ai" target="_blank" rel="noopener">4dv.ai ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.4dv.ai/en" target="_blank" rel="noopener"><img src="files/thumbs/d08440d9f98d5f88.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">4dv.ai</span></a><a class="thumb" href="http://4DV.ai" target="_blank" rel="noopener"><img src="files/thumbs/a291e784b717c177.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">4dv.ai</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://www.4dv.ai/en" target="_blank" rel="noopener">4dv.ai ↗</a><a class="btn" style="background:#385cf5;color:#ffffff" href="http://4DV.ai" target="_blank" rel="noopener">4dv.ai ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.4dv.ai/en" target="_blank" rel="noopener"><span class="th-title">4DV.ai - Building the future of visual media</span><img src="files/thumbs/d08440d9f98d5f88.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">4dv.ai</span></a><a class="thumb" href="http://4DV.ai" target="_blank" rel="noopener"><span class="th-title">4DV.ai - Building the future of visual media</span><img src="files/thumbs/a291e784b717c177.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">4dv.ai</span></a></div>
 
 
 </div>
@@ -3529,7 +3529,7 @@ TUNET</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784695711.063269" data-month="2026-07" data-types="video link" data-topics="ComfyUI·워크플로우 VFX·합성" data-search="es_copycat은nuke의copycat노드설정과정을완전히자동화하는강력하고사용하기쉬운기즈모로,단몇번의클릭만으로groundtruth및inputreference시퀀스를생성할수있도록도와줍니다.copycat을리터칭이나로토작업에사용하든,es_copycat은노드네트워크자동생성,framehold동기화,레이블이지정된배경으로모든항목정리,학습용데이터준비등모든번거로운설정단계를처리하여워크플로우를간소화합니다.drive.google.com/file/d/…/viewhttps://drive.google.com/file/d/1xvepnh27rmquthhp7yc-0buibfh7fh5a/viewes_copycat.mp4">
+<article class="entry" data-ts="1784695711.063269" data-month="2026-07" data-types="video link" data-topics="ComfyUI·워크플로우 VFX·합성" data-search="es_copycat은nuke의copycat노드설정과정을완전히자동화하는강력하고사용하기쉬운기즈모로,단몇번의클릭만으로groundtruth및inputreference시퀀스를생성할수있도록도와줍니다.copycat을리터칭이나로토작업에사용하든,es_copycat은노드네트워크자동생성,framehold동기화,레이블이지정된배경으로모든항목정리,학습용데이터준비등모든번거로운설정단계를처리하여워크플로우를간소화합니다.drive.google.com/file/d/…/viewhttps://drive.google.com/file/d/1xvepnh27rmquthhp7yc-0buibfh7fh5a/viewes_copycat.gizmoes_copycat.mp4">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">ES_CopyCat은 Nuke의 CopyCat 노드 설정 과정을 완전히 자동화하는 강력하고 사용하기 쉬운 기</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">ES_CopyCat은 Nuke의 CopyCat 노드 설정 과정을 완전히 자동화하는 강력하고 사용하기 쉬운 기즈모로, 단 몇 번의 클릭만으로 Ground Truth 및 Input Reference 시퀀스를 생성할 수 있도록 도와줍니다. CopyCat을 리터칭이나 로토 작업에 사용하든, ES_CopyCat은 노드 네트워크 자동 생성, FrameHold 동기화, 레이블이 지정된 배경으로 모든 항목 정리, 학습용 데이터 준비 등 모든 번거로운 설정 단계를 처리하여 워크플로우를 간소화합니다. drive.google.com/file/d/…/view</p>
@@ -3559,7 +3559,7 @@ TUNET</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784695678.610949" data-month="2026-07" data-types="link" data-topics="기타" data-search="instagram.com/reel/…https://www.instagram.com/reel/dibvgsjy8ue/">
+<article class="entry" data-ts="1784695678.610949" data-month="2026-07" data-types="link" data-topics="기타" data-search="instagram.com/reel/…https://www.instagram.com/reel/dibvgsjy8ue/instagram">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">instagram.com/reel/…</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">instagram.com/reel/…</p>
@@ -3609,11 +3609,11 @@ TUNET</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784695542.319709" data-month="2026-07" data-types="link" data-topics="VFX·합성" data-search="keheka.comkennhedinkalvik-professionalcompositingtutorialshttps://www.keheka.com/">
+<article class="entry" data-ts="1784695542.319709" data-month="2026-07" data-types="link" data-topics="VFX·합성" data-search="keheka.comkennhedinkalvik-professionalcompositingtutorialshttps://www.keheka.com/kennhedinkalvik-professionalcompositingtutorials">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">keheka.com Kenn Hedin Kalvik - Professional Compositing Tuto</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">keheka.com Kenn Hedin Kalvik - Professional Compositing Tutorials</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.keheka.com/" target="_blank" rel="noopener">keheka.com ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://www.keheka.com/" target="_blank" rel="noopener">keheka.com ↗</a></div>
 
 
 
@@ -3631,7 +3631,7 @@ YouTube - LightLab: Controlling Light Sources in Images with Diffusion Models</p
 
 </div>
 </article>
-<article class="entry" data-ts="1784695527.078679" data-month="2026-07" data-types="link" data-topics="기타" data-search="instagram.com/reel/…https://www.instagram.com/reel/dj5etoix0ws/">
+<article class="entry" data-ts="1784695527.078679" data-month="2026-07" data-types="link" data-topics="기타" data-search="instagram.com/reel/…https://www.instagram.com/reel/dj5etoix0ws/instagram">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">instagram.com/reel/…</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">instagram.com/reel/…</p>
@@ -3651,24 +3651,24 @@ YouTube - LightLab: Controlling Light Sources in Images with Diffusion Models</p
 
 </div>
 </article>
-<article class="entry" data-ts="1784695513.807599" data-month="2026-07" data-types="link" data-topics="AI영상생성" data-search="이번구글딥마인드veo3작업물.영상뿐만아니라사운드도같이생성됨.소리키고보는걸추천x.com/hashemghaili/status/1925332319604257203https://x.com/hashemghaili/status/1925332319604257203">
+<article class="entry" data-ts="1784695513.807599" data-month="2026-07" data-types="link" data-topics="AI영상생성" data-search="이번구글딥마인드veo3작업물.영상뿐만아니라사운드도같이생성됨.소리키고보는걸추천x.com/hashemghaili/status/1925332319604257203https://x.com/hashemghaili/status/1925332319604257203x에서hashemal-ghaili(@hashemghaili)님">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">이번 구글 딥마인드 VEO 3 작업물. 영상뿐만 아니라 사운드도 같이 생성됨. 소리 키고 보는걸 추천
  x.</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">이번 구글 딥마인드 VEO 3 작업물. 영상뿐만 아니라 사운드도 같이 생성됨. 소리 키고 보는걸 추천
  x.com/HashemGhaili/status/1925332319604257203</p>
 <div class="e-btns"><a class="btn" style="background:#14171A;color:#fff" href="https://x.com/HashemGhaili/status/1925332319604257203" target="_blank" rel="noopener">x.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://x.com/HashemGhaili/status/1925332319604257203" target="_blank" rel="noopener"><img src="files/thumbs/06e7a8e98e58f710.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#14171A;color:#fff">x.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://x.com/HashemGhaili/status/1925332319604257203" target="_blank" rel="noopener"><span class="th-title">X에서 Hashem Al-Ghaili(@HashemGhaili) 님</span><img src="files/thumbs/06e7a8e98e58f710.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#14171A;color:#fff">x.com</span></a></div>
 
 
 </div>
 </article>
-<article class="entry" data-ts="1784695503.480119" data-month="2026-07" data-types="link" data-topics="기타" data-search="behance.net/gallery/162328253/jordan-rebornbehance-jordan|reborn(stancexadmk단편)https://www.behance.net/gallery/162328253/jordan-reborn">
+<article class="entry" data-ts="1784695503.480119" data-month="2026-07" data-types="link" data-topics="기타" data-search="behance.net/gallery/162328253/jordan-rebornbehance-jordan|reborn(stancexadmk단편)https://www.behance.net/gallery/162328253/jordan-rebornjordan|reborn">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">behance.net/gallery/162328253/Jordan-Reborn Behance - Jordan</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">behance.net/gallery/162328253/Jordan-Reborn Behance - Jordan | Reborn (STANCE x ADMK 단편)</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.behance.net/gallery/162328253/Jordan-Reborn" target="_blank" rel="noopener">behance.net ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.behance.net/gallery/162328253/Jordan-Reborn" target="_blank" rel="noopener"><img src="files/thumbs/e756499253b6302d.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">behance.net</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://www.behance.net/gallery/162328253/Jordan-Reborn" target="_blank" rel="noopener">behance.net ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.behance.net/gallery/162328253/Jordan-Reborn" target="_blank" rel="noopener"><span class="th-title">Jordan | Reborn</span><img src="files/thumbs/e756499253b6302d.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">behance.net</span></a></div>
 
 
 </div>
@@ -3683,22 +3683,22 @@ YouTube - LightLab: Controlling Light Sources in Images with Diffusion Models</p
 
 </div>
 </article>
-<article class="entry" data-ts="1784695492.229109" data-month="2026-07" data-types="link" data-topics="AI영상생성" data-search="deepmind.google/models/veogoogledeepmind-veohttps://deepmind.google/models/veo/">
+<article class="entry" data-ts="1784695492.229109" data-month="2026-07" data-types="link" data-topics="AI영상생성" data-search="deepmind.google/models/veogoogledeepmind-veohttps://deepmind.google/models/veo/veo3.1—googledeepmind">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">deepmind.google/models/veo Google DeepMind - Veo</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">deepmind.google/models/veo Google DeepMind - Veo</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://deepmind.google/models/veo/" target="_blank" rel="noopener">deepmind.google ↗</a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://deepmind.google/models/veo/" target="_blank" rel="noopener">deepmind.google ↗</a></div>
 
 
 
 </div>
 </article>
-<article class="entry" data-ts="1784695487.678689" data-month="2026-07" data-types="link" data-topics="VFX·합성" data-search="beforesandafters.com/2025/05/20/version-zero-ai-has-a-splines-output-solution-for-ai-ml-rotoscopingbefores&amp;afters-versionzeroai의ai/ml로토스코핑스플라인출력솔루션https://beforesandafters.com/2025/05/20/version-zero-ai-has-a-splines-output-solution-for-ai-ml-rotoscoping/">
+<article class="entry" data-ts="1784695487.678689" data-month="2026-07" data-types="link" data-topics="VFX·합성" data-search="beforesandafters.com/2025/05/20/version-zero-ai-has-a-splines-output-solution-for-ai-ml-rotoscopingbefores&amp;afters-versionzeroai의ai/ml로토스코핑스플라인출력솔루션https://beforesandafters.com/2025/05/20/version-zero-ai-has-a-splines-output-solution-for-ai-ml-rotoscoping/versionzeroaihasasplinesoutputsolutionforai/mlrotoscoping-befores&amp;afters">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">beforesandafters.com/2025/05/20/version-zero-ai-has-a-spline</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">beforesandafters.com/2025/05/20/version-zero-ai-has-a-splines-output-solution-for-ai-ml-rotoscoping befores &amp; afters - Version Zero AI의 AI/ML 로토스코핑 스플라인 출력 솔루션</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://beforesandafters.com/2025/05/20/version-zero-ai-has-a-splines-output-solution-for-ai-ml-rotoscoping/" target="_blank" rel="noopener">beforesandafters.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://beforesandafters.com/2025/05/20/version-zero-ai-has-a-splines-output-solution-for-ai-ml-rotoscoping/" target="_blank" rel="noopener"><img src="files/thumbs/33bccda4608a59d1.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">beforesandafters.com</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://beforesandafters.com/2025/05/20/version-zero-ai-has-a-splines-output-solution-for-ai-ml-rotoscoping/" target="_blank" rel="noopener">beforesandafters.com ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://beforesandafters.com/2025/05/20/version-zero-ai-has-a-splines-output-solution-for-ai-ml-rotoscoping/" target="_blank" rel="noopener"><span class="th-title">Version Zero AI has a splines output solution for AI/ML rotoscoping - befores &amp; afters</span><img src="files/thumbs/33bccda4608a59d1.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">beforesandafters.com</span></a></div>
 
 
 </div>
@@ -3733,24 +3733,24 @@ YouTube - LightLab: Controlling Light Sources in Images with Diffusion Models</p
 
 </div>
 </article>
-<article class="entry" data-ts="1784695417.500789" data-month="2026-07" data-types="link" data-topics="VFX·합성" data-search="github.com/bcmi/light-a-videolight-a-video:training-freevideorelightingviaprogressivelightfusionhttps://github.com/bcmi/light-a-video/">
+<article class="entry" data-ts="1784695417.500789" data-month="2026-07" data-types="link" data-topics="VFX·합성" data-search="github.com/bcmi/light-a-videolight-a-video:training-freevideorelightingviaprogressivelightfusionhttps://github.com/bcmi/light-a-video/github-bcmi/light-a-video:[iccv2025]light-a-video:training-freevideorelightingviaprogressivelightfusion">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">github.com/bcmi/Light-A-Video
 Light-A-Video: Training-free V</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">github.com/bcmi/Light-A-Video
 Light-A-Video: Training-free Video Relighting via Progressive Light Fusion</p>
 <div class="e-btns"><a class="btn" style="background:#24292F;color:#fff" href="https://github.com/bcmi/Light-A-Video/" target="_blank" rel="noopener">github.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://github.com/bcmi/Light-A-Video/" target="_blank" rel="noopener"><img src="files/thumbs/50ce0ec2ab64a2b3.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://github.com/bcmi/Light-A-Video/" target="_blank" rel="noopener"><span class="th-title">GitHub - bcmi/Light-A-Video: [ICCV 2025] Light-A-Video: Training-free Video Relighting via Progressive Light Fusion</span><img src="files/thumbs/50ce0ec2ab64a2b3.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
 
 
 </div>
 </article>
-<article class="entry" data-ts="1784695362.894979" data-month="2026-07" data-types="link" data-topics="VFX·합성" data-search="aitorecheveste.gumroad.com/l/bsrygugumroad-freenukecopycatguidehttps://aitorecheveste.gumroad.com/l/bsrygu">
+<article class="entry" data-ts="1784695362.894979" data-month="2026-07" data-types="link" data-topics="VFX·합성" data-search="aitorecheveste.gumroad.com/l/bsrygugumroad-freenukecopycatguidehttps://aitorecheveste.gumroad.com/l/bsrygu[free]nukecopycatguide">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">aitorecheveste.gumroad.com/l/bsrygu Gumroad - Free Nuke Copy</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">aitorecheveste.gumroad.com/l/bsrygu Gumroad - Free Nuke CopyCat Guide</p>
-<div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://aitorecheveste.gumroad.com/l/bsrygu" target="_blank" rel="noopener">aitorecheveste.gumroad.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://aitorecheveste.gumroad.com/l/bsrygu" target="_blank" rel="noopener"><img src="files/thumbs/96005bf286a9151a.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">aitorecheveste.gumroad.com</span></a></div>
+<div class="e-btns"><a class="btn" style="background:#385cf5;color:#ffffff" href="https://aitorecheveste.gumroad.com/l/bsrygu" target="_blank" rel="noopener">aitorecheveste.gumroad.com ↗</a></div>
+<div class="thumb-grid"><a class="thumb" href="https://aitorecheveste.gumroad.com/l/bsrygu" target="_blank" rel="noopener"><span class="th-title">[Free] Nuke CopyCat Guide</span><img src="files/thumbs/96005bf286a9151a.png" alt="" loading="lazy"><span class="th-tag" style="background:#385cf5;color:#ffffff">aitorecheveste.gumroad.com</span></a></div>
 
 
 </div>
