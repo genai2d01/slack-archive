@@ -161,13 +161,14 @@
     "links": [],
     "files": [
       {
-        "path": "files/1787149139_843249_rough_privis_2_video.mp4",
+        "path": "files/1787149139_843249_rough_privis_2_video_web4.mp4",
         "name": "rough_privis_2_video.mp4",
         "mimetype": "video/mp4",
         "redl": true,
         "permalink": "https://ncorestudio.slack.com/files/U0BNSE01MB3/F0BR9MBK1LJ/rough_privis_2_video.mp4",
-        "broken": true,
-        "vok": true
+        "broken": false,
+        "vok": true,
+        "vpatch": true
       }
     ]
   },
