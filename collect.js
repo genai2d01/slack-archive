@@ -1,4 +1,4 @@
-// 슬랙 자료방을 읽어 archive.html을 갱신하는 스크립트
+// 슬랙 자료방을 읽어 archive.html(다크) + archive_light.html(라이트)을 갱신하는 스크립트
 // RUN_MODE=full: 전체 수집 (격주 금요일·수동 실행) / RUN_MODE=linkcheck: 유튜브 링크 점검만 (매일)
 const fs = require('fs');
 const crypto = require('crypto');
@@ -14,7 +14,6 @@ const THUMBS_FILE = 'data/thumbs.json';
 const TITLES_FILE = 'data/titles.json';
 const FILES_DIR = 'files';
 const THUMBS_DIR = 'files/thumbs';
-const HTML_FILE = 'archive.html';
 const MAX_FILE_MB = 95;
 const THUMB_BUDGET = 40;
 const CONVERT_BUDGET = 20;  // 실행 1회당 영상 변환 최대 개수
@@ -46,8 +45,25 @@ const BRAND = {
   'lumalabs.ai': ['#B36AE2', '#fff'],
 };
 
-// 월별 톤온톤 포인트 컬러 (차분한 쿨톤 계열, 월 숫자 기준 고정)
-const MONTH_COLORS = ['#8ab4dd', '#7fc4c9', '#a89fd9', '#cbb58e', '#c898ab', '#8fc4a2'];
+// 테마 정의 (다크/라이트 두 파일 생성)
+const THEMES = {
+  dark: {
+    file: 'archive.html',
+    vars: { bg: '#0e131b', panel: '#151c27', panel2: '#1b2431', line: '#242f3f', lineSoft: '#1e2733',
+      text: '#dfe6f0', textDim: '#9aa7ba', textMute: '#6d798c', accent: '#8ab4dd' },
+    onAccent: '#0e131b',
+    ctrlBg: 'rgba(14,19,27,.97)',
+    months: ['#8ab4dd', '#7fc4c9', '#a89fd9', '#cbb58e', '#c898ab', '#8fc4a2'],
+  },
+  light: {
+    file: 'archive_light.html',
+    vars: { bg: '#f4f6f9', panel: '#ffffff', panel2: '#edf1f6', line: '#dbe2ea', lineSoft: '#e6ebf1',
+      text: '#212b38', textDim: '#57637a', textMute: '#8792a3', accent: '#3d7fc2' },
+    onAccent: '#ffffff',
+    ctrlBg: 'rgba(244,246,249,.97)',
+    months: ['#3d7fc2', '#2e9099', '#7565b8', '#9c7c35', '#ab5a78', '#468f60'],
+  },
+};
 
 // 주제 자동 분류 규칙 (여러 주제에 동시 포함 가능)
 const TOPICS = [
@@ -119,7 +135,7 @@ async function downloadFile(f, ts) {
 
 // ---------- 댓글(스레드 답글) 수집 ----------
 async function syncComments(archive) {
-  const parents = new Map(); // ts → 댓글 수
+  const parents = new Map();
   let cursor;
   do {
     const r = await slack('conversations.history', {
@@ -209,13 +225,12 @@ async function ensureWebVideos(archive) {
       if (!(f.mimetype || '').startsWith('video/')) continue;
       if (!f.path || !fs.existsSync(f.path)) { f.vok = true; continue; }
       const force = FORCE_CONVERT.includes(f.name) && !/_web\d?\.mp4$/.test(f.path);
-      const needRepair = f.broken && !f.vpatch; // 이전에 손상 판정된 파일도 패치는 한 번 더 시도
+      const needRepair = f.broken && !f.vpatch;
       if (!force && f.vok && !needRepair) continue;
       if (budget <= 0) continue;
       let info = ffprobeInfo(f.path);
       let patchedNow = false;
       if (!info) {
-        // 1단계: 슬랙에서 재다운로드 (다운로드 중 손상 케이스)
         if (!f.redl) {
           f.redl = true;
           console.log('파일 손상 의심, 슬랙에서 재다운로드 시도: ' + f.name);
@@ -223,7 +238,6 @@ async function ensureWebVideos(archive) {
           if (ok) info = ffprobeInfo(f.path);
           if (info) console.log('재다운로드로 복구됨: ' + f.name);
         }
-        // 2단계: 구조 패치 (원본 자체가 비정상 vpcC인 케이스)
         if (!info && !f.vpatch) {
           f.vpatch = true;
           if (tryPatchVpcc(f.path)) {
@@ -233,7 +247,7 @@ async function ensureWebVideos(archive) {
         }
         if (!info) {
           f.broken = true; f.vok = true;
-          console.warn('파일 손상 확정 — "슬랙에서 열기"로 표시: ' + f.name);
+          console.warn('복구 불가 — 카드에서 제거 예정: ' + f.name);
           continue;
         }
         f.broken = false;
@@ -258,14 +272,35 @@ async function ensureWebVideos(archive) {
         console.log((force ? '강제 ' : '') + '영상 변환 완료(' + codecInfo + ' → h264/yuv420p): ' + f.name);
       } catch {
         f.vtries = (f.vtries || 0) + 1;
-        if (f.vtries >= 3) { f.vok = true; console.warn('변환 3회 실패, 포기: ' + f.name); }
+        if (f.vtries >= 3) { f.broken = true; f.vok = true; console.warn('변환 3회 실패 — 카드에서 제거 예정: ' + f.name); }
         else console.warn('변환 실패(다음 실행 때 재시도): ' + f.name + ' (' + codecInfo + ')');
       }
     }
   }
 }
 
-// ---------- 링크 썸네일·유튜브 검사 ----------
+// 복구 불가 영상 파일을 카드에서 제거하고, 빈 카드는 삭제
+function pruneBrokenFiles(archive) {
+  let removedFiles = 0, removedCards = 0;
+  for (const e of archive) {
+    const before = e.files.length;
+    e.files = e.files.filter(f => {
+      if (f.broken) {
+        if (f.path && fs.existsSync(f.path)) { try { fs.unlinkSync(f.path); } catch {} }
+        return false;
+      }
+      return true;
+    });
+    removedFiles += before - e.files.length;
+  }
+  for (let i = archive.length - 1; i >= 0; i--) {
+    const e = archive[i];
+    if (!e.text && !e.links.length && !e.files.length) { archive.splice(i, 1); removedCards++; }
+  }
+  if (removedFiles) console.log('복구 불가 영상 ' + removedFiles + '개 제거, 빈 카드 ' + removedCards + '개 삭제');
+}
+
+// ---------- 링크 썸네일·페이지 제목·유튜브 검사 ----------
 async function fetchWithTimeout(url, opts = {}, ms = 8000) {
   const c = new AbortController();
   const t = setTimeout(() => c.abort(), ms);
@@ -278,16 +313,26 @@ function youtubeId(u) {
   return m ? m[1] : null;
 }
 
-async function ogImageUrl(pageUrl) {
+function cleanTitle(s) {
+  const t = s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#0?39;/g, "'").replace(/\s+/g, ' ').trim().slice(0, 120);
+  return t || null;
+}
+
+async function fetchPageMeta(pageUrl) {
   const res = await fetchWithTimeout(pageUrl, { headers: { 'User-Agent': UA, 'Accept-Language': 'ko,en' } });
-  if (!res.ok) return null;
+  if (!res.ok) return { img: null, title: null };
   const ct = res.headers.get('content-type') || '';
-  if (!ct.includes('text/html')) return null;
+  if (!ct.includes('text/html')) return { img: null, title: null };
   const html = (await res.text()).slice(0, 400000);
-  const m = html.match(/<meta[^>]+(?:property|name)=["'](?:og:image|twitter:image)(?::src)?["'][^>]*content=["']([^"']+)["']/i)
+  const im = html.match(/<meta[^>]+(?:property|name)=["'](?:og:image|twitter:image)(?::src)?["'][^>]*content=["']([^"']+)["']/i)
         || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]*(?:property|name)=["'](?:og:image|twitter:image)/i);
-  if (!m) return null;
-  try { return new URL(m[1].replace(/&amp;/g, '&'), pageUrl).href; } catch { return null; }
+  const tm = html.match(/<meta[^>]+(?:property|name)=["']og:title["'][^>]*content=["']([^"']+)["']/i)
+        || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]*(?:property|name)=["']og:title["']/i)
+        || html.match(/<title[^>]*>([^<]{1,200})<\/title>/i);
+  let img = null;
+  if (im) { try { img = new URL(im[1].replace(/&amp;/g, '&'), pageUrl).href; } catch {} }
+  return { img, title: tm ? cleanTitle(tm[1]) : null };
 }
 
 async function downloadThumb(imgUrl, key) {
@@ -303,46 +348,70 @@ async function downloadThumb(imgUrl, key) {
   return rel;
 }
 
-async function collectThumbs(archive, thumbs) {
+async function collectThumbs(archive, thumbs, titles) {
   let budget = THUMB_BUDGET;
   for (const e of archive) {
     for (const u of e.links) {
-      if (u in thumbs || budget <= 0) continue;
-      budget--;
       const yid = youtubeId(u);
-      if (yid) { thumbs[u] = 'https://i.ytimg.com/vi/' + yid + '/mqdefault.jpg'; continue; }
+      if (yid) { if (!(u in thumbs)) thumbs[u] = 'https://i.ytimg.com/vi/' + yid + '/mqdefault.jpg'; continue; }
+      const needThumb = !(u in thumbs);
+      const needTitle = !(u in titles);
+      if (!needThumb && !needTitle) continue;
+      if (budget <= 0) continue;
+      budget--;
       try {
-        const og = await ogImageUrl(u);
-        thumbs[u] = og ? await downloadThumb(og, crypto.createHash('md5').update(u).digest('hex').slice(0, 16)) : null;
-      } catch { thumbs[u] = null; }
-      console.log('썸네일 ' + (thumbs[u] ? 'OK' : '없음') + ': ' + u.slice(0, 60));
+        const meta = await fetchPageMeta(u);
+        if (needTitle) titles[u] = meta.title;
+        if (needThumb) thumbs[u] = meta.img ? await downloadThumb(meta.img, crypto.createHash('md5').update(u).digest('hex').slice(0, 16)) : null;
+        console.log('메타 수집 (썸네일 ' + (thumbs[u] ? 'O' : 'X') + '/제목 ' + (titles[u] ? 'O' : 'X') + '): ' + u.slice(0, 60));
+      } catch {
+        if (needTitle) titles[u] = null;
+        if (needThumb) thumbs[u] = null;
+      }
     }
   }
 }
 
-// 유튜브 링크 전수 검사: 제목 갱신 + 재생 불가(삭제·비공개·잘못된 링크) 자동 제거
+// 유튜브 링크 전수 검사: 제목 갱신 + 재생 불가(삭제·비공개·잘못된 링크)를 링크·본문에서 제거
+const YT_TEXT_RE = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|shorts\/|live\/|embed\/)|youtu\.be\/)[\w-]{11}[^\s]*/g;
+
 async function checkYoutubeLinks(archive, titles, thumbs) {
   const dead = new Set();
   const checked = new Set();
+  const candidates = new Set();
   for (const e of archive) {
-    for (const u of e.links) {
-      if (!youtubeId(u) || checked.has(u)) continue;
-      checked.add(u);
-      try {
-        const res = await fetchWithTimeout('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent(u),
-          { headers: { 'User-Agent': UA } });
-        if (res.ok) {
-          const t = (await res.json()).title || null;
-          if (t) titles[u] = t;
-        } else if ([400, 401, 403, 404].includes(res.status)) {
-          dead.add(u);
-          console.log('재생 불가 유튜브 제거: ' + u + ' (HTTP ' + res.status + ')');
-        }
-      } catch { /* 네트워크 오류는 유지 */ }
+    for (const u of e.links) if (youtubeId(u)) candidates.add(u);
+    for (const m of (e.text || '').matchAll(YT_TEXT_RE)) {
+      const u = m[0].startsWith('http') ? m[0] : 'https://' + m[0];
+      if (youtubeId(u)) candidates.add(u);
     }
   }
+  for (const u of candidates) {
+    if (checked.has(u)) continue;
+    checked.add(u);
+    try {
+      const res = await fetchWithTimeout('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent(u),
+        { headers: { 'User-Agent': UA } });
+      if (res.ok) {
+        const t = (await res.json()).title || null;
+        if (t) titles[u] = t;
+      } else if ([400, 401, 403, 404].includes(res.status)) {
+        dead.add(u);
+        console.log('재생 불가 유튜브 제거: ' + u + ' (HTTP ' + res.status + ')');
+      }
+    } catch { /* 네트워크 오류는 유지 */ }
+  }
   if (!dead.size) { console.log('유튜브 검사 완료: 제거 대상 없음 (' + checked.size + '개 확인)'); return; }
-  for (const e of archive) e.links = e.links.filter(u => !dead.has(u));
+  const deadIds = new Set([...dead].map(u => youtubeId(u)).filter(Boolean));
+  for (const e of archive) {
+    e.links = e.links.filter(u => !(youtubeId(u) && deadIds.has(youtubeId(u))));
+    if (e.text) {
+      e.text = e.text.replace(YT_TEXT_RE, s => {
+        const id = youtubeId(s.startsWith('http') ? s : 'https://' + s);
+        return id && deadIds.has(id) ? '' : s;
+      }).replace(/\n{3,}/g, '\n\n').trim();
+    }
+  }
   let removedCards = 0;
   for (let i = archive.length - 1; i >= 0; i--) {
     const e = archive[i];
@@ -370,11 +439,11 @@ function domainOf(u) {
   try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return '링크'; }
 }
 
-function brandFor(host) {
+function brandFor(host, T) {
   for (const [k, v] of Object.entries(BRAND)) {
     if (host === k || host.endsWith('.' + k)) return v;
   }
-  return ['#8ab4dd', '#0e131b'];
+  return [T.vars.accent, T.onAccent];
 }
 
 function entryTypes(e) {
@@ -398,23 +467,23 @@ function entryTopics(e) {
 }
 
 function searchKey(e, titles) {
-  const ytTitles = e.links.map(u => titles[u] || '');
+  const linkTitles = e.links.map(u => titles[u] || '');
   const cmts = (e.comments || []).map(c => c.text);
-  return [e.text, ...e.links, ...ytTitles, ...cmts, ...e.files.map(f => f.name)].join(' ').toLowerCase().replace(/\s+/g, '');
+  return [e.text, ...e.links, ...linkTitles, ...cmts, ...e.files.map(f => f.name)].join(' ').toLowerCase().replace(/\s+/g, '');
 }
 
-function renderEntry(e, thumbs, titles) {
+function renderEntry(e, thumbs, titles, T) {
   let btns = '';
   const thumbCards = [];
   for (const u of e.links) {
     const host = domainOf(u);
-    const [bg, fg] = brandFor(host);
+    const [bg, fg] = brandFor(host, T);
     btns += `<a class="btn" style="background:${bg};color:${fg}" href="${esc(u)}" target="_blank" rel="noopener">${esc(host)} ↗</a>`;
     const th = thumbs[u];
     if (th) {
       const src = th.startsWith('http') ? esc(th) : encodeURI(th);
-      const yt = youtubeId(u) && titles[u] ? `<span class="th-title">${esc(titles[u])}</span>` : '';
-      thumbCards.push(`<a class="thumb" href="${esc(u)}" target="_blank" rel="noopener">${yt}<img src="${src}" alt="" loading="lazy"><span class="th-tag" style="background:${bg};color:${fg}">${esc(host)}</span></a>`);
+      const tt = titles[u] ? `<span class="th-title">${esc(titles[u])}</span>` : '';
+      thumbCards.push(`<a class="thumb" href="${esc(u)}" target="_blank" rel="noopener">${tt}<img src="${src}" alt="" loading="lazy"><span class="th-tag" style="background:${bg};color:${fg}">${esc(host)}</span></a>`);
     }
   }
   let attach = '';
@@ -428,14 +497,16 @@ function renderEntry(e, thumbs, titles) {
     if (mt.startsWith('image/')) {
       attach += `<a href="${src}" target="_blank"><img class="a-img" src="${src}" alt="${esc(f.name)}" loading="lazy"></a>`;
     } else if (mt.startsWith('video/')) {
-      if (f.broken) {
-        attach += `<a class="btn btn-slack" href="${esc(f.permalink || '#')}" target="_blank" rel="noopener">⚠ ${esc(f.name)} — 파일 손상, 슬랙에서 열기</a>`;
-      } else {
-        attach += `<figure class="v-wrap"><video src="${src}" controls preload="metadata"></video><figcaption>🎬 ${esc(f.name)}</figcaption></figure>`;
-      }
+      attach += `<figure class="v-wrap"><video src="${src}" controls preload="metadata"></video><figcaption>🎬 ${esc(f.name)}</figcaption></figure>`;
     } else {
       attach += `<a class="file-link" href="${src}" download>📎 ${esc(f.name)}</a>`;
     }
+  }
+  // 본문이 없고 링크만 있으면 페이지 제목을 자동 제목으로 표시 (직접 쓴 본문과 구분되는 스타일)
+  let autoTitle = '';
+  if (!e.text && e.links.length) {
+    const at = e.links.map(u => titles[u]).find(Boolean);
+    if (at) autoTitle = `<p class="auto-title"><span class="at-tag">자동 제목</span>${esc(at)}</p>`;
   }
   const cmts = e.comments || [];
   let cmtHtml = '';
@@ -448,7 +519,7 @@ function renderEntry(e, thumbs, titles) {
   return `<article class="entry" data-ts="${e.ts}" data-month="${e.date.slice(0, 7)}" data-types="${entryTypes(e)}" data-topics="${esc(entryTopics(e))}" data-search="${esc(searchKey(e, titles))}">
 <div class="e-head"><span class="e-date">${e.date.slice(5)}</span><span class="e-title">${esc(title)}</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
-${e.text ? `<p class="e-text">${esc(e.text)}</p>` : ''}
+${e.text ? `<p class="e-text">${esc(e.text)}</p>` : autoTitle}
 ${btns ? `<div class="e-btns">${btns}</div>` : ''}
 ${thumbCards.length ? `<div class="thumb-grid">${thumbCards.join('')}</div>` : ''}
 ${attach ? `<div class="attach">${attach}</div>` : ''}
@@ -457,7 +528,8 @@ ${cmtHtml}
 </article>`;
 }
 
-function renderHtml(archive, thumbs, titles) {
+function renderHtml(archive, thumbs, titles, T) {
+  const V = T.vars;
   const months = new Map();
   for (const e of archive) {
     const key = e.date.slice(0, 7);
@@ -469,11 +541,11 @@ function renderHtml(archive, thumbs, titles) {
   let monthOptions = '<option value="all">전체 기간</option>';
   for (const [key, entries] of sortedMonths) {
     const [y, mo] = key.split('-');
-    const color = MONTH_COLORS[parseInt(mo) % MONTH_COLORS.length];
+    const color = T.months[parseInt(mo) % T.months.length];
     monthOptions += `<option value="${key}">${y}년 ${parseInt(mo)}월</option>`;
     sections += `<section class="month" data-key="${key}" style="--maccent:${color}"><div class="month-head"><h2>${y}년 ${parseInt(mo)}월</h2><span class="count">${entries.length}건</span><button type="button" class="m-tgl">▾ 접기</button></div>
 <div class="m-body">
-${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
+${entries.map(e => renderEntry(e, thumbs, titles, T)).join('\n')}
 </div></section>\n`;
   }
   const topicOptions = ['<option value="all">주제: 전체</option>']
@@ -487,8 +559,8 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>#${esc(CHANNEL_NAME)} — 슬랙 아카이브</title>
 <style>
-  :root { --bg:#0e131b; --panel:#151c27; --panel-2:#1b2431; --line:#242f3f; --line-soft:#1e2733;
-    --text:#dfe6f0; --text-dim:#9aa7ba; --text-mute:#6d798c; --accent:#8ab4dd; }
+  :root { --bg:${V.bg}; --panel:${V.panel}; --panel-2:${V.panel2}; --line:${V.line}; --line-soft:${V.lineSoft};
+    --text:${V.text}; --text-dim:${V.textDim}; --text-mute:${V.textMute}; --accent:${V.accent}; --on-accent:${T.onAccent}; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:var(--bg); color:var(--text); font-family:system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif; line-height:1.55; padding:0 0 5rem; }
   .wrap { width:100%; max-width:none; margin:0 auto; padding:0 18px; }
@@ -496,22 +568,26 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
   .eyebrow { font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin-bottom:5px; font-family:monospace; }
   h1 { font-size:22px; letter-spacing:-.02em; margin-bottom:3px; }
   .sub { color:var(--text-dim); font-size:12.5px; }
-  .controls { position:sticky; top:0; z-index:20; background:rgba(14,19,27,.97); backdrop-filter:blur(4px);
-    padding:10px 0; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
-  #q { flex:1 1 220px; min-width:170px; background:var(--panel); border:1px solid var(--line); color:var(--text);
+  .controls { position:sticky; top:0; z-index:20; background:${T.ctrlBg}; backdrop-filter:blur(4px);
+    padding:10px 0; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:12px 14px; align-items:center; }
+  #q { flex:0 1 320px; min-width:200px; margin-right:auto; background:var(--panel); border:1px solid var(--line); color:var(--text);
     padding:9px 13px; border-radius:9px; font-size:13.5px; outline:none; }
   #q:focus { border-color:var(--accent); }
   .chip { background:var(--panel); border:1px solid var(--line); color:var(--text-dim); padding:7px 14px;
     border-radius:999px; font-size:12.5px; cursor:pointer; }
-  .chip.on { background:var(--accent); color:#0e131b; border-color:var(--accent); font-weight:700; }
-  .lbl { font-size:11.5px; color:var(--text-mute); margin-left:2px; }
+  .chip.on { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:700; }
+  .lbl { font-size:11.5px; color:var(--text-mute); }
   .vgroup { display:flex; gap:6px; align-items:center; }
   .sub-btn { background:var(--panel-2); border:1px dashed var(--text-mute); color:var(--text-dim);
     padding:4px 10px; border-radius:999px; font-size:11px; cursor:pointer; }
   .sub-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); }
   .sub-btn:disabled { opacity:.3; cursor:not-allowed; }
   select { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:8px 9px; border-radius:9px; font-size:12.5px; }
-  .count-line { color:var(--text-mute); font-size:12px; margin-left:auto; }
+  .slider-box { display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--line);
+    border-radius:999px; padding:6px 14px; }
+  .slider-box input[type=range] { width:100px; accent-color:var(--accent); cursor:pointer; }
+  .slider-box b { font-family:monospace; font-size:12px; color:var(--accent); min-width:10px; text-align:center; }
+  .count-line { color:var(--text-mute); font-size:12px; }
   .count-line b { color:var(--accent); }
   .month { padding-top:28px; }
   .month-head { display:flex; align-items:center; gap:12px; padding:10px 15px; margin-bottom:14px; border-radius:11px;
@@ -523,13 +599,13 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
     color:var(--maccent); padding:5px 13px; border-radius:8px; cursor:pointer; font-size:12px; font-weight:700; }
   .m-tgl:hover { background:color-mix(in srgb, var(--maccent) 16%, var(--bg)); }
   .month.closed .m-body { display:none !important; }
-  .m-body { columns:4; column-gap:14px; }
-  @media (min-width:1900px) { .m-body { columns:5; } #archiveRoot.view-fixed .m-body { grid-template-columns:repeat(5,1fr); } }
-  @media (max-width:1500px) { .m-body { columns:3; } #archiveRoot.view-fixed .m-body { grid-template-columns:repeat(3,1fr); } }
-  @media (max-width:1050px) { .m-body { columns:2; } #archiveRoot.view-fixed .m-body { grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:680px)  { .m-body { columns:1; } #archiveRoot.view-fixed .m-body { grid-template-columns:1fr; } }
-  #archiveRoot.view-fixed .m-body { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; columns:auto; }
+  .m-body { columns:var(--cols, 4); column-gap:14px; }
+  #archiveRoot.view-fixed .m-body { display:grid; grid-template-columns:repeat(var(--cols, 4), 1fr); gap:14px; columns:auto; }
   #archiveRoot.view-fixed .entry { height:360px; overflow-y:auto; margin:0; }
+  @media (max-width:680px) {
+    .m-body { columns:1 !important; }
+    #archiveRoot.view-fixed .m-body { grid-template-columns:1fr !important; }
+  }
   .entry { background:var(--panel); background:color-mix(in srgb, var(--maccent) 6%, var(--panel));
     border:1px solid color-mix(in srgb, var(--maccent) 20%, var(--line));
     border-left:4px solid var(--maccent);
@@ -544,6 +620,9 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
   .entry.closed .e-body { display:none; }
   .entry.closed { padding-bottom:11px; }
   .e-text { white-space:pre-wrap; word-break:break-word; font-size:13.5px; line-height:1.65; margin-bottom:10px; }
+  .auto-title { font-size:13px; color:var(--text-dim); margin-bottom:10px; word-break:break-word; }
+  .at-tag { display:inline-block; font-size:9.5px; font-family:monospace; color:var(--text-mute);
+    border:1px dashed var(--text-mute); border-radius:4px; padding:1px 5px; margin-right:7px; vertical-align:1px; }
   .e-btns { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
   .btn { display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:12px;
     padding:6px 12px; border-radius:8px; text-decoration:none; }
@@ -576,8 +655,8 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
   .cmt-text { white-space:pre-wrap; word-break:break-word; color:var(--text-dim); line-height:1.55; }
   .cmt-text a { color:var(--accent); }
   #toTop { position:fixed; right:22px; bottom:22px; z-index:30; width:46px; height:46px; border-radius:50%;
-    border:none; background:var(--accent); color:#0e131b; font-size:19px; font-weight:800; cursor:pointer;
-    box-shadow:0 4px 14px rgba(0,0,0,.45); opacity:0; pointer-events:none; transition:opacity .25s; }
+    border:none; background:var(--accent); color:var(--on-accent); font-size:19px; font-weight:800; cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.35); opacity:0; pointer-events:none; transition:opacity .25s; }
   #toTop.show { opacity:1; pointer-events:auto; }
   #toTop:hover { opacity:.85; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--line); color:var(--text-mute); font-size:11.5px; font-family:monospace; }
@@ -591,7 +670,8 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
     <p class="sub">슬랙 아카이브 · 총 ${archive.length}건 · 마지막 갱신 ${now} (KST)</p>
   </header>
   <div class="controls">
-    <input id="q" type="search" placeholder="검색 — 제목·링크·파일명·댓글 (띄어쓰기 무관)">
+    <input id="q" type="search" placeholder="검색 — 제목·링크·파일명·댓글">
+    <div class="slider-box"><span class="lbl">그리드</span><input type="range" id="gridSize" min="1" max="5" step="1" value="3"><b id="gridVal">3</b></div>
     <span class="lbl">보기</span>
     <div class="vgroup">
       <button type="button" id="viewCollapse" class="chip on">접기식</button>
@@ -622,6 +702,8 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
 <script>
 (function () {
   var q = document.getElementById('q');
+  var gridSize = document.getElementById('gridSize');
+  var gridVal = document.getElementById('gridVal');
   var viewCollapse = document.getElementById('viewCollapse');
   var viewFixed = document.getElementById('viewFixed');
   var btnCloseAll = document.getElementById('btnCloseAll');
@@ -659,6 +741,11 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
     });
     countEl.textContent = shown;
   }
+  function applyGrid() {
+    var v = parseInt(gridSize.value, 10);
+    gridVal.textContent = v;
+    root.style.setProperty('--cols', v + 1);
+  }
   function resort() {
     var dir = sortSel.value;
     var secs = Array.prototype.slice.call(root.querySelectorAll('.month'));
@@ -688,6 +775,7 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
     if (dis) entries.forEach(function (el) { el.classList.remove('closed'); });
   }
   q.addEventListener('input', apply);
+  gridSize.addEventListener('input', applyGrid);
   monthSel.addEventListener('change', apply);
   topicSel.addEventListener('change', apply);
   sortSel.addEventListener('change', resort);
@@ -736,6 +824,7 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
   });
   toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
   setView('collapse');
+  applyGrid();
 })();
 </script>
 </body>
@@ -786,14 +875,17 @@ ${entries.map(e => renderEntry(e, thumbs, titles)).join('\n')}
   if (MODE === 'full') {
     await syncComments(archive);
     await ensureWebVideos(archive);
+    pruneBrokenFiles(archive);
   }
   await checkYoutubeLinks(archive, titles, thumbs);
-  if (MODE === 'full') await collectThumbs(archive, thumbs);
+  if (MODE === 'full') await collectThumbs(archive, thumbs, titles);
 
   fs.writeFileSync(DATA_FILE, JSON.stringify(archive, null, 2));
   fs.writeFileSync(STATE_FILE, JSON.stringify({ lastTs }));
   fs.writeFileSync(THUMBS_FILE, JSON.stringify(thumbs, null, 2));
   fs.writeFileSync(TITLES_FILE, JSON.stringify(titles, null, 2));
-  fs.writeFileSync(HTML_FILE, renderHtml(archive, thumbs, titles));
-  console.log('완료(' + MODE + '): 총 ' + archive.length + '건, archive.html 갱신됨');
+  for (const T of Object.values(THEMES)) {
+    fs.writeFileSync(T.file, renderHtml(archive, thumbs, titles, T));
+  }
+  console.log('완료(' + MODE + '): 총 ' + archive.length + '건, 다크·라이트 HTML 갱신됨');
 })().catch(e => { console.error(e.message || e); process.exit(1); });
