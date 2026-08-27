@@ -169,6 +169,19 @@ function isWebPlayable(info) {
   return okCodec && okPix;
 }
 
+// 비정상 vpcC 박스(빈 VP9 코덱 설정)를 'free' 박스로 바꿔서 파서가 건너뛰게 하는 구조 패치
+function tryPatchVpcc(p) {
+  try {
+    const buf = fs.readFileSync(p);
+    const needle = Buffer.from('vpcC');
+    let idx = -1, n = 0;
+    while ((idx = buf.indexOf(needle, idx + 1)) !== -1) { buf.write('free', idx, 'ascii'); n++; }
+    if (!n) return false;
+    fs.writeFileSync(p, buf);
+    return true;
+  } catch { return false; }
+}
+
 // 손상된 파일을 슬랙에서 다시 다운로드
 async function refetchFromSlack(e, f) {
   const r = await slack('conversations.replies', { channel: CHANNEL_ID, ts: e.ts, limit: 1 });
@@ -196,16 +209,27 @@ async function ensureWebVideos(archive) {
       if (!(f.mimetype || '').startsWith('video/')) continue;
       if (!f.path || !fs.existsSync(f.path)) { f.vok = true; continue; }
       const force = FORCE_CONVERT.includes(f.name) && !/_web\d?\.mp4$/.test(f.path);
-      if (!force && f.vok) continue;
+      const needRepair = f.broken && !f.vpatch; // 이전에 손상 판정된 파일도 패치는 한 번 더 시도
+      if (!force && f.vok && !needRepair) continue;
       if (budget <= 0) continue;
       let info = ffprobeInfo(f.path);
+      let patchedNow = false;
       if (!info) {
-        // 파일 손상 의심 → 슬랙에서 1회 재다운로드 시도
+        // 1단계: 슬랙에서 재다운로드 (다운로드 중 손상 케이스)
         if (!f.redl) {
           f.redl = true;
           console.log('파일 손상 의심, 슬랙에서 재다운로드 시도: ' + f.name);
           const ok = await refetchFromSlack(e, f).catch(() => false);
           if (ok) info = ffprobeInfo(f.path);
+          if (info) console.log('재다운로드로 복구됨: ' + f.name);
+        }
+        // 2단계: 구조 패치 (원본 자체가 비정상 vpcC인 케이스)
+        if (!info && !f.vpatch) {
+          f.vpatch = true;
+          if (tryPatchVpcc(f.path)) {
+            info = ffprobeInfo(f.path);
+            if (info) { patchedNow = true; console.log('구조 패치로 복구됨(' + info.codec + '): ' + f.name); }
+          }
         }
         if (!info) {
           f.broken = true; f.vok = true;
@@ -213,9 +237,8 @@ async function ensureWebVideos(archive) {
           continue;
         }
         f.broken = false;
-        console.log('재다운로드로 복구됨: ' + f.name);
       }
-      if (!force && isWebPlayable(info)) { f.vok = true; continue; }
+      if (!force && !patchedNow && isWebPlayable(info)) { f.vok = true; continue; }
       budget--;
       const out = f.path.replace(/(_web\d?)?\.[^.]+$/, '') + '_web4.mp4';
       const codecInfo = info.codec + '/' + info.pix;
@@ -231,7 +254,7 @@ async function ensureWebVideos(archive) {
           continue;
         }
         fs.unlinkSync(f.path);
-        f.path = out; f.mimetype = 'video/mp4'; f.vok = true;
+        f.path = out; f.mimetype = 'video/mp4'; f.vok = true; f.broken = false;
         console.log((force ? '강제 ' : '') + '영상 변환 완료(' + codecInfo + ' → h264/yuv420p): ' + f.name);
       } catch {
         f.vtries = (f.vtries || 0) + 1;
