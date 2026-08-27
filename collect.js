@@ -48,35 +48,35 @@ const BRAND = {
 const PRETENDARD = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">';
 const FONT_STACK = "'Pretendard',system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif";
 
-// 테마 정의 (다크/라이트 두 파일 생성) — 포털 컬러 기준
+// 테마 정의 (다크/라이트 두 파일 생성) — 포털에서 추출한 정확한 색상값 사용
 const THEMES = {
   dark: {
     name: 'dark',
     file: 'archive.html',
-    vars: { bg: '#0c0e14', panel: '#14161f', panel2: '#1d212e', line: '#262b38', lineSoft: '#1e222d',
-      text: '#e4e7ee', textDim: '#9aa2b1', textMute: '#6a7280', accent: '#4353ff' },
+    vars: { bg: '#0c0f1e', panel: '#1c2237', panel2: '#262c45', line: '#2e3654', lineSoft: '#232a44',
+      text: '#f1f5f9', textDim: '#98a3b7', textMute: '#404c65', accent: '#385cf5' },
     onAccent: '#ffffff',
-    ctrlBg: 'rgba(12,14,20,.97)',
-    months: ['#6b76ff'],   // 월별 컬러 통일 (블루 계열 하나)
+    ctrlBg: 'rgba(12,15,30,.97)',
+    headBg: '#182240',
+    months: ['#5d7bff'],   // 월별 컬러 통일 (다크 배경에서 읽히도록 살짝 밝은 블루)
     fontLink: PRETENDARD,
     fontFamily: FONT_STACK,
     cardShadow: 'none',
-    tintCard: 4, tintHead: 11,
     hoverCss: '.entry:hover { border-color:var(--accent); }',
   },
   light: {
     name: 'light',
     file: 'archive_light.html',
-    vars: { bg: '#f7f8fa', panel: '#ffffff', panel2: '#eef0f5', line: '#e2e6ee', lineSoft: '#e9edf2',
-      text: '#1a2233', textDim: '#5b6472', textMute: '#98a1ad', accent: '#4353ff' },
+    vars: { bg: '#eff2f7', panel: '#ffffff', panel2: '#e3e8f0', line: '#dbe2ec', lineSoft: '#e6ebf3',
+      text: '#374154', textDim: '#6b7689', textMute: '#94a3b8', accent: '#385cf5' },
     onAccent: '#ffffff',
-    ctrlBg: 'rgba(247,248,250,.97)',
-    months: ['#4353ff'],   // 월별 컬러 통일 (블루 계열 하나)
+    ctrlBg: 'rgba(239,242,247,.97)',
+    headBg: '#e2eafc',
+    months: ['#385cf5'],   // 월별 컬러 통일
     fontLink: PRETENDARD,
     fontFamily: FONT_STACK,
-    cardShadow: '0 1px 3px rgba(16,24,40,.07)',
-    tintCard: 3, tintHead: 8,
-    hoverCss: '.entry:hover { background:#e9ecf5; }',
+    cardShadow: '0 1px 3px rgba(16,24,40,.06)',
+    hoverCss: '.entry:hover { background:#e2eafc; }',
   },
 };
 
@@ -616,8 +616,8 @@ ${T.fontLink}
   .count-line b { color:var(--accent); }
   .month { padding-top:28px; }
   .month-head { display:flex; align-items:center; gap:12px; padding:10px 15px; margin-bottom:14px; border-radius:10px;
-    background:color-mix(in srgb, var(--maccent) ${T.tintHead}%, var(--bg));
-    border:1px solid color-mix(in srgb, var(--maccent) 32%, var(--line)); }
+    background:${T.headBg};
+    border:1px solid color-mix(in srgb, var(--maccent) 28%, var(--line)); }
   .month-head h2 { font-size:19px; color:var(--maccent); }
   .month-head .count { font-family:monospace; font-size:12.5px; color:var(--text-dim); }
   .m-tgl { margin-left:auto; background:none; border:1px solid color-mix(in srgb, var(--maccent) 42%, var(--line));
@@ -631,8 +631,8 @@ ${T.fontLink}
     .m-body { columns:1 !important; }
     #archiveRoot.view-fixed .m-body { grid-template-columns:1fr !important; }
   }
-  .entry { background:var(--panel); background:color-mix(in srgb, var(--maccent) ${T.tintCard}%, var(--panel));
-    border:1px solid color-mix(in srgb, var(--maccent) 18%, var(--line));
+  .entry { background:var(--panel);
+    border:1px solid var(--line);
     border-left:4px solid var(--maccent);
     border-radius:10px; padding:14px 16px; margin:0 0 14px; break-inside:avoid; box-shadow:${T.cardShadow};
     transition:border-color .15s, background .15s; }
