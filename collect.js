@@ -45,23 +45,36 @@ const BRAND = {
   'lumalabs.ai': ['#B36AE2', '#fff'],
 };
 
+const PRETENDARD = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">';
+const FONT_STACK = "'Pretendard',system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif";
+
 // 테마 정의 (다크/라이트 두 파일 생성)
 const THEMES = {
   dark: {
     file: 'archive.html',
-    vars: { bg: '#0e131b', panel: '#151c27', panel2: '#1b2431', line: '#242f3f', lineSoft: '#1e2733',
-      text: '#dfe6f0', textDim: '#9aa7ba', textMute: '#6d798c', accent: '#8ab4dd' },
-    onAccent: '#0e131b',
-    ctrlBg: 'rgba(14,19,27,.97)',
-    months: ['#8ab4dd', '#7fc4c9', '#a89fd9', '#cbb58e', '#c898ab', '#8fc4a2'],
+    vars: { bg: '#0b0e15', panel: '#12161f', panel2: '#181d29', line: '#232936', lineSoft: '#1c212c',
+      text: '#e2e6ef', textDim: '#98a0b3', textMute: '#646d80', accent: '#4c68ff' },
+    onAccent: '#ffffff',
+    ctrlBg: 'rgba(11,14,21,.97)',
+    months: ['#5c78ff', '#43b0b8', '#8d7bde', '#c2a05e', '#c37c98', '#5fae7f'],
+    fontLink: PRETENDARD,
+    fontFamily: FONT_STACK,
+    cardShadow: 'none',
+    tintCard: 5, tintHead: 12,
+    hoverCss: '.entry:hover { border-color:var(--accent); }',
   },
   light: {
     file: 'archive_light.html',
-    vars: { bg: '#f4f6f9', panel: '#ffffff', panel2: '#edf1f6', line: '#dbe2ea', lineSoft: '#e6ebf1',
-      text: '#212b38', textDim: '#57637a', textMute: '#8792a3', accent: '#3d7fc2' },
+    vars: { bg: '#f7f8fa', panel: '#ffffff', panel2: '#f2f4f7', line: '#e4e8ee', lineSoft: '#eceff3',
+      text: '#1a2233', textDim: '#5b6472', textMute: '#98a1ad', accent: '#4353ff' },
     onAccent: '#ffffff',
-    ctrlBg: 'rgba(244,246,249,.97)',
-    months: ['#3d7fc2', '#2e9099', '#7565b8', '#9c7c35', '#ab5a78', '#468f60'],
+    ctrlBg: 'rgba(247,248,250,.97)',
+    months: ['#4a63e7', '#2e9099', '#7a63d8', '#b08430', '#c25f86', '#3f9e63'],
+    fontLink: PRETENDARD,
+    fontFamily: FONT_STACK,
+    cardShadow: '0 1px 3px rgba(16,24,40,.07)',
+    tintCard: 4, tintHead: 9,
+    hoverCss: '.entry:hover { background:#e9ecf5; }',
   },
 };
 
@@ -502,7 +515,6 @@ function renderEntry(e, thumbs, titles, T) {
       attach += `<a class="file-link" href="${src}" download>📎 ${esc(f.name)}</a>`;
     }
   }
-  // 본문이 없고 링크만 있으면 페이지 제목을 자동 제목으로 표시 (직접 쓴 본문과 구분되는 스타일)
   let autoTitle = '';
   if (!e.text && e.links.length) {
     const at = e.links.map(u => titles[u]).find(Boolean);
@@ -558,11 +570,12 @@ ${entries.map(e => renderEntry(e, thumbs, titles, T)).join('\n')}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>#${esc(CHANNEL_NAME)} — 슬랙 아카이브</title>
+${T.fontLink}
 <style>
   :root { --bg:${V.bg}; --panel:${V.panel}; --panel-2:${V.panel2}; --line:${V.line}; --line-soft:${V.lineSoft};
     --text:${V.text}; --text-dim:${V.textDim}; --text-mute:${V.textMute}; --accent:${V.accent}; --on-accent:${T.onAccent}; }
   * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--bg); color:var(--text); font-family:system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif; line-height:1.55; padding:0 0 5rem; }
+  body { background:var(--bg); color:var(--text); font-family:${T.fontFamily}; line-height:1.55; padding:0 0 5rem; }
   .wrap { width:100%; max-width:none; margin:0 auto; padding:0 18px; }
   header { padding:22px 0 10px; }
   .eyebrow { font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin-bottom:5px; font-family:monospace; }
@@ -570,11 +583,12 @@ ${entries.map(e => renderEntry(e, thumbs, titles, T)).join('\n')}
   .sub { color:var(--text-dim); font-size:12.5px; }
   .controls { position:sticky; top:0; z-index:20; background:${T.ctrlBg}; backdrop-filter:blur(4px);
     padding:10px 0; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:12px 14px; align-items:center; }
-  #q { flex:0 1 320px; min-width:200px; margin-right:auto; background:var(--panel); border:1px solid var(--line); color:var(--text);
-    padding:9px 13px; border-radius:9px; font-size:13.5px; outline:none; }
+  #q { flex:0 1 520px; min-width:240px; margin-right:auto; background:var(--panel); border:1px solid var(--line); color:var(--text);
+    padding:9px 13px; border-radius:9px; font-size:13.5px; outline:none; box-shadow:${T.cardShadow}; }
   #q:focus { border-color:var(--accent); }
   .chip { background:var(--panel); border:1px solid var(--line); color:var(--text-dim); padding:7px 14px;
-    border-radius:999px; font-size:12.5px; cursor:pointer; }
+    border-radius:999px; font-size:12.5px; cursor:pointer; box-shadow:${T.cardShadow}; }
+  .chip:hover { border-color:var(--accent); }
   .chip.on { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:700; }
   .lbl { font-size:11.5px; color:var(--text-mute); }
   .vgroup { display:flex; gap:6px; align-items:center; }
@@ -582,16 +596,16 @@ ${entries.map(e => renderEntry(e, thumbs, titles, T)).join('\n')}
     padding:4px 10px; border-radius:999px; font-size:11px; cursor:pointer; }
   .sub-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); }
   .sub-btn:disabled { opacity:.3; cursor:not-allowed; }
-  select { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:8px 9px; border-radius:9px; font-size:12.5px; }
+  select { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:8px 9px; border-radius:9px; font-size:12.5px; box-shadow:${T.cardShadow}; }
   .slider-box { display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--line);
-    border-radius:999px; padding:6px 14px; }
+    border-radius:999px; padding:6px 14px; box-shadow:${T.cardShadow}; }
   .slider-box input[type=range] { width:100px; accent-color:var(--accent); cursor:pointer; }
   .slider-box b { font-family:monospace; font-size:12px; color:var(--accent); min-width:10px; text-align:center; }
   .count-line { color:var(--text-mute); font-size:12px; }
   .count-line b { color:var(--accent); }
   .month { padding-top:28px; }
   .month-head { display:flex; align-items:center; gap:12px; padding:10px 15px; margin-bottom:14px; border-radius:11px;
-    background:color-mix(in srgb, var(--maccent) 13%, var(--bg));
+    background:color-mix(in srgb, var(--maccent) ${T.tintHead}%, var(--bg));
     border:1px solid color-mix(in srgb, var(--maccent) 36%, var(--line)); }
   .month-head h2 { font-size:19px; color:var(--maccent); }
   .month-head .count { font-family:monospace; font-size:12.5px; color:var(--text-dim); }
@@ -606,10 +620,12 @@ ${entries.map(e => renderEntry(e, thumbs, titles, T)).join('\n')}
     .m-body { columns:1 !important; }
     #archiveRoot.view-fixed .m-body { grid-template-columns:1fr !important; }
   }
-  .entry { background:var(--panel); background:color-mix(in srgb, var(--maccent) 6%, var(--panel));
+  .entry { background:var(--panel); background:color-mix(in srgb, var(--maccent) ${T.tintCard}%, var(--panel));
     border:1px solid color-mix(in srgb, var(--maccent) 20%, var(--line));
     border-left:4px solid var(--maccent);
-    border-radius:12px; padding:14px 16px; margin:0 0 14px; break-inside:avoid; }
+    border-radius:12px; padding:14px 16px; margin:0 0 14px; break-inside:avoid; box-shadow:${T.cardShadow};
+    transition:border-color .15s, background .15s; }
+  ${T.hoverCss}
   .e-head { display:flex; align-items:center; gap:10px; margin-bottom:7px; }
   .e-date { font-family:monospace; font-size:15.5px; font-weight:800; color:var(--maccent); letter-spacing:.02em; white-space:nowrap; }
   .e-title { display:none; font-size:12.5px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; }
@@ -656,7 +672,7 @@ ${entries.map(e => renderEntry(e, thumbs, titles, T)).join('\n')}
   .cmt-text a { color:var(--accent); }
   #toTop { position:fixed; right:22px; bottom:22px; z-index:30; width:46px; height:46px; border-radius:50%;
     border:none; background:var(--accent); color:var(--on-accent); font-size:19px; font-weight:800; cursor:pointer;
-    box-shadow:0 4px 14px rgba(0,0,0,.35); opacity:0; pointer-events:none; transition:opacity .25s; }
+    box-shadow:0 4px 14px rgba(0,0,0,.25); opacity:0; pointer-events:none; transition:opacity .25s; }
   #toTop.show { opacity:1; pointer-events:auto; }
   #toTop:hover { opacity:.85; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--line); color:var(--text-mute); font-size:11.5px; font-family:monospace; }
@@ -670,7 +686,7 @@ ${entries.map(e => renderEntry(e, thumbs, titles, T)).join('\n')}
     <p class="sub">슬랙 아카이브 · 총 ${archive.length}건 · 마지막 갱신 ${now} (KST)</p>
   </header>
   <div class="controls">
-    <input id="q" type="search" placeholder="검색 — 제목·링크·파일명·댓글">
+    <input id="q" type="search" placeholder="검색 — 제목·링크·파일명·댓글 (띄어쓰기 무관)">
     <div class="slider-box"><span class="lbl">그리드</span><input type="range" id="gridSize" min="1" max="5" step="1" value="3"><b id="gridVal">3</b></div>
     <span class="lbl">보기</span>
     <div class="vgroup">
