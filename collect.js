@@ -22,6 +22,9 @@ const COMMENT_BUDGET = 30;  // 실행 1회당 댓글 갱신 최대 카드 수
 // 검사를 통과했는데도 화면이 안 나오는 영상 — 여기에 파일명을 적으면 무조건 재인코딩함
 const FORCE_CONVERT = [];
 
+// 이 도메인이 본문·링크에 포함된 카드는 통째로 삭제 (개인정보 보호)
+const BLOCKED_DOMAINS = ['figma.com'];
+
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
 
 // 사이트별 고유색 [배경, 글자색]
@@ -146,6 +149,43 @@ async function downloadFile(f, ts) {
   if (!res.ok) throw new Error('HTTP ' + res.status);
   fs.writeFileSync(rel, Buffer.from(await res.arrayBuffer()));
   return rel;
+}
+
+// ---------- 차단 도메인 카드 삭제 ----------
+function isBlockedStr(s) {
+  const low = (s || '').toLowerCase();
+  return BLOCKED_DOMAINS.some(d => low.includes(d));
+}
+
+function pruneBlockedCards(archive, thumbs, titles) {
+  let removedCards = 0, removedCmts = 0;
+  for (let i = archive.length - 1; i >= 0; i--) {
+    const e = archive[i];
+    // 본문이나 링크에 차단 도메인 포함 → 카드 통째로 삭제
+    if (e.links.some(isBlockedStr) || isBlockedStr(e.text)) {
+      for (const f of e.files) {
+        if (f.path && fs.existsSync(f.path)) { try { fs.unlinkSync(f.path); } catch {} }
+      }
+      for (const u of e.links) {
+        const th = thumbs[u];
+        if (th && !String(th).startsWith('http')) { try { fs.unlinkSync(th); } catch {} }
+        delete thumbs[u];
+        delete titles[u];
+      }
+      archive.splice(i, 1);
+      removedCards++;
+      continue;
+    }
+    // 댓글에만 포함된 경우 → 해당 댓글만 제거
+    if (e.comments && e.comments.length) {
+      const before = e.comments.length;
+      e.comments = e.comments.filter(c => !isBlockedStr(c.text));
+      removedCmts += before - e.comments.length;
+    }
+  }
+  if (removedCards || removedCmts) {
+    console.log('차단 도메인 정리: 카드 ' + removedCards + '개, 댓글 ' + removedCmts + '개 삭제 (' + BLOCKED_DOMAINS.join(', ') + ')');
+  }
 }
 
 // ---------- 댓글(스레드 답글) 수집 ----------
@@ -905,6 +945,7 @@ ${T.fontLink}
     await ensureWebVideos(archive);
     pruneBrokenFiles(archive);
   }
+  pruneBlockedCards(archive, thumbs, titles);
   await checkYoutubeLinks(archive, titles, thumbs);
   if (MODE === 'full') await collectThumbs(archive, thumbs, titles);
 
