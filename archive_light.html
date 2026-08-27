@@ -6,46 +6,51 @@
 <title>#genai-2d_정보-공유 — 슬랙 아카이브</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
-  :root { --bg:#f7f8fa; --panel:#ffffff; --panel-2:#f2f4f7; --line:#e4e8ee; --line-soft:#eceff3;
+  :root { --bg:#f7f8fa; --panel:#ffffff; --panel-2:#eef0f5; --line:#e2e6ee; --line-soft:#e9edf2;
     --text:#1a2233; --text-dim:#5b6472; --text-mute:#98a1ad; --accent:#4353ff; --on-accent:#ffffff; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:var(--bg); color:var(--text); font-family:'Pretendard',system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif; line-height:1.55; padding:0 0 5rem; }
   .wrap { width:100%; max-width:none; margin:0 auto; padding:0 18px; }
-  header { padding:22px 0 10px; }
+  header { padding:22px 0 10px; position:relative; }
   .eyebrow { font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin-bottom:5px; font-family:monospace; }
   h1 { font-size:22px; letter-spacing:-.02em; margin-bottom:3px; }
   .sub { color:var(--text-dim); font-size:12.5px; }
+  .theme-sw { position:absolute; top:20px; right:0; display:flex; gap:3px; background:var(--panel-2);
+    border:1px solid var(--line); border-radius:10px; padding:3px; }
+  .tsw { padding:5px 14px; border-radius:8px; font-size:12px; color:var(--text-dim); text-decoration:none; font-weight:500; }
+  .tsw:hover { color:var(--text); }
+  .tsw.on { background:var(--accent); color:var(--on-accent); font-weight:700; }
   .controls { position:sticky; top:0; z-index:20; background:rgba(247,248,250,.97); backdrop-filter:blur(4px);
     padding:10px 0; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:12px 14px; align-items:center; }
   #q { flex:0 1 520px; min-width:240px; margin-right:auto; background:var(--panel); border:1px solid var(--line); color:var(--text);
     padding:9px 13px; border-radius:9px; font-size:13.5px; outline:none; box-shadow:0 1px 3px rgba(16,24,40,.07); }
   #q:focus { border-color:var(--accent); }
-  .chip { background:var(--panel); border:1px solid var(--line); color:var(--text-dim); padding:7px 14px;
-    border-radius:999px; font-size:12.5px; cursor:pointer; box-shadow:0 1px 3px rgba(16,24,40,.07); }
+  .chip { background:var(--panel-2); border:1px solid var(--line); color:var(--text-dim); padding:7px 14px;
+    border-radius:9px; font-size:12.5px; cursor:pointer; box-shadow:0 1px 3px rgba(16,24,40,.07); font-weight:500; }
   .chip:hover { border-color:var(--accent); }
   .chip.on { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:700; }
   .lbl { font-size:11.5px; color:var(--text-mute); }
   .vgroup { display:flex; gap:6px; align-items:center; }
   .sub-btn { background:var(--panel-2); border:1px dashed var(--text-mute); color:var(--text-dim);
-    padding:4px 10px; border-radius:999px; font-size:11px; cursor:pointer; }
+    padding:4px 10px; border-radius:8px; font-size:11px; cursor:pointer; }
   .sub-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); }
   .sub-btn:disabled { opacity:.3; cursor:not-allowed; }
-  select { background:var(--panel); border:1px solid var(--line); color:var(--text); padding:8px 9px; border-radius:9px; font-size:12.5px; box-shadow:0 1px 3px rgba(16,24,40,.07); }
-  .slider-box { display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--line);
-    border-radius:999px; padding:6px 14px; box-shadow:0 1px 3px rgba(16,24,40,.07); }
+  select { background:var(--panel-2); border:1px solid var(--line); color:var(--text); padding:8px 9px; border-radius:9px; font-size:12.5px; box-shadow:0 1px 3px rgba(16,24,40,.07); }
+  .slider-box { display:flex; align-items:center; gap:8px; background:var(--panel-2); border:1px solid var(--line);
+    border-radius:9px; padding:6px 14px; box-shadow:0 1px 3px rgba(16,24,40,.07); }
   .slider-box input[type=range] { width:100px; accent-color:var(--accent); cursor:pointer; }
   .slider-box b { font-family:monospace; font-size:12px; color:var(--accent); min-width:10px; text-align:center; }
   .count-line { color:var(--text-mute); font-size:12px; }
   .count-line b { color:var(--accent); }
   .month { padding-top:28px; }
-  .month-head { display:flex; align-items:center; gap:12px; padding:10px 15px; margin-bottom:14px; border-radius:11px;
-    background:color-mix(in srgb, var(--maccent) 9%, var(--bg));
-    border:1px solid color-mix(in srgb, var(--maccent) 36%, var(--line)); }
+  .month-head { display:flex; align-items:center; gap:12px; padding:10px 15px; margin-bottom:14px; border-radius:10px;
+    background:color-mix(in srgb, var(--maccent) 8%, var(--bg));
+    border:1px solid color-mix(in srgb, var(--maccent) 32%, var(--line)); }
   .month-head h2 { font-size:19px; color:var(--maccent); }
   .month-head .count { font-family:monospace; font-size:12.5px; color:var(--text-dim); }
-  .m-tgl { margin-left:auto; background:none; border:1px solid color-mix(in srgb, var(--maccent) 45%, var(--line));
+  .m-tgl { margin-left:auto; background:none; border:1px solid color-mix(in srgb, var(--maccent) 42%, var(--line));
     color:var(--maccent); padding:5px 13px; border-radius:8px; cursor:pointer; font-size:12px; font-weight:700; }
-  .m-tgl:hover { background:color-mix(in srgb, var(--maccent) 16%, var(--bg)); }
+  .m-tgl:hover { background:color-mix(in srgb, var(--maccent) 15%, var(--bg)); }
   .month.closed .m-body { display:none !important; }
   .m-body { columns:var(--cols, 4); column-gap:14px; }
   #archiveRoot.view-fixed .m-body { display:grid; grid-template-columns:repeat(var(--cols, 4), 1fr); gap:14px; columns:auto; }
@@ -54,10 +59,10 @@
     .m-body { columns:1 !important; }
     #archiveRoot.view-fixed .m-body { grid-template-columns:1fr !important; }
   }
-  .entry { background:var(--panel); background:color-mix(in srgb, var(--maccent) 4%, var(--panel));
-    border:1px solid color-mix(in srgb, var(--maccent) 20%, var(--line));
+  .entry { background:var(--panel); background:color-mix(in srgb, var(--maccent) 3%, var(--panel));
+    border:1px solid color-mix(in srgb, var(--maccent) 18%, var(--line));
     border-left:4px solid var(--maccent);
-    border-radius:12px; padding:14px 16px; margin:0 0 14px; break-inside:avoid; box-shadow:0 1px 3px rgba(16,24,40,.07);
+    border-radius:10px; padding:14px 16px; margin:0 0 14px; break-inside:avoid; box-shadow:0 1px 3px rgba(16,24,40,.07);
     transition:border-color .15s, background .15s; }
   .entry:hover { background:#e9ecf5; }
   .e-head { display:flex; align-items:center; gap:10px; margin-bottom:7px; }
@@ -79,7 +84,7 @@
   .btn:hover { opacity:.82; }
   .btn-slack { background:#4A154B; color:#fff; }
   .thumb-grid { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
-  .thumb { position:relative; display:block; width:100%; max-width:340px; border-radius:10px; overflow:hidden;
+  .thumb { position:relative; display:block; width:100%; max-width:340px; border-radius:9px; overflow:hidden;
     border:1px solid var(--line); background:var(--panel-2); }
   .thumb img { width:100%; display:block; }
   .thumb .th-title { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
@@ -88,12 +93,12 @@
     font-weight:700; padding:3px 8px; border-radius:5px; opacity:.94; }
   .thumb:hover img { opacity:.85; }
   .attach { display:flex; flex-wrap:wrap; gap:12px; align-items:flex-start; }
-  .a-img { max-width:100%; max-height:260px; border-radius:10px; border:1px solid var(--line); display:block; }
+  .a-img { max-width:100%; max-height:260px; border-radius:9px; border:1px solid var(--line); display:block; }
   .v-wrap { margin:0; width:100%; }
-  .v-wrap video { width:100%; border-radius:10px; border:1px solid var(--line); display:block; background:#000; }
+  .v-wrap video { width:100%; border-radius:9px; border:1px solid var(--line); display:block; background:#000; }
   .v-wrap figcaption { font-size:11.5px; color:var(--text-mute); margin-top:5px; word-break:break-all; }
   .file-link { display:inline-flex; align-items:center; gap:6px; background:var(--panel-2); border:1px solid var(--line);
-    color:var(--text); padding:8px 12px; border-radius:9px; text-decoration:none; font-size:12.5px; word-break:break-all; }
+    color:var(--text); padding:8px 12px; border-radius:8px; text-decoration:none; font-size:12.5px; word-break:break-all; }
   .file-link:hover { border-color:var(--accent); }
   .cmt { margin-top:11px; border-top:1px dashed var(--line); padding-top:7px; }
   .cmt-tgl { background:none; border:none; color:var(--text-dim); font-size:12px; font-weight:700; cursor:pointer; padding:2px 0; }
@@ -117,7 +122,11 @@
   <header>
     <div class="eyebrow">Slack Auto Archive</div>
     <h1>#genai-2d_정보-공유 채널</h1>
-    <p class="sub">슬랙 아카이브 · 총 304건 · 마지막 갱신 2026-08-27 13:35 (KST)</p>
+    <p class="sub">슬랙 아카이브 · 총 304건 · 마지막 갱신 2026-08-27 14:41 (KST)</p>
+    <div class="theme-sw">
+    <a href="archive.html" class="tsw">다크</a>
+    <a href="archive_light.html" class="tsw on">라이트</a>
+  </div>
   </header>
   <div class="controls">
     <input id="q" type="search" placeholder="검색 — 제목·링크·파일명·댓글 (띄어쓰기 무관)">
@@ -144,7 +153,7 @@
     <span class="count-line">총 304건 중 <b id="resultCount">304</b>건 표시</span>
   </div>
   <main id="archiveRoot" class="view-collapse">
-  <section class="month" data-key="2026-08" style="--maccent:#7a63d8"><div class="month-head"><h2>2026년 8월</h2><span class="count">43건</span><button type="button" class="m-tgl">▾ 접기</button></div>
+  <section class="month" data-key="2026-08" style="--maccent:#4353ff"><div class="month-head"><h2>2026년 8월</h2><span class="count">43건</span><button type="button" class="m-tgl">▾ 접기</button></div>
 <div class="m-body">
 <article class="entry" data-ts="1787798397.168319" data-month="2026-08" data-types="video" data-topics="기타" data-search="youtube.com/watch?v=mwb07_hrmpm&amp;t=1shttps://www.youtube.com/watch?v=mwb07_hrmpm&amp;t=1sfinally,ai-generateddepthpassthatactuallywork|comfyui">
 <div class="e-head"><span class="e-date">08-27</span><span class="e-title">youtube.com/watch?v=mwb07_HrmpM&amp;t=1s</span><button type="button" class="e-tgl">▾</button></div>
@@ -668,7 +677,7 @@ github.com/zju3dv/GVHMR</p>
 </div>
 </article>
 </div></section>
-<section class="month" data-key="2026-07" style="--maccent:#2e9099"><div class="month-head"><h2>2026년 7월</h2><span class="count">261건</span><button type="button" class="m-tgl">▾ 접기</button></div>
+<section class="month" data-key="2026-07" style="--maccent:#4353ff"><div class="month-head"><h2>2026년 7월</h2><span class="count">261건</span><button type="button" class="m-tgl">▾ 접기</button></div>
 <div class="m-body">
 <article class="entry" data-ts="1785490257.330169" data-month="2026-07" data-types="link" data-topics="기타" data-search="시댄스2.5활용예시bytedance.larkoffice.com/wiki/…?from=from_copylinkhttps://bytedance.larkoffice.com/wiki/o3mxwsfm5i48ijkjxdnchsqdnfd?from=from_copylink">
 <div class="e-head"><span class="e-date">07-31</span><span class="e-title">시댄스 2.5 활용예시
@@ -2197,22 +2206,22 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697264.738059" data-month="2026-07" data-types="link" data-topics="기타" data-search="로그아웃풋huggingface.co/…/z-image-turbo_logc4_lorahttps://huggingface.co/sumitc13/z-image-turbo_logc4_lora">
+<article class="entry" data-ts="1784697264.738059" data-month="2026-07" data-types="link" data-topics="기타" data-search="로그아웃풋huggingface.co/…/z-image-turbo_logc4_lorahttps://huggingface.co/sumitc13/z-image-turbo_logc4_lorasumitc13/z-image-turbo_logc4_lora·huggingface">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">로그 아웃풋 huggingface.co/…/Z-image-Turbo_LogC4_lora</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">로그 아웃풋 huggingface.co/…/Z-image-Turbo_LogC4_lora</p>
 <div class="e-btns"><a class="btn" style="background:#FFB000;color:#1b1f23" href="https://huggingface.co/Sumitc13/Z-image-Turbo_LogC4_lora" target="_blank" rel="noopener">huggingface.co ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://huggingface.co/Sumitc13/Z-image-Turbo_LogC4_lora" target="_blank" rel="noopener"><img src="files/thumbs/4c87eaeeb5ec9e3b.png" alt="" loading="lazy"><span class="th-tag" style="background:#FFB000;color:#1b1f23">huggingface.co</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://huggingface.co/Sumitc13/Z-image-Turbo_LogC4_lora" target="_blank" rel="noopener"><span class="th-title">Sumitc13/Z-image-Turbo_LogC4_lora · Hugging Face</span><img src="files/thumbs/4c87eaeeb5ec9e3b.png" alt="" loading="lazy"><span class="th-tag" style="background:#FFB000;color:#1b1f23">huggingface.co</span></a></div>
 
 
 </div>
 </article>
-<article class="entry" data-ts="1784697261.998379" data-month="2026-07" data-types="link" data-topics="ComfyUI·워크플로우 VFX·합성" data-search="github.com/sumitchatterjee13/nuke-nodes-comfyuicomfy용누크노드https://github.com/sumitchatterjee13/nuke-nodes-comfyui">
+<article class="entry" data-ts="1784697261.998379" data-month="2026-07" data-types="link" data-topics="ComfyUI·워크플로우 VFX·합성" data-search="github.com/sumitchatterjee13/nuke-nodes-comfyuicomfy용누크노드https://github.com/sumitchatterjee13/nuke-nodes-comfyuigithub-sumitchatterjee13/nuke-nodes-comfyui:foundrynukecommonnodesforcomfyui">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">github.com/sumitchatterjee13/nuke-nodes-comfyui Comfy용 누크노드</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">github.com/sumitchatterjee13/nuke-nodes-comfyui Comfy용 누크노드</p>
 <div class="e-btns"><a class="btn" style="background:#24292F;color:#fff" href="https://github.com/sumitchatterjee13/nuke-nodes-comfyui" target="_blank" rel="noopener">github.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://github.com/sumitchatterjee13/nuke-nodes-comfyui" target="_blank" rel="noopener"><img src="files/thumbs/bd57ffce055b29d4.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://github.com/sumitchatterjee13/nuke-nodes-comfyui" target="_blank" rel="noopener"><span class="th-title">GitHub - sumitchatterjee13/nuke-nodes-comfyui: Foundry Nuke common nodes for comfyui</span><img src="files/thumbs/bd57ffce055b29d4.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
 
 
 </div>
@@ -2227,12 +2236,12 @@ DVD: Deterministic Video Depth Estimation with Generative Priors</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784697256.572249" data-month="2026-07" data-types="link" data-topics="ComfyUI·워크플로우" data-search="github.com/fxtdstudios/radiance전문가용hdrimageprocessingsuiteforcomfyuihttps://github.com/fxtdstudios/radiance">
+<article class="entry" data-ts="1784697256.572249" data-month="2026-07" data-types="link" data-topics="ComfyUI·워크플로우" data-search="github.com/fxtdstudios/radiance전문가용hdrimageprocessingsuiteforcomfyuihttps://github.com/fxtdstudios/radiancegithub-fxtdstudios/radiance:32-bitaigenerationwithcolorscience·gpuaccelerated">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">github.com/fxtdstudios/radiance 전문가용 HDR Image Processing Su</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">github.com/fxtdstudios/radiance 전문가용 HDR Image Processing Suite for ComfyUI</p>
 <div class="e-btns"><a class="btn" style="background:#24292F;color:#fff" href="https://github.com/fxtdstudios/radiance" target="_blank" rel="noopener">github.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://github.com/fxtdstudios/radiance" target="_blank" rel="noopener"><img src="files/thumbs/73575dd3c51dbb24.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://github.com/fxtdstudios/radiance" target="_blank" rel="noopener"><span class="th-title">GitHub - fxtdstudios/radiance: 32-bit Ai Generation with Color Science · GPU Accelerated</span><img src="files/thumbs/73575dd3c51dbb24.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
 
 
 </div>
@@ -2370,7 +2379,7 @@ STRICTLY AVOID:
 
 </div>
 </article>
-<article class="entry" data-ts="1784697008.467429" data-month="2026-07" data-types="link" data-topics="기타" data-search="aikive.com/list-cinemaai-kive-aicinemahttps://aikive.com/list-cinema">
+<article class="entry" data-ts="1784697008.467429" data-month="2026-07" data-types="link" data-topics="기타" data-search="aikive.com/list-cinemaai-kive-aicinemahttps://aikive.com/list-cinemaaicinema-ai-kive">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">aikive.com/list-cinema AI-Kive - AI Cinema</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">aikive.com/list-cinema AI-Kive - AI Cinema</p>
@@ -2404,7 +2413,7 @@ STRICTLY AVOID:
 
 </div>
 </article>
-<article class="entry" data-ts="1784696886.433429" data-month="2026-07" data-types="link" data-topics="AI영상생성 ComfyUI·워크플로우 AI툴·LLM" data-search="*웹을속일정도로현실적인aiugc를만든방법*:brain:*ai가더이상ai처럼보이지않을때*며칠전,저는비전문가뿐아니라이도구들을매일사용하는전문가들까지속일정도로현실적인ai생성ugc를공유했습니다.바로이지점에서이프로젝트는흥미로워집니다.현실과인공의경계가더이상명확하지않아지는순간이기때문입니다.:handshake:*투명성*이프로젝트는picsart와의협업으로진행되었으며,picsart는자사플랫폼에대한접근권한을제공했습니다.이플랫폼은점점더강력해지고있으며,유연하고복잡한워크플로우에도충분히대응할수있는수준으로진화하고있습니다.:small_blue_diamond:*phase1–모델이전에,인물부터*저는항상스토리에서시작합니다.이번프로젝트에서는이탈리아계미국인18세여성‘안나(anna)’를설정했습니다.그녀는이탈리아로다시이주했고,일상적인브이로그를올립니다.이러한배경설정이그녀의말투,움직임,그리고‘실존인물같은느낌’을결정했습니다.:small_blue_diamond:*phase2–비주얼구축*피사체는중립적인의상을착용한상태로여러각도에서생성했습니다.이는이후생성단계에서시각적편향을최소화하기위함입니다.:small_blue_diamond:*phase3–감정매핑*종종간과되는단계입니다.캐릭터가화면안에서어떻게반응할지를미리알기위해,여러감정상태를사전에생성했습니다.:small_blue_diamond:*phase4–환경과‘의도적인저품질’*피사체와환경을분리하지않고하나로결합했습니다.“스마트폰영상스타일(smartphonevideo-style)”이라는프롬프트를사용해,기술적완성도보다*지각적리얼리즘*을목표로했습니다.:small_blue_diamond:*phase5–텍스트기반스토리보드*영상생성전에미세한행동,멈춤,끼어드는순간들을계획했습니다.안나는전문크리에이터가아닙니다.그렇기때문에더설득력이생깁니다.:small_blue_diamond:*phase6–불완전한움직임*즉흥적인제스처,거친컷,작은방해요소들.aiugc에서가장큰실수는‘완벽함’입니다.저는이를의도적으로피했습니다.:small_blue_diamond:*phase7–디테일*낡은후드티,휴대폰에묻은지문,거울위의먼지.사람들이의식적으로보지는않지만,즉각적으로‘느끼는’요소들입니다.:test_tube:*리서치우선*젊은세대의실제브이로그를분석하며언어,리듬,톤을연구했습니다:sweat_smile:이단계는필수적이었습니다.:gear:*사용한도구*:small_blue_diamond:*nanobanana*–강력한피사체일관성확보:small_blue_diamond:*veo3.1*–네이티브오디오와장면간자연스러운연속성:brain:*개인적인결론*이프로젝트의목적은ai가사람을속일수있다는것을증명하는데있지않았습니다.리얼리즘은도구의문제가아니라,*방법론·관찰·의도의문제*라는점을보여주고자했습니다.ai는지름길로다룰때가아니라,하나의*언어*로다룰때비로소설득력을갖습니다.:pushpin:전체워크플로우picsart.com/create/workflows/2242a0162bc3…https://picsart.com/create/workflows/2242a0162bc31762825a652bb297e3527d7693c0b25678ec6534420252df4759">
+<article class="entry" data-ts="1784696886.433429" data-month="2026-07" data-types="link" data-topics="AI영상생성 ComfyUI·워크플로우 AI툴·LLM" data-search="*웹을속일정도로현실적인aiugc를만든방법*:brain:*ai가더이상ai처럼보이지않을때*며칠전,저는비전문가뿐아니라이도구들을매일사용하는전문가들까지속일정도로현실적인ai생성ugc를공유했습니다.바로이지점에서이프로젝트는흥미로워집니다.현실과인공의경계가더이상명확하지않아지는순간이기때문입니다.:handshake:*투명성*이프로젝트는picsart와의협업으로진행되었으며,picsart는자사플랫폼에대한접근권한을제공했습니다.이플랫폼은점점더강력해지고있으며,유연하고복잡한워크플로우에도충분히대응할수있는수준으로진화하고있습니다.:small_blue_diamond:*phase1–모델이전에,인물부터*저는항상스토리에서시작합니다.이번프로젝트에서는이탈리아계미국인18세여성‘안나(anna)’를설정했습니다.그녀는이탈리아로다시이주했고,일상적인브이로그를올립니다.이러한배경설정이그녀의말투,움직임,그리고‘실존인물같은느낌’을결정했습니다.:small_blue_diamond:*phase2–비주얼구축*피사체는중립적인의상을착용한상태로여러각도에서생성했습니다.이는이후생성단계에서시각적편향을최소화하기위함입니다.:small_blue_diamond:*phase3–감정매핑*종종간과되는단계입니다.캐릭터가화면안에서어떻게반응할지를미리알기위해,여러감정상태를사전에생성했습니다.:small_blue_diamond:*phase4–환경과‘의도적인저품질’*피사체와환경을분리하지않고하나로결합했습니다.“스마트폰영상스타일(smartphonevideo-style)”이라는프롬프트를사용해,기술적완성도보다*지각적리얼리즘*을목표로했습니다.:small_blue_diamond:*phase5–텍스트기반스토리보드*영상생성전에미세한행동,멈춤,끼어드는순간들을계획했습니다.안나는전문크리에이터가아닙니다.그렇기때문에더설득력이생깁니다.:small_blue_diamond:*phase6–불완전한움직임*즉흥적인제스처,거친컷,작은방해요소들.aiugc에서가장큰실수는‘완벽함’입니다.저는이를의도적으로피했습니다.:small_blue_diamond:*phase7–디테일*낡은후드티,휴대폰에묻은지문,거울위의먼지.사람들이의식적으로보지는않지만,즉각적으로‘느끼는’요소들입니다.:test_tube:*리서치우선*젊은세대의실제브이로그를분석하며언어,리듬,톤을연구했습니다:sweat_smile:이단계는필수적이었습니다.:gear:*사용한도구*:small_blue_diamond:*nanobanana*–강력한피사체일관성확보:small_blue_diamond:*veo3.1*–네이티브오디오와장면간자연스러운연속성:brain:*개인적인결론*이프로젝트의목적은ai가사람을속일수있다는것을증명하는데있지않았습니다.리얼리즘은도구의문제가아니라,*방법론·관찰·의도의문제*라는점을보여주고자했습니다.ai는지름길로다룰때가아니라,하나의*언어*로다룰때비로소설득력을갖습니다.:pushpin:전체워크플로우picsart.com/create/workflows/2242a0162bc3…https://picsart.com/create/workflows/2242a0162bc31762825a652bb297e3527d7693c0b25678ec6534420252df4759picsartflow">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">*웹을 속일 정도로 현실적인 AI UGC를 만든 방법*
 :brain: *AI가 더 이상 AI처럼 보이지 않을</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
@@ -2476,7 +2485,7 @@ picsart.com/create/workflows/2242a0162bc3…</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784696790.824379" data-month="2026-07" data-types="link" data-topics="AI영상생성" data-search="higgsfield.ai/cinema-studiohiggsfieldcinemastudio|professionalproductioninyourbrowserhttps://higgsfield.ai/cinema-studio">
+<article class="entry" data-ts="1784696790.824379" data-month="2026-07" data-types="link" data-topics="AI영상생성" data-search="higgsfield.ai/cinema-studiohiggsfieldcinemastudio|professionalproductioninyourbrowserhttps://higgsfield.ai/cinema-studiocinemastudio4.0—directeverydetail|higgsfield">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">higgsfield.ai/cinema-studio Higgsfield Cinema Studio | Profe</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">higgsfield.ai/cinema-studio Higgsfield Cinema Studio | Professional Production in Your Browser</p>
@@ -2516,7 +2525,7 @@ picsart.com/create/workflows/2242a0162bc3…</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784696691.543879" data-month="2026-07" data-types="link" data-topics="기타" data-search="meigen-ai.github.io/longcat-video-avatarlongcat-video-avatar-audio-drivencharacteranimation통합모델https://meigen-ai.github.io/longcat-video-avatar/">
+<article class="entry" data-ts="1784696691.543879" data-month="2026-07" data-types="link" data-topics="기타" data-search="meigen-ai.github.io/longcat-video-avatarlongcat-video-avatar-audio-drivencharacteranimation통합모델https://meigen-ai.github.io/longcat-video-avatar/longcat-video-avatar">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">meigen-ai.github.io/LongCat-Video-Avatar LongCat-Video-Avata</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">meigen-ai.github.io/LongCat-Video-Avatar LongCat-Video-Avatar - audio-driven character animation 통합 모델</p>
@@ -2582,12 +2591,12 @@ Veo 3.1, Kling 2.6, LTX Fast와 Pro, Sora 2 Pro, 그리고 WAN 2.5와 막 공개
 
 </div>
 </article>
-<article class="entry" data-ts="1784696489.784669" data-month="2026-07" data-types="link" data-topics="ComfyUI·워크플로우" data-search="github.com/1038lab/comfyui-nodealignhttps://github.com/1038lab/comfyui-nodealign">
+<article class="entry" data-ts="1784696489.784669" data-month="2026-07" data-types="link" data-topics="ComfyUI·워크플로우" data-search="github.com/1038lab/comfyui-nodealignhttps://github.com/1038lab/comfyui-nodealigngithub-1038lab/comfyui-nodealign:lightweightalignmenttoolbarforcomfyuigraphs.providesquickalign,equalsize,">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">github.com/1038lab/ComfyUI-NodeAlign</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">github.com/1038lab/ComfyUI-NodeAlign</p>
 <div class="e-btns"><a class="btn" style="background:#24292F;color:#fff" href="https://github.com/1038lab/ComfyUI-NodeAlign" target="_blank" rel="noopener">github.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://github.com/1038lab/ComfyUI-NodeAlign" target="_blank" rel="noopener"><img src="files/thumbs/668d0364470731ed.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://github.com/1038lab/ComfyUI-NodeAlign" target="_blank" rel="noopener"><span class="th-title">GitHub - 1038lab/ComfyUI-NodeAlign: Lightweight alignment toolbar for ComfyUI graphs. Provides quick align, equal size, </span><img src="files/thumbs/668d0364470731ed.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
 
 
 </div>
@@ -2632,12 +2641,12 @@ Veo 3.1, Kling 2.6, LTX Fast와 Pro, Sora 2 Pro, 그리고 WAN 2.5와 막 공개
 
 </div>
 </article>
-<article class="entry" data-ts="1784696447.079549" data-month="2026-07" data-types="link" data-topics="기타" data-search="studiofreewillusion.com/20(주)스튜디오프리윌루전-moviehttps://studiofreewillusion.com/20/">
+<article class="entry" data-ts="1784696447.079549" data-month="2026-07" data-types="link" data-topics="기타" data-search="studiofreewillusion.com/20(주)스튜디오프리윌루전-moviehttps://studiofreewillusion.com/20/movie">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">studiofreewillusion.com/20 (주)스튜디오프리윌루전 - MOVIE</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">studiofreewillusion.com/20 (주)스튜디오프리윌루전 - MOVIE</p>
 <div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://studiofreewillusion.com/20/" target="_blank" rel="noopener">studiofreewillusion.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://studiofreewillusion.com/20/" target="_blank" rel="noopener"><img src="files/thumbs/2f208ae407e8ed93.webp" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">studiofreewillusion.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://studiofreewillusion.com/20/" target="_blank" rel="noopener"><span class="th-title">MOVIE</span><img src="files/thumbs/2f208ae407e8ed93.webp" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">studiofreewillusion.com</span></a></div>
 
 
 </div>
@@ -2688,7 +2697,7 @@ Use the uploaded characters as references, keeping facial structure, proportions
 
 </div>
 </article>
-<article class="entry" data-ts="1784696128.093109" data-month="2026-07" data-types="link" data-topics="기타" data-search="pq-yang.github.io/projects/…matanyone2forhumanvideomattinghttps://pq-yang.github.io/projects/matanyone2/">
+<article class="entry" data-ts="1784696128.093109" data-month="2026-07" data-types="link" data-topics="기타" data-search="pq-yang.github.io/projects/…matanyone2forhumanvideomattinghttps://pq-yang.github.io/projects/matanyone2/matanyone2">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">pq-yang.github.io/projects/… MatAnyone 2 for human video mat</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">pq-yang.github.io/projects/… MatAnyone 2 for human video matting</p>
@@ -2788,7 +2797,7 @@ Use the uploaded characters as references, keeping facial structure, proportions
 
 </div>
 </article>
-<article class="entry" data-ts="1784696100.947909" data-month="2026-07" data-types="link" data-topics="기타" data-search="aikive.com/list-cinemaai-kive-aicinemahttps://aikive.com/list-cinema">
+<article class="entry" data-ts="1784696100.947909" data-month="2026-07" data-types="link" data-topics="기타" data-search="aikive.com/list-cinemaai-kive-aicinemahttps://aikive.com/list-cinemaaicinema-ai-kive">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">aikive.com/list-cinema AI-Kive - AI Cinema</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">aikive.com/list-cinema AI-Kive - AI Cinema</p>
@@ -2798,12 +2807,12 @@ Use the uploaded characters as references, keeping facial structure, proportions
 
 </div>
 </article>
-<article class="entry" data-ts="1784696098.236979" data-month="2026-07" data-types="link" data-topics="기타" data-search="beeble.ai/research/switchlight-3-0-is-herebeeble-switchlight3.0ishere(video-to-pbr모델)https://beeble.ai/research/switchlight-3-0-is-here">
+<article class="entry" data-ts="1784696098.236979" data-month="2026-07" data-types="link" data-topics="기타" data-search="beeble.ai/research/switchlight-3-0-is-herebeeble-switchlight3.0ishere(video-to-pbr모델)https://beeble.ai/research/switchlight-3-0-is-hereswitchlight3.0ishere|beeble">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">beeble.ai/research/switchlight-3-0-is-here Beeble - SwitchLi</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">beeble.ai/research/switchlight-3-0-is-here Beeble - SwitchLight 3.0 is here (Video-to-PBR 모델)</p>
 <div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://beeble.ai/research/switchlight-3-0-is-here" target="_blank" rel="noopener">beeble.ai ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://beeble.ai/research/switchlight-3-0-is-here" target="_blank" rel="noopener"><img src="files/thumbs/96ad05e72b32be46.webp" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">beeble.ai</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://beeble.ai/research/switchlight-3-0-is-here" target="_blank" rel="noopener"><span class="th-title">SwitchLight 3.0 is here | Beeble</span><img src="files/thumbs/96ad05e72b32be46.webp" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">beeble.ai</span></a></div>
 
 
 </div>
@@ -2858,12 +2867,12 @@ Use the uploaded characters as references, keeping facial structure, proportions
 
 </div>
 </article>
-<article class="entry" data-ts="1784696080.793599" data-month="2026-07" data-types="link" data-topics="기타" data-search="elevenlabs.ioelevenlabs-freetexttospeech&amp;aivoicegeneratorhttps://elevenlabs.io/">
+<article class="entry" data-ts="1784696080.793599" data-month="2026-07" data-types="link" data-topics="기타" data-search="elevenlabs.ioelevenlabs-freetexttospeech&amp;aivoicegeneratorhttps://elevenlabs.io/freeaivoicegenerator&amp;voiceagentsplatform|elevenlabs">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">elevenlabs.io ElevenLabs - Free Text to Speech &amp; AI Voice Ge</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">elevenlabs.io ElevenLabs - Free Text to Speech &amp; AI Voice Generator</p>
 <div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://elevenlabs.io/" target="_blank" rel="noopener">elevenlabs.io ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://elevenlabs.io/" target="_blank" rel="noopener"><img src="files/thumbs/aba38cecc0694878.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">elevenlabs.io</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://elevenlabs.io/" target="_blank" rel="noopener"><span class="th-title">Free AI Voice Generator &amp; Voice Agents Platform | ElevenLabs</span><img src="files/thumbs/aba38cecc0694878.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">elevenlabs.io</span></a></div>
 
 
 </div>
@@ -2878,12 +2887,12 @@ Use the uploaded characters as references, keeping facial structure, proportions
 
 </div>
 </article>
-<article class="entry" data-ts="1784696064.033399" data-month="2026-07" data-types="link" data-topics="AI영상생성" data-search="github.com/wechatcv/wan-alphahttps://github.com/wechatcv/wan-alpha">
+<article class="entry" data-ts="1784696064.033399" data-month="2026-07" data-types="link" data-topics="AI영상생성" data-search="github.com/wechatcv/wan-alphahttps://github.com/wechatcv/wan-alphagithub-wechatcv/wan-alpha:[cvpr2026highlight]high-qualitytext-to-videogenerationwithalphachannel">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">github.com/WeChatCV/Wan-Alpha</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">github.com/WeChatCV/Wan-Alpha</p>
 <div class="e-btns"><a class="btn" style="background:#24292F;color:#fff" href="https://github.com/WeChatCV/Wan-Alpha" target="_blank" rel="noopener">github.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://github.com/WeChatCV/Wan-Alpha" target="_blank" rel="noopener"><img src="files/thumbs/889a6f5cc0871112.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://github.com/WeChatCV/Wan-Alpha" target="_blank" rel="noopener"><span class="th-title">GitHub - WeChatCV/Wan-Alpha: [CVPR 2026 Highlight] High-Quality Text-to-Video Generation with Alpha Channel</span><img src="files/thumbs/889a6f5cc0871112.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
 
 
 </div>
@@ -2958,7 +2967,7 @@ Use the uploaded characters as references, keeping facial structure, proportions
 
 </div>
 </article>
-<article class="entry" data-ts="1784696032.047339" data-month="2026-07" data-types="link" data-topics="기타" data-search="dove:실제비디오초고해상도를위한효율적인1단계확산모델github.com/zhengchen1999/dovehttps://github.com/zhengchen1999/dove">
+<article class="entry" data-ts="1784696032.047339" data-month="2026-07" data-types="link" data-topics="기타" data-search="dove:실제비디오초고해상도를위한효율적인1단계확산모델github.com/zhengchen1999/dovehttps://github.com/zhengchen1999/dovegithub-zhengchen1999/dove:[neurips'25]dove:efficientone-stepdiffusionmodelforreal-worldvideosuper-resolution">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">DOVE: 실제 비디오 초고해상도를 위한 효율적인 1단계 확산 모델 github.com/zhengchen19</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">DOVE: 실제 비디오 초고해상도를 위한 효율적인 1단계 확산 모델 github.com/zhengchen1999/DOVE</p>
@@ -2968,7 +2977,7 @@ Use the uploaded characters as references, keeping facial structure, proportions
 
 </div>
 </article>
-<article class="entry" data-ts="1784696028.978899" data-month="2026-07" data-types="link" data-topics="ComfyUI·워크플로우" data-search="comfyui를위한전문적인hdr(highdynamicrange)처리노드github.com/sumitchatterjee13/luminance-stack-processorhttps://github.com/sumitchatterjee13/luminance-stack-processor">
+<article class="entry" data-ts="1784696028.978899" data-month="2026-07" data-types="link" data-topics="ComfyUI·워크플로우" data-search="comfyui를위한전문적인hdr(highdynamicrange)처리노드github.com/sumitchatterjee13/luminance-stack-processorhttps://github.com/sumitchatterjee13/luminance-stack-processorgithub-sumitchatterjee13/luminance-stack-processor:comfyuicustomnodetomergedifferentexposurelevelimagestocr">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">ComfyUI를 위한 전문적인 HDR(High Dynamic Range) 처리 노드 github.com/su</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">ComfyUI를 위한 전문적인 HDR(High Dynamic Range) 처리 노드 github.com/sumitchatterjee13/Luminance-Stack-Processor</p>
@@ -3018,12 +3027,12 @@ Use the uploaded characters as references, keeping facial structure, proportions
 
 </div>
 </article>
-<article class="entry" data-ts="1784696010.121629" data-month="2026-07" data-types="link" data-topics="AI영상생성" data-search="github.com/wan-video/wan2.2wan:openandadvancedlarge-scalevideogenerativemodelshttps://github.com/wan-video/wan2.2">
+<article class="entry" data-ts="1784696010.121629" data-month="2026-07" data-types="link" data-topics="AI영상생성" data-search="github.com/wan-video/wan2.2wan:openandadvancedlarge-scalevideogenerativemodelshttps://github.com/wan-video/wan2.2github-wan-video/wan2.2:wan:openandadvancedlarge-scalevideogenerativemodels">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">github.com/Wan-Video/Wan2.2 Wan: Open and Advanced Large-Sca</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">github.com/Wan-Video/Wan2.2 Wan: Open and Advanced Large-Scale Video Generative Models</p>
 <div class="e-btns"><a class="btn" style="background:#24292F;color:#fff" href="https://github.com/Wan-Video/Wan2.2" target="_blank" rel="noopener">github.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://github.com/Wan-Video/Wan2.2" target="_blank" rel="noopener"><img src="files/thumbs/12ca55d37b8410cb.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://github.com/Wan-Video/Wan2.2" target="_blank" rel="noopener"><span class="th-title">GitHub - Wan-Video/Wan2.2: Wan: Open and Advanced Large-Scale Video Generative Models</span><img src="files/thumbs/12ca55d37b8410cb.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
 
 
 </div>
@@ -3038,27 +3047,27 @@ Use the uploaded characters as references, keeping facial structure, proportions
 
 </div>
 </article>
-<article class="entry" data-ts="1784696001.663369" data-month="2026-07" data-types="link" data-topics="기타" data-search="업스케일hitpaw.comavclabs.com/video-enhancer-ai.htmlpixop.comhttps://www.hitpaw.com/https://www.avclabs.com/video-enhancer-ai.htmlhttps://www.pixop.com/">
+<article class="entry" data-ts="1784696001.663369" data-month="2026-07" data-types="link" data-topics="기타" data-search="업스케일hitpaw.comavclabs.com/video-enhancer-ai.htmlpixop.comhttps://www.hitpaw.com/https://www.avclabs.com/video-enhancer-ai.htmlhttps://www.pixop.com/[official]hitpaw–aivideo,photo&amp;audioenhancersolutionsavclabsvideoenhancerai:improvevideoqualityandupscaleto8kpixop">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">업스케일 hitpaw.com avclabs.com/video-enhancer-ai.html pixop.com</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">업스케일 hitpaw.com avclabs.com/video-enhancer-ai.html pixop.com</p>
 <div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.hitpaw.com/" target="_blank" rel="noopener">hitpaw.com ↗</a><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.avclabs.com/video-enhancer-ai.html" target="_blank" rel="noopener">avclabs.com ↗</a><a class="btn" style="background:#4353ff;color:#ffffff" href="https://www.pixop.com/" target="_blank" rel="noopener">pixop.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://www.hitpaw.com/" target="_blank" rel="noopener"><img src="files/thumbs/242679f1d7c9e3ca.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">hitpaw.com</span></a><a class="thumb" href="https://www.pixop.com/" target="_blank" rel="noopener"><img src="files/thumbs/3b49ce9e3340e5d7.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">pixop.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://www.hitpaw.com/" target="_blank" rel="noopener"><span class="th-title">[OFFICIAL] HitPaw – AI Video, Photo &amp; Audio Enhancer Solutions</span><img src="files/thumbs/242679f1d7c9e3ca.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">hitpaw.com</span></a><a class="thumb" href="https://www.pixop.com/" target="_blank" rel="noopener"><span class="th-title">Pixop</span><img src="files/thumbs/3b49ce9e3340e5d7.jpg" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">pixop.com</span></a></div>
 
 
 </div>
 </article>
-<article class="entry" data-ts="1784695996.379029" data-month="2026-07" data-types="link" data-topics="기타" data-search="github.com/zibojia/minimax-removerhttps://github.com/zibojia/minimax-remover">
+<article class="entry" data-ts="1784695996.379029" data-month="2026-07" data-types="link" data-topics="기타" data-search="github.com/zibojia/minimax-removerhttps://github.com/zibojia/minimax-removergithub-zibojia/minimax-remover:thisistheofficialimplementationofourpaper:&quot;minimax-remover:tamingbadnoiseh">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">github.com/zibojia/MiniMax-Remover</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">github.com/zibojia/MiniMax-Remover</p>
 <div class="e-btns"><a class="btn" style="background:#24292F;color:#fff" href="https://github.com/zibojia/MiniMax-Remover" target="_blank" rel="noopener">github.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://github.com/zibojia/MiniMax-Remover" target="_blank" rel="noopener"><img src="files/thumbs/c732ecd8f1481665.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://github.com/zibojia/MiniMax-Remover" target="_blank" rel="noopener"><span class="th-title">GitHub - zibojia/MiniMax-Remover: This is the official implementation of our paper: &quot;MiniMax-Remover: Taming Bad Noise H</span><img src="files/thumbs/c732ecd8f1481665.png" alt="" loading="lazy"><span class="th-tag" style="background:#24292F;color:#fff">github.com</span></a></div>
 
 
 </div>
 </article>
-<article class="entry" data-ts="1784695992.718089" data-month="2026-07" data-types="link" data-topics="3D·CG" data-search="nju-3dv.github.io/projects/spatialvidspatialvidprojectpagehttps://nju-3dv.github.io/projects/spatialvid/">
+<article class="entry" data-ts="1784695992.718089" data-month="2026-07" data-types="link" data-topics="3D·CG" data-search="nju-3dv.github.io/projects/spatialvidspatialvidprojectpagehttps://nju-3dv.github.io/projects/spatialvid/spatialvidprojectpage">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">nju-3dv.github.io/projects/SpatialVID SpatialVID Project Pag</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">nju-3dv.github.io/projects/SpatialVID SpatialVID Project Page</p>
@@ -3068,17 +3077,17 @@ Use the uploaded characters as references, keeping facial structure, proportions
 
 </div>
 </article>
-<article class="entry" data-ts="1784695990.154609" data-month="2026-07" data-types="link" data-topics="기타" data-search="jindapark.github.io/projects/atlasatlas:decouplingskeletalandshapeparametersforexpressiveparametrichumanmodelinghttps://jindapark.github.io/projects/atlas/">
+<article class="entry" data-ts="1784695990.154609" data-month="2026-07" data-types="link" data-topics="기타" data-search="jindapark.github.io/projects/atlasatlas:decouplingskeletalandshapeparametersforexpressiveparametrichumanmodelinghttps://jindapark.github.io/projects/atlas/atlas:decouplingskeletalandshapeparametersforexpressiveparametrichumanmodeling">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">jindapark.github.io/projects/atlas ATLAS: Decoupling Skeleta</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">jindapark.github.io/projects/atlas ATLAS: Decoupling Skeletal and Shape Parameters for Expressive Parametric Human Modeling</p>
 <div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://jindapark.github.io/projects/atlas/" target="_blank" rel="noopener">jindapark.github.io ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://jindapark.github.io/projects/atlas/" target="_blank" rel="noopener"><img src="files/thumbs/feb92dfdc1ca6ae0.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">jindapark.github.io</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://jindapark.github.io/projects/atlas/" target="_blank" rel="noopener"><span class="th-title">ATLAS: Decoupling Skeletal and Shape Parameters for Expressive Parametric Human Modeling</span><img src="files/thumbs/feb92dfdc1ca6ae0.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">jindapark.github.io</span></a></div>
 
 
 </div>
 </article>
-<article class="entry" data-ts="1784695987.704719" data-month="2026-07" data-types="link" data-topics="기타" data-search="rose2025-inpaint.github.ioroseforvideoobjectremovalhttps://rose2025-inpaint.github.io/">
+<article class="entry" data-ts="1784695987.704719" data-month="2026-07" data-types="link" data-topics="기타" data-search="rose2025-inpaint.github.ioroseforvideoobjectremovalhttps://rose2025-inpaint.github.io/roseforvideoobjectremoval">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">rose2025-inpaint.github.io ROSE for Video Object Removal</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">rose2025-inpaint.github.io ROSE for Video Object Removal</p>
@@ -3098,27 +3107,27 @@ Use the uploaded characters as references, keeping facial structure, proportions
 
 </div>
 </article>
-<article class="entry" data-ts="1784695980.395099" data-month="2026-07" data-types="link" data-topics="VFX·합성" data-search="vimeo.com/1116518771vimeo-mlrunnerfornuke(modelrunner노드소개)https://vimeo.com/1116518771">
+<article class="entry" data-ts="1784695980.395099" data-month="2026-07" data-types="link" data-topics="VFX·합성" data-search="vimeo.com/1116518771vimeo-mlrunnerfornuke(modelrunner노드소개)https://vimeo.com/1116518771mlrunnerfornuke">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">vimeo.com/1116518771 Vimeo - ML Runner for nuke (Model Runne</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">vimeo.com/1116518771 Vimeo - ML Runner for nuke (Model Runner 노드 소개)</p>
 <div class="e-btns"><a class="btn" style="background:#1AB7EA;color:#0f1115" href="https://vimeo.com/1116518771" target="_blank" rel="noopener">vimeo.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://vimeo.com/1116518771" target="_blank" rel="noopener"><img src="files/thumbs/bb4185868b1e25a4.webp" alt="" loading="lazy"><span class="th-tag" style="background:#1AB7EA;color:#0f1115">vimeo.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://vimeo.com/1116518771" target="_blank" rel="noopener"><span class="th-title">ML Runner for nuke</span><img src="files/thumbs/bb4185868b1e25a4.webp" alt="" loading="lazy"><span class="th-tag" style="background:#1AB7EA;color:#0f1115">vimeo.com</span></a></div>
 
 
 </div>
 </article>
-<article class="entry" data-ts="1784695977.585359" data-month="2026-07" data-types="link" data-topics="기타" data-search="vimeo.com/1118524160vimeo-depthcrafter&amp;rgb2xdemohttps://vimeo.com/1118524160">
+<article class="entry" data-ts="1784695977.585359" data-month="2026-07" data-types="link" data-topics="기타" data-search="vimeo.com/1118524160vimeo-depthcrafter&amp;rgb2xdemohttps://vimeo.com/1118524160depthcrafter&amp;amp;rgb2xdemo">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">vimeo.com/1118524160 Vimeo - DepthCrafter &amp; RGB2X Demo</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">vimeo.com/1118524160 Vimeo - DepthCrafter &amp; RGB2X Demo</p>
 <div class="e-btns"><a class="btn" style="background:#1AB7EA;color:#0f1115" href="https://vimeo.com/1118524160" target="_blank" rel="noopener">vimeo.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://vimeo.com/1118524160" target="_blank" rel="noopener"><img src="files/thumbs/0e76bfd8e201863c.webp" alt="" loading="lazy"><span class="th-tag" style="background:#1AB7EA;color:#0f1115">vimeo.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://vimeo.com/1118524160" target="_blank" rel="noopener"><span class="th-title">DepthCrafter &amp;amp; RGB2X Demo</span><img src="files/thumbs/0e76bfd8e201863c.webp" alt="" loading="lazy"><span class="th-tag" style="background:#1AB7EA;color:#0f1115">vimeo.com</span></a></div>
 
 
 </div>
 </article>
-<article class="entry" data-ts="1784695974.964109" data-month="2026-07" data-types="link" data-topics="기타" data-search="github.com/picotrex/awesome-nano-banana-images/blob/…/readme_en.md나노바나나다양한사용법-케이스스터디https://github.com/picotrex/awesome-nano-banana-images/blob/main/readme_en.md">
+<article class="entry" data-ts="1784695974.964109" data-month="2026-07" data-types="link" data-topics="기타" data-search="github.com/picotrex/awesome-nano-banana-images/blob/…/readme_en.md나노바나나다양한사용법-케이스스터디https://github.com/picotrex/awesome-nano-banana-images/blob/main/readme_en.mdawesome-nano-banana-images/readme_en.mdatmain·picotrex/awesome-nano-banana-images">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">github.com/PicoTrex/Awesome-Nano-Banana-images/blob/…/README</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">github.com/PicoTrex/Awesome-Nano-Banana-images/blob/…/README_en.md 나노바나나 다양한 사용법 - 케이스 스터디</p>
@@ -3218,12 +3227,12 @@ Use the uploaded characters as references, keeping facial structure, proportions
 
 </div>
 </article>
-<article class="entry" data-ts="1784695940.350279" data-month="2026-07" data-types="link" data-topics="AI영상생성" data-search="humanaigc.github.io/wan-s2v-webpagewan-s2v:audio-drivencinematicvideogenerationhttps://humanaigc.github.io/wan-s2v-webpage/">
+<article class="entry" data-ts="1784695940.350279" data-month="2026-07" data-types="link" data-topics="AI영상생성" data-search="humanaigc.github.io/wan-s2v-webpagewan-s2v:audio-drivencinematicvideogenerationhttps://humanaigc.github.io/wan-s2v-webpage/wan-s2v">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">humanaigc.github.io/wan-s2v-webpage Wan-S2V: Audio-Driven Ci</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">humanaigc.github.io/wan-s2v-webpage Wan-S2V: Audio-Driven Cinematic Video Generation</p>
 <div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://humanaigc.github.io/wan-s2v-webpage/" target="_blank" rel="noopener">humanaigc.github.io ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://humanaigc.github.io/wan-s2v-webpage/" target="_blank" rel="noopener"><img src="files/thumbs/91539c79d2b9479c.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">humanaigc.github.io</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://humanaigc.github.io/wan-s2v-webpage/" target="_blank" rel="noopener"><span class="th-title">Wan-S2V</span><img src="files/thumbs/91539c79d2b9479c.png" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">humanaigc.github.io</span></a></div>
 
 
 </div>
@@ -3238,7 +3247,7 @@ Use the uploaded characters as references, keeping facial structure, proportions
 
 </div>
 </article>
-<article class="entry" data-ts="1784695926.033589" data-month="2026-07" data-types="link" data-topics="기타" data-search="github.com/tpc2233/tunet/tree/linuxtunethttps://github.com/tpc2233/tunet/tree/linux">
+<article class="entry" data-ts="1784695926.033589" data-month="2026-07" data-types="link" data-topics="기타" data-search="github.com/tpc2233/tunet/tree/linuxtunethttps://github.com/tpc2233/tunet/tree/linuxgithub-tpc2233/tunet:adirect,pixel-levelmappingfromsrctodstimagesviaencoder-decoder.supports,training,in">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">github.com/tpc2233/tunet/tree/linux
 TUNET</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
@@ -3270,12 +3279,12 @@ TUNET</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784695833.210639" data-month="2026-07" data-types="link" data-topics="기타" data-search="ai작품모음aikive.com/playhttps://aikive.com/play">
+<article class="entry" data-ts="1784695833.210639" data-month="2026-07" data-types="link" data-topics="기타" data-search="ai작품모음aikive.com/playhttps://aikive.com/playai-kive-ai영상콘텐츠플랫폼">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">AI 작품 모음 aikive.com/play</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">AI 작품 모음 aikive.com/play</p>
 <div class="e-btns"><a class="btn" style="background:#4353ff;color:#ffffff" href="https://aikive.com/play" target="_blank" rel="noopener">aikive.com ↗</a></div>
-<div class="thumb-grid"><a class="thumb" href="https://aikive.com/play" target="_blank" rel="noopener"><img src="files/thumbs/4582deac832f253e.webp" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">aikive.com</span></a></div>
+<div class="thumb-grid"><a class="thumb" href="https://aikive.com/play" target="_blank" rel="noopener"><span class="th-title">AI-Kive - AI 영상 콘텐츠 플랫폼</span><img src="files/thumbs/4582deac832f253e.webp" alt="" loading="lazy"><span class="th-tag" style="background:#4353ff;color:#ffffff">aikive.com</span></a></div>
 
 
 </div>
@@ -3380,7 +3389,7 @@ TUNET</p>
 
 </div>
 </article>
-<article class="entry" data-ts="1784695783.404309" data-month="2026-07" data-types="link" data-topics="VFX·합성" data-search="community.foundry.com/catteryfoundrycattery-nuke에서네이티브로실행되는오픈소스ml모델(.cat)라이브러리https://community.foundry.com/cattery">
+<article class="entry" data-ts="1784695783.404309" data-month="2026-07" data-types="link" data-topics="VFX·합성" data-search="community.foundry.com/catteryfoundrycattery-nuke에서네이티브로실행되는오픈소스ml모델(.cat)라이브러리https://community.foundry.com/catterycattery">
 <div class="e-head"><span class="e-date">07-22</span><span class="e-title">community.foundry.com/cattery Foundry Cattery - Nuke에서 네이티브로</span><button type="button" class="e-tgl">▾</button></div>
 <div class="e-body">
 <p class="e-text">community.foundry.com/cattery Foundry Cattery - Nuke에서 네이티브로 실행되는 오픈소스 ML 모델(.cat) 라이브러리</p>
