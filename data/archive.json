@@ -1,5 +1,170 @@
 [
   {
+    "ts": "1788398021.727799",
+    "date": "2026-09-03",
+    "text": "higgsfield.ai/ko/genjutsu",
+    "links": [
+      "https://higgsfield.ai/ko/genjutsu"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1788338740.050819",
+    "date": "2026-09-02",
+    "text": "reddit.com/r/TopologyAI/…/free_minifaceorg_arkit_motion_capture_open_source\ngithub.com/PooyaDeperson/miniface-facial-motion-capture\nminiface.org/",
+    "links": [
+      "https://www.reddit.com/r/TopologyAI/comments/1w0zlsh/free_minifaceorg_arkit_motion_capture_open_source/",
+      "https://github.com/PooyaDeperson/miniface-facial-motion-capture",
+      "https://miniface.org"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1788337928.181599",
+    "date": "2026-09-02",
+    "text": "reddit.com/r/Seedance_AI/…/it_started_with_one_dragonfly_made_with_seedance",
+    "links": [
+      "https://www.reddit.com/r/Seedance_AI/comments/1w333za/it_started_with_one_dragonfly_made_with_seedance/"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1788336866.520629",
+    "date": "2026-09-02",
+    "text": "reddit.com/r/StableDiffusion/…/minimax_h3_consistent_face_body_cloths_via",
+    "links": [
+      "https://www.reddit.com/r/StableDiffusion/comments/1w3dojs/minimax_h3_consistent_face_body_cloths_via/"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1788228216.236949",
+    "date": "2026-09-01",
+    "text": "youtu.be/OiULPvTJ-0E?si=…",
+    "links": [
+      "https://youtu.be/OiULPvTJ-0E?si=u8LKQOQBRw55OT1m"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1788228098.155809",
+    "date": "2026-09-01",
+    "text": "framethrower.ai/comfyui",
+    "links": [
+      "https://framethrower.ai/comfyui"
+    ],
+    "files": [
+      {
+        "path": "files/1788228098_155809_framethrower.mp4",
+        "name": "framethrower.mp4",
+        "mimetype": "video/mp4",
+        "permalink": "https://ncorestudio.slack.com/files/U0BNSE01MB3/F0BUV9K00M6/framethrower.mp4",
+        "vok": true
+      }
+    ],
+    "comments": []
+  },
+  {
+    "ts": "1788228007.480199",
+    "date": "2026-09-01",
+    "text": "huggingface.co/Cseti/…",
+    "links": [
+      "https://huggingface.co/Cseti/LTX2.3-22B_IC-LoRA-CrossView-Warp"
+    ],
+    "files": [
+      {
+        "path": "files/1788228007_480199_crossview.mp4",
+        "name": "crossview.mp4",
+        "mimetype": "video/mp4",
+        "permalink": "https://ncorestudio.slack.com/files/U0BNSE01MB3/F0BTYVBQ0UE/crossview.mp4",
+        "vok": true
+      }
+    ],
+    "comments": []
+  },
+  {
+    "ts": "1788166237.320149",
+    "date": "2026-08-31",
+    "text": "github.com/PeizhiYan/flame-head-tracker",
+    "links": [
+      "https://github.com/PeizhiYan/flame-head-tracker"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1788161669.914389",
+    "date": "2026-08-31",
+    "text": "github.com/facebookresearch/sam-3d-body",
+    "links": [
+      "https://github.com/facebookresearch/sam-3d-body"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1788161466.880349",
+    "date": "2026-08-31",
+    "text": "youtube.com/watch?v=H7dBKDLXwPo\n*Nuke의 VFX 리라이팅을 훨씬 더 좋게 개선했습니다*",
+    "links": [
+      "https://www.youtube.com/watch?v=H7dBKDLXwPo"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1788153764.012569",
+    "date": "2026-08-31",
+    "text": "generate or convert videos into 16-bit EXR sequences or 10-bit and 12-bit ProRes and HEVC files\n\nhttps://youtu.be/YK5Rgbb0FK4",
+    "links": [
+      "https://youtu.be/YK5Rgbb0FK4"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1787899922.810229",
+    "date": "2026-08-28",
+    "text": "civitai.com/models/2890123/minimax-speed-x-6-workflow-sagesollatent-upscale",
+    "links": [
+      "https://civitai.com/models/2890123/minimax-speed-x-6-workflow-sagesollatent-upscale"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1787897622.004439",
+    "date": "2026-08-28",
+    "text": "Seedance 2.5 480p → FLUX 3 1080p 업스케일",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1787897622_004439_FLUX 3 video upscaler_web4.mp4",
+        "name": "FLUX 3 video upscaler.mp4",
+        "mimetype": "video/mp4",
+        "permalink": "https://ncorestudio.slack.com/files/U0BNSE01MB3/F0BTB9P3UTC/flux_3_video_upscaler.mp4",
+        "vok": true,
+        "broken": false
+      }
+    ],
+    "comments": []
+  },
+  {
+    "ts": "1787887326.408489",
+    "date": "2026-08-28",
+    "text": "youtube.com/watch?v=…",
+    "links": [
+      "https://www.youtube.com/watch?v=US3fwoWS3eo"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
     "ts": "1787798397.168319",
     "date": "2026-08-27",
     "text": "youtube.com/watch?v=mwb07_HrmpM&t=1s",
@@ -998,9 +1163,7 @@
     "ts": "1784698959.444749",
     "date": "2026-07-22",
     "text": "youtube.com/watch?v=… YouTube - THE PATCHWRIGHT | Cyberpunk Short Film",
-    "links": [
-      "https://www.youtube.com/watch?v=-Rzl7nUdEs4"
-    ],
+    "links": [],
     "files": []
   },
   {
