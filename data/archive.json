@@ -1,5 +1,229 @@
 [
   {
+    "ts": "1792123620.769549",
+    "date": "2026-10-16",
+    "text": "drexubery.github.io/WorldCrafter",
+    "links": [
+      "https://drexubery.github.io/WorldCrafter/"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1792122717.219949",
+    "date": "2026-10-16",
+    "text": "lhmd.top/atas",
+    "links": [
+      "https://lhmd.top/atas/"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1791950098.105539",
+    "date": "2026-10-14",
+    "text": "캐릭터 스왑과 카메라 앵글 체인지\nhttp://172.16.100.10:3100/project/51/task/363",
+    "links": [
+      "http://172.16.100.10:3100/project/51/task/363"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1791867830.363279",
+    "date": "2026-10-13",
+    "text": "youtu.be/62swNis-S0s?si=…",
+    "links": [
+      "https://youtu.be/62swNis-S0s?si=NPvU0iWu54qmkwec"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1791775335.854869",
+    "date": "2026-10-12",
+    "text": "artificialanalysis.ai/video/leaderboard/text-to-video",
+    "links": [
+      "https://artificialanalysis.ai/video/leaderboard/text-to-video"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1791775296.922759",
+    "date": "2026-10-12",
+    "text": "REA: Reverse Engineer Anything\n리버스 엔지니어 애니띵\n\n github.com/morluto/rea",
+    "links": [
+      "https://github.com/morluto/rea"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1791775202.333329",
+    "date": "2026-10-12",
+    "text": "저희 AI 스튜디오에 적용하면 좋을 듯한 기능들이 좀 있습니다.\n테스트해보고 필요한 기능은 피드백에 남겨주세요.\n\nnewtake.ai/ko",
+    "links": [
+      "https://www.newtake.ai/ko"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1791774450.520529",
+    "date": "2026-10-12",
+    "text": "app.notion.com/p/Prompt-What-…?source=copy_link#…",
+    "links": [
+      "https://app.notion.com/p/Prompt-What-d60fd99f0e5f8295a94781c6fd0e9948?source=copy_link#31ffd99f0e5f80a0a352deefdab7428d"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1791772330.283399",
+    "date": "2026-10-12",
+    "text": "*GPT Image 2 프롬프트 갤러리*\n\nyoumind.com/ko-KR/gpt-image-2-prompts/explore?sortBy=views&sortOrder=desc",
+    "links": [
+      "https://youmind.com/ko-KR/gpt-image-2-prompts/explore?sortBy=views&sortOrder=desc"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1791771046.107719",
+    "date": "2026-10-12",
+    "text": "모델 / 워크플로우\nMiniMax-H3-Person-Remover-LoRA\nMiniMax-H3-Character-Swap-LoRA",
+    "links": [
+      "https://huggingface.co/akatz-ai/MiniMax-H3-Person-Remover-LoRA",
+      "https://huggingface.co/akatz-ai/MiniMax-H3-Character-Swap-LoRA"
+    ],
+    "files": [
+      {
+        "path": "files/1791771046_107719_person-remover-showcase.gif",
+        "name": "person-remover-showcase.gif",
+        "mimetype": "image/gif",
+        "permalink": "https://ncorestudio.slack.com/files/U0BNSE01MB3/F0C99S8CSKS/person-remover-showcase.gif"
+      },
+      {
+        "path": "files/1791771046_107719_character-swap-showcase.gif",
+        "name": "character-swap-showcase.gif",
+        "mimetype": "image/gif",
+        "permalink": "https://ncorestudio.slack.com/files/U0BNSE01MB3/F0C803ZTW8P/character-swap-showcase.gif"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "ts": "1791770104.558269",
+    "date": "2026-10-12",
+    "text": "LTX 2.5 Gen Alpha 네이티브 Flame OFX - 제한되지 않는 듀레이션 처리와 오브젝트 선택 기능",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1791770104_558269_1791737093524.gif",
+        "name": "1791737093524.gif",
+        "mimetype": "image/gif",
+        "permalink": "https://ncorestudio.slack.com/files/U0BNSE01MB3/F0C895Z6GH1/1791737093524.gif"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "ts": "1791769308.861799",
+    "date": "2026-10-12",
+    "text": "카메라·조명\nvvsvs.pro/cinematique\n인물연기\nyoumind.com/ko-KR/prompts/video\n프롬프트 샘플\nseedance-emotion-direction.vercel.app",
+    "links": [
+      "https://vvsvs.pro/cinematique",
+      "https://youmind.com/ko-KR/prompts/video",
+      "https://seedance-emotion-direction.vercel.app/"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1791443379.180789",
+    "date": "2026-10-08",
+    "text": "youtube.com/watch?v=…",
+    "links": [
+      "https://www.youtube.com/watch?v=6hxwyXo1jmY"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1791420300.907309",
+    "date": "2026-10-08",
+    "text": "atlascloud.ai/prompts-hub/seedance-2-5-prompt?…\n각종 모델의 프롬프트 라이브러리",
+    "links": [
+      "https://www.atlascloud.ai/prompts-hub/seedance-2-5-prompt?utm_source=github&utm_campaign=awesome-seedance-2.5-prompts-skills"
+    ],
+    "files": [
+      {
+        "path": "files/1791420300_907309_image.png",
+        "name": "image.png",
+        "mimetype": "image/png",
+        "permalink": "https://ncorestudio.slack.com/files/U0BNSE01MB3/F0C79DEB6RH/image.png"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "ts": "1791362034.542989",
+    "date": "2026-10-07",
+    "text": "youtube.com/watch?v=…&si=rg_jHtYHaGoKCmIt",
+    "links": [
+      "https://youtube.com/watch?v=nM2hv4e9wWU&si=rg_jHtYHaGoKCmIt"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1791255317.205049",
+    "date": "2026-10-06",
+    "text": "Seedance2.5 지원 스킬 테스트 결과입니다.\n바이트플러스 공식 프롬프트 가이드 기준 반영도 + 원문 묘사 반영도 + 영화적 디테일 반영도 3가지 기준으로 클로드 활영하여 매긴 스킬별 점수와 결과물입니다.\n\n172.16.100.10/project/51/task/351",
+    "links": [
+      "http://172.16.100.10:3100/project/51/task/351"
+    ],
+    "files": [],
+    "comments": [
+      {
+        "date": "2026-10-06",
+        "text": "P:\\graphic\\library\\AI\\Skill\n\n테스트한 스킬 경로입니다"
+      }
+    ]
+  },
+  {
+    "ts": "1791250901.550169",
+    "date": "2026-10-06",
+    "text": "youtube.com/watch?v=2bsETGTobP0",
+    "links": [
+      "https://www.youtube.com/watch?v=2bsETGTobP0"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1791250257.215599",
+    "date": "2026-10-06",
+    "text": "youtube.com/watch?v=…",
+    "links": [
+      "https://www.youtube.com/watch?v=dKbT0x9Se-s"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1791250183.628389",
+    "date": "2026-10-06",
+    "text": "higgsfield.ai/ko/blog/…/vfx_4k?fpr=higgsfieldai&invite_code=seedance-4k-higgsfie…&…\nyoutu.be/Yte-UGhYkPQ",
+    "links": [
+      "https://higgsfield.ai/ko/blog/vfx_4k?utm_source=yt&utm_medium=video&utm_category=prd&utm_campaign=Seedance+4K&utm_creator=higgsfieldai&utm_content_type=de&utm_post=KGisna&fpr=higgsfieldai&invite_code=seedance-4k-higgsfieldai-KGisna",
+      "https://youtu.be/Yte-UGhYkPQ"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
     "ts": "1790919791.984449",
     "date": "2026-10-02",
     "text": "worldlabs.ai/blog/atlas",
