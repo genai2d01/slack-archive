@@ -1,5 +1,99 @@
 [
   {
+    "ts": "1793337702.449759",
+    "date": "2026-10-30",
+    "text": "openart.ai/ko/blog/seedance-2-5-prompt-guide",
+    "links": [
+      "https://openart.ai/ko/blog/seedance-2-5-prompt-guide/"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1793337597.380879",
+    "date": "2026-10-30",
+    "text": "downloads.foundry.com/nuke-beta-18\n\n누크 18 베타버젼에 H.265 코덱지원이 추가되서 Ai스튜디오에서 다운받은 영상을 컨버팅 하지 않아도 바로 읽을 수 있습니다.\n필요하신 분은 설치하세요.\n\n - Nuke now reads H.265 / HEVC media directly\n\nP:\\graphic\\library\\Program\\Nuke\\00_installer\\\nNuke18.0v1-Beta.2-win-x86_64.zip",
+    "links": [
+      "https://downloads.foundry.com/nuke-beta-18"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1793337297.068929",
+    "date": "2026-10-30",
+    "text": "youtube.com/watch?v=B5vWQlciHqs",
+    "links": [
+      "https://www.youtube.com/watch?v=B5vWQlciHqs"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1793261363.592939",
+    "date": "2026-10-29",
+    "text": "developers.openai.com/api/docs/guides/chatgpt-api-credits",
+    "links": [
+      "https://developers.openai.com/api/docs/guides/chatgpt-api-credits"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1792740105.961129",
+    "date": "2026-10-23",
+    "text": "",
+    "links": [],
+    "files": [
+      {
+        "path": "files/1792740105_961129_image.png",
+        "name": "image.png",
+        "mimetype": "image/png",
+        "permalink": "https://ncorestudio.slack.com/files/U0BNSE01MB3/F0CBK112HL2/image.png"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "ts": "1792740083.175089",
+    "date": "2026-10-23",
+    "text": "instagram.com/p/DethWIyFFSp?obrf=MWpodTlidzFmOGoyYw%3…",
+    "links": [
+      "https://www.instagram.com/p/DethWIyFFSp/?obrf=MWpodTlidzFmOGoyYw%3D%3D"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
+    "ts": "1792724383.909889",
+    "date": "2026-10-23",
+    "text": "youtube.com/shorts/Fa4zwHybaSk",
+    "links": [
+      "https://www.youtube.com/shorts/Fa4zwHybaSk"
+    ],
+    "files": [],
+    "comments": [
+      {
+        "date": "2026-10-23",
+        "text": "P:\\graphic\\library\\_dev\\Comp\\DR\\ups_test\n\nking 작업중인 camp 1080 영상으로 업스케일 진행해봤습니다.\n위 경로에 DI 팀에서 해준 토파즈 버젼과 flux 3 upscale 비교해서 올려뒀습니다.\n\n확실히 뒷쪽으로 작은 인물들의 잔 디테일이나 뭉게지는 정도나 색상은 flux3이 좋은것 같은데\n강의 물살이나 물결이 많이 사라지는 현상이 있었습니다."
+      },
+      {
+        "date": "2026-10-23",
+        "text": "비교스샷도 함께 첨부합니다."
+      }
+    ]
+  },
+  {
+    "ts": "1792724268.958439",
+    "date": "2026-10-23",
+    "text": "youtu.be/W8N_kWpz2sg",
+    "links": [
+      "https://youtu.be/W8N_kWpz2sg"
+    ],
+    "files": [],
+    "comments": []
+  },
+  {
     "ts": "1792123620.769549",
     "date": "2026-10-16",
     "text": "drexubery.github.io/WorldCrafter",
